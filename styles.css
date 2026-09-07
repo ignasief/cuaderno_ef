@@ -179,3 +179,11 @@
 .quick-toggle-btn.open span,.eval-detail-toggle.open span{transform:rotate(90deg)}
 .eval-detail-toggle{padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px}
 .quick-rubric-levels[hidden],.eval-detail-body[hidden]{display:none!important}
+
+/* V3.7.5: desplegables internos sin JavaScript, robustos en PWA móvil */
+.css-toggle-input{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}
+.css-toggle-wrap .css-toggle-panel{display:none}
+.css-toggle-wrap .css-toggle-input:checked ~ .css-toggle-panel{display:block}
+.css-toggle-wrap .css-toggle-input:checked + .quick-toggle-btn span,
+.css-toggle-wrap .css-toggle-input:checked + .eval-detail-toggle span{transform:rotate(90deg)}
+.quick-toggle-btn,.eval-detail-toggle{user-select:none;-webkit-user-select:none}
