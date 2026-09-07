@@ -48,3 +48,26 @@
 /* V2.8 · Evaluaciones trimestrales */
 .evaluation-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.evaluation-tabs button{border:1px solid var(--line);background:#fff;color:#23445e;border-radius:10px;padding:10px 14px;font-weight:800}.evaluation-tabs button.active{background:#2b6f9f;color:#fff;border-color:#2b6f9f}.evaluation-cut{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px;padding:10px 12px;background:#eef5f9;border-radius:11px}.evaluation-cut span{font-size:12px;color:var(--muted)}.summary-top small{display:block;color:var(--muted);font-size:10px;margin-top:2px}.current-level-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.current-level-grid>div,.evaluation-student-metrics>div{background:#f2f6f9;border:1px solid var(--line);border-radius:10px;padding:10px}.current-level-grid span,.evaluation-student-metrics span{display:block;font-size:11px;color:var(--muted)}.current-level-grid b,.evaluation-student-metrics b{font-size:18px;color:#174f76}.evaluation-student-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
 @media(max-width:760px){.evaluation-cut{align-items:flex-start;flex-direction:column}.evaluation-tabs{display:grid;grid-template-columns:repeat(3,1fr)}.evaluation-tabs button{padding:10px 6px;font-size:13px}.current-level-grid{grid-template-columns:1fr}.evaluation-student-metrics{grid-template-columns:1fr 1fr}.evaluation-student-metrics>div:first-child{grid-column:1/-1}}
+
+/* V2.9 · interfaz de evaluación compacta */
+.rubric-ref{margin-top:10px}
+.rubric-ref summary{display:flex;align-items:center;gap:8px;padding:10px 12px}
+.rubric-summary-label{display:inline-flex;align-items:center;border:1px solid #b9cddd;background:#fff;border-radius:9px;padding:6px 9px;font-weight:800;color:#174f76;white-space:nowrap}
+.rubric-summary-title{font-weight:600;color:#526b7d;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rubric-ref:not([open]) summary::after{content:'▾';margin-left:auto;color:#567388}
+.rubric-ref[open] summary::after{content:'▴';margin-left:auto;color:#567388}
+.clear-score-text{display:block;margin:6px 0 0 auto;border:0;background:transparent;color:#657b8c;font-size:12px;text-decoration:underline;padding:4px 0;cursor:pointer}
+.clear-score-inline{min-width:40px}
+.compact-score-row{padding:10px 0}
+.compact-score-row .student-name .tiny{margin-top:2px}
+@media(max-width:760px){
+ .sticky-evidence{position:static}
+ .rubric-ref summary{font-size:.9rem}
+ .rubric-summary-title{display:none}
+ .rubric-ref[open] .rubric-grid{max-height:42vh}
+ .compact-score-row{gap:8px;padding:9px 0}
+ .compact-score-row .student-name{width:100%}
+ .rubric-buttons{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+ .rubric-buttons button{min-height:52px;padding:8px 5px}
+ .clear-score-text{margin-top:2px}
+}
