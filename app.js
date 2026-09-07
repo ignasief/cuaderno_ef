@@ -193,7 +193,7 @@ function id(){return Math.random().toString(36).slice(2,10)}
 function esc(s=''){return String(s).replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]))}
 function toast(msg){let t=document.createElement('div');t.className='toast';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),1500)}
 function fullGroup(){return state.groups.find(g=>g.id===state.selectedGroup)||state.groups[0]||null}
-function group(){const g=fullGroup();if(!g)return null;if(currentView==='evaluar'&&state.ui.openEvaluateStudent){const st=g.students.find(s=>s.id===state.ui.openEvaluateStudent);return st?{...g,students:[st]}:g}return g}
+function group(){return fullGroup()}
 function scoreKey(gid,sid,c,seq){return `${gid}|${sid}|${c}|${seq}`}
 function qualKey(gid,sid,c,up){return `${gid}|${sid}|${c}|${up}`}
 function attendanceKey(gid,sid,date){return `${gid}|${sid}|${date}`}
@@ -364,49 +364,47 @@ function up4GameInstrumentHTML(){
 }
 
 
+function activeEvalSid(){
+ const g=fullGroup();if(!g||!g.students.length)return null;
+ const sid=state.ui.openEvaluateStudent;
+ return g.students.some(st=>st.id===sid)?sid:g.students[0].id;
+}
+function activeEvalStudent(){const g=fullGroup(),sid=activeEvalSid();return g?.students.find(st=>st.id===sid)||null}
 function evaluateStudentNavHTML(){
- const g=fullGroup(),sid=state.ui.openEvaluateStudent;if(!g||!sid)return '';
- const i=g.students.findIndex(x=>x.id===sid),st=g.students[i];if(i<0)return '';
- const prev=g.students[i-1],next=g.students[i+1];
- return `<div class="eval-fast-nav"><button type="button" class="btn secondary" data-eval-jump="${prev?.id||''}" ${prev?'':'disabled'}>‹ Anterior</button><div class="eval-fast-position"><b>${esc(st.name)}</b><span>${i+1}/${g.students.length}</span></div><button type="button" class="btn" data-eval-jump="${next?.id||''}" ${next?'':'disabled'}>Siguiente ›</button></div>`
+ const g=fullGroup(),sid=activeEvalSid();if(!g||!sid)return '';
+ const i=g.students.findIndex(x=>x.id===sid),st=g.students[i],prev=g.students[i-1],next=g.students[i+1];
+ return `<div class="eval-fast-nav stable-nav"><button type="button" class="btn secondary" data-eval-jump="${prev?.id||''}" ${prev?'':'disabled'}>‹ Anterior</button><div class="eval-fast-position">${avatarHTML(g.id,st,'sm')}<div><b>${esc(st.name)}</b><span>${i+1}/${g.students.length}</span></div></div><button type="button" class="btn" data-eval-jump="${next?.id||''}" ${next?'':'disabled'}>Siguiente ›</button></div>`
 }
 function quickEvaluationHTML(evs){
- const g=fullGroup(),sid=state.ui.openEvaluateStudent;if(!g||!sid)return '';
+ const g=fullGroup(),sid=activeEvalSid();if(!g||!sid)return '';
  const st=g.students.find(x=>x.id===sid);if(!st)return '';
  const scored=evs.filter(ev=>{const v=state.scores[scoreKey(g.id,sid,ev.c,ev.seq)];return v!==undefined&&v!==null&&v!==''}).length;
- const firstPending=evs.findIndex(ev=>{const v=state.scores[scoreKey(g.id,sid,ev.c,ev.seq)];return v===undefined||v===null||v===''});
- const levels=[4,6,8,10];
- const rows=evs.map((ev,i)=>{const k=scoreKey(g.id,sid,ev.c,ev.seq),v=state.scores[k],done=v!==undefined&&v!==null&&v!=='',rubric=rubricFor(ev),mark=state.rubricMarks[k],active=i===firstPending,focus=quickFocus(ev.up,ev.c,ev.desc);
-  return `<div class="quick-eval-row ${done?'done':''} ${active?'current':''}" id="quick-${esc(ev.c.replace('.','-'))}-${ev.seq}">
+ const levels=[4,6,8,10],ctx=quickEvalContext[state.selectedUP];
+ const rows=evs.map((ev,i)=>{const k=scoreKey(g.id,sid,ev.c,ev.seq),v=state.scores[k],done=v!==undefined&&v!==null&&v!=='',rubric=rubricFor(ev),mark=state.rubricMarks[k],focus=quickFocus(ev.up,ev.c,ev.desc);
+  return `<div class="quick-eval-row ${done?'done':''}">
    <div class="quick-eval-head"><div><span class="pill main">${criterionLabel(ev.c)}</span><b class="quick-focus">${esc(focus)}</b></div><span class="quick-status">${done?`✓ ${mark?.label?esc(mark.label)+' · ':''}${v}`:'Pendiente'}</span></div>
    <div class="quick-evidence-label">Evidencia: ${esc(ev.desc)}</div>
    <div class="quick-score-buttons">${levels.map(n=>{const r=rubric.find(x=>Number(x.score)===n);return `<button type="button" data-quick-score="${n}" data-quick-key="${k}" data-quick-c="${ev.c}" data-quick-seq="${ev.seq}" data-quick-up="${ev.up}" data-quick-desc="${esc(ev.desc)}" data-quick-level="${esc(r?.label||'')}" data-quick-rubric-desc="${esc(r?.desc||'')}" class="${Number(v)===n?'selected':''}"><strong>${n}</strong><small>${esc(r?.label||'')}</small></button>`}).join('')}</div>
-   <div class="quick-rubric-details"><a class="quick-toggle-btn quick-info-link" href="#rubric-sheet-${i}">Ver qué significa cada nivel <span>›</span></a></div>
+   <details class="quick-native-details"><summary>Ver qué significa cada nivel</summary><div class="quick-rubric-grid">${rubric.map(r=>`<div><b>${r.score} · ${esc(r.label)}</b><span>${esc(r.desc)}</span></div>`).join('')}</div></details>
    ${done?`<button type="button" class="quick-clear" data-quick-clear="${k}">Borrar</button>`:''}
   </div>`}).join('');
- const gidx=g.students.findIndex(x=>x.id===sid),next=g.students[gidx+1],ctx=quickEvalContext[state.selectedUP];
  return `<div class="card quick-eval-card"><div class="quick-eval-title"><div><h2>Evaluación rápida</h2><p>${scored}/${evs.length} criterios registrados · guardado automático</p></div><span class="quick-progress ${scored===evs.length&&evs.length?'complete':''}">${scored}/${evs.length}</span></div>
  ${ctx?`<div class="quick-context"><b>${esc(ctx.title)}</b><span>${esc(ctx.what)}</span></div>`:''}
- ${evs.length?rows:`<div class="empty">No hay evidencias principales ● en esta UP.</div>`}
- ${evs.length&&scored===evs.length?`<div class="quick-finished"><b>Alumno completado ✓</b>${next?`<button type="button" class="btn quick-next-student" data-eval-jump="${next.id}">Siguiente alumno ›</button>`:`<span>Último alumno del grupo.</span>`}</div>`:''}</div>`;
+ ${evs.length?rows:`<div class="empty">No hay evidencias principales ● en esta UP.</div>`}</div>`;
 }
-function evaluateStudentBody(evs,comps){
- return `${evaluateStudentNavHTML()}<div class="eval-fast-content">${quickEvaluationHTML(evs)}
- <div class="eval-detail-tools"><a class="eval-detail-toggle quick-info-link" href="#tools-sheet">Herramientas detalladas y observaciones <span>›</span></a></div>${evaluateStudentNavHTML()}`
+function evaluateToolsHTML(evs,comps){
+ const g=fullGroup(),sid=activeEvalSid();if(!g||!sid)return '';
+ const st=g.students.find(x=>x.id===sid);if(!st)return '';
+ const principal=evs.map(ev=>{const k=scoreKey(g.id,sid,ev.c,ev.seq),v=state.scores[k],m=state.rubricMarks[k];return `<div class="eval-tool-line"><span>${criterionLabel(ev.c)}</span><b>${v===undefined||v===''?'—':`${m?.label?esc(m.label)+' · ':''}${v}`}</b><small>${esc(ev.desc)}</small></div>`}).join('');
+ const comp=comps.map(ev=>{const k=qualKey(g.id,sid,ev.c,ev.up),v=state.qual[k]||'';return `<div class="eval-tool-line"><span>○ ${criterionLabel(ev.c)}</span><select data-qual-key="${k}"><option value="">—</option>${['En proceso','Adecuado','Consolidado'].map(x=>`<option ${v===x?'selected':''}>${x}</option>`).join('')}</select><small>${esc(ev.desc)}</small></div>`}).join('');
+ const nk=noteKey(g.id,sid,state.selectedDate),note=state.notes[nk]||'';
+ return `<details class="card eval-tools-native"><summary>Herramientas detalladas y observaciones</summary><div class="eval-tools-body"><div class="eval-tool-section"><h3>Evidencias principales ●</h3>${principal||'<div class="muted">Sin evidencias principales previstas.</div>'}</div><div class="eval-tool-section"><h3>Seguimiento complementario ○</h3>${comp||'<div class="muted">Sin seguimiento complementario previsto.</div>'}</div><div class="eval-tool-section"><h3>Observación de sesión</h3><textarea rows="4" data-eval-note="${nk}" placeholder="Anotación cualitativa del alumno…">${esc(note)}</textarea><p class="tiny">Se guarda automáticamente y no modifica por sí sola la calificación.</p></div></div></details>`;
 }
-function evaluateSheetsHTML(evs,comps){
- const g=fullGroup(),sid=state.ui.openEvaluateStudent;if(!g||!sid)return '';
- const rubricSheets=evs.map((ev,i)=>{const rubric=rubricFor(ev);return `<section id="rubric-sheet-${i}" class="sheet-overlay"><a href="#" class="sheet-backdrop" aria-label="Cerrar"></a><div class="sheet-panel"><div class="sheet-head"><div><span class="pill main">${criterionLabel(ev.c)}</span><h2>${esc(quickFocus(ev.up,ev.c,ev.desc))}</h2><p>${esc(ev.desc)}</p></div><a href="#" class="sheet-close" aria-label="Cerrar">×</a></div><div class="sheet-rubric">${rubric.map(r=>`<div><b>${r.score} · ${esc(r.label)}</b><span>${esc(r.desc)}</span></div>`).join('')}</div></div></section>`}).join('');
- const tools=`<section id="tools-sheet" class="sheet-overlay tools-sheet"><a href="#" class="sheet-backdrop" aria-label="Cerrar"></a><div class="sheet-panel sheet-panel-wide"><div class="sheet-head"><div><h2>Herramientas detalladas y observaciones</h2><p>${esc(state.selectedUP)} · ${esc(g.students.find(x=>x.id===sid)?.name||'')}</p></div><a href="#" class="sheet-close" aria-label="Cerrar">×</a></div><div class="sheet-scroll">${fitnessPassportHTML()}${up1ReflectionHTML()}${up2WarmupInstrumentHTML()}${up3RPEHTML()}${up3TaskInstrumentHTML()}${up4GameInstrumentHTML()}<div class="card evaluate-inner-card"><div class="row"><div><h2>Evidencias principales ●</h2></div><div class="score-mode"><button data-mode="numeric" class="${state.ui.scoreMode==='numeric'?'active':''}">Numérico</button><button data-mode="levels" class="${state.ui.scoreMode==='levels'?'active':''}">4 niveles</button></div></div>${evs.length?`<label>Evidencia</label><select id="evSel">${evs.map((e,i)=>`<option value="${i}">${criterionLabel(e.c)} · ${esc(e.desc)}</option>`).join('')}</select><div id="evMeta" class="sticky-evidence"></div><div id="studentScores"></div>`:`<div class="empty">No hay evidencias ● en esta UP.</div>`}</div><div class="card evaluate-inner-card"><h2>Seguimiento complementario ○</h2><p class="muted">Registro formativo: orienta el feedback y la consistencia del aprendizaje, pero no modifica automáticamente la calificación.</p>${comps.length?comps.map(e=>`<div class="comp-block"><div class="comp-head"><span class="pill comp">○ ${criterionLabel(e.c)}</span><b>Seguimiento cualitativo</b></div>${qualListHTML(e.c,e.up)}</div>`).join(''):`<div class="empty">No hay evidencias ○ previstas en esta UP.</div>`}</div></div></div></section>`;
- return rubricSheets+tools;
-}
-
 function viewEvaluar(){
  const g=fullGroup();if(!g)return `<div class="card empty">Primero crea un grupo en Ajustes.</div>`;
- const evs=principalForUP(state.selectedUP),comps=compsForUP(state.selectedUP);
- if(state.ui.openEvaluateStudent&&!g.students.some(s=>s.id===state.ui.openEvaluateStudent))state.ui.openEvaluateStudent=null;
- return `${groupSelectors()}<div class="card evaluate-students-card"><div class="evaluate-students-head"><div><h2>Evaluar por alumno</h2><p class="muted">Toca un alumno, valora y pasa al siguiente. Todo ${state.selectedUP} queda dentro de su ficha.</p></div><span class="pill main">${state.selectedUP}</span></div>
- ${g.students.map(st=>{const open=state.ui.openEvaluateStudent===st.id;const registered=evs.filter(ev=>{const v=state.scores[scoreKey(g.id,st.id,ev.c,ev.seq)];return v!==undefined&&v!==null&&v!==''}).length;return `<details class="evaluate-student-accordion" data-evaluate-student="${st.id}" ${open?'open':''}><summary><div class="summary-accordion-left">${avatarHTML(g.id,st,'sm')}<div class="student-name-text"><b>${esc(st.name)}</b><small>${evs.length?`${registered}/${evs.length} evidencias principales registradas`:'Sin evidencias principales previstas'}</small></div></div><div class="summary-accordion-right"><span class="instrument-pending ${registered===evs.length&&evs.length?'registered':''}">${registered===evs.length&&evs.length?'Completo ✓':evs.length?`${registered}/${evs.length}`:'Abrir'}</span><span class="chev">›</span></div></summary>${open?`<div class="evaluate-student-body">${evaluateStudentBody(evs,comps)}</div>`:''}</details>`}).join('')}</div>${evaluateSheetsHTML(evs,comps)}`
+ if(!g.students.length)return `${groupSelectors()}<div class="card empty">Añade alumnado al grupo para poder evaluar.</div>`;
+ const sid=activeEvalSid(),evs=principalForUP(state.selectedUP),comps=compsForUP(state.selectedUP);
+ return `${groupSelectors()}<div class="card eval-student-picker"><div class="eval-picker-head"><div><h2>Evaluar</h2><p class="muted">Un alumno cada vez. Cambia de alumno sin salir de la unidad.</p></div><span class="pill main">${state.selectedUP}</span></div><label>Alumno</label><select id="evalStudentSel">${g.students.map(st=>`<option value="${st.id}" ${st.id===sid?'selected':''}>${esc(st.name)}</option>`).join('')}</select>${evaluateStudentNavHTML()}</div>${quickEvaluationHTML(evs)}${evaluateToolsHTML(evs,comps)}${evaluateStudentNavHTML()}`;
 }
 function scoreListHTML(ev){const g=group();if(!g)return '';const mode=state.ui.scoreMode,rubric=rubricFor(ev);return g.students.map(s=>{const k=scoreKey(g.id,s.id,ev.c,ev.seq),v=state.scores[k],mark=state.rubricMarks[k];let controls='';if(mode==='levels'){controls=`<div class="level-buttons rubric-buttons">${rubric.map(x=>`<button data-score="${x.score}" data-key="${k}" data-level="${x.label}" data-desc="${esc(x.desc)}" class="${mark?.label===x.label||(!mark&&String(v)===String(x.score))?'selected':''}">${x.label}<small>${x.score}</small></button>`).join('')}</div>${v!==undefined&&v!==''?`<button class="clear-score-text" data-clear="${k}">Borrar valoración</button>`:''}`}else{controls=`<div class="score-buttons">${[0,4,5,6,7,8,9,10].map(x=>`<button data-score="${x}" data-key="${k}" class="${String(v)===String(x)?'selected':''}">${x}</button>`).join('')}${v!==undefined&&v!==''?`<button class="clear-score-inline" data-clear="${k}" title="Borrar valoración">×</button>`:''}</div>`}return `<div class="student-row compact-score-row"><div class="student-name student-with-avatar">${avatarHTML(g.id,s,'sm')}<div class="student-name-text"><b>${esc(s.name)}</b><div class="tiny">Criterio ${ev.c}${v!==undefined&&v!==''?` · ${mark?esc(mark.label)+' · ':''}${v}`:''}</div></div>${controls}</div>`}).join('')}
 function qualListHTML(c,up){const g=group();return g.students.map(s=>{const k=qualKey(g.id,s.id,c,up),v=state.qual[k]||'';return `<div class="student-row"><div class="student-name student-with-avatar">${avatarHTML(g.id,s,'sm')}<div class="student-name-text"><b>${esc(s.name)}</b><div class="tiny">${criterionLabel(c)} · ${up}</div></div></div><select data-qual-key="${k}"><option value="">—</option>${['En proceso','Adecuado','Consolidado'].map(x=>`<option ${v===x?'selected':''}>${x}</option>`).join('')}</select></div>`}).join('')}
@@ -447,12 +445,14 @@ function viewAjustes(){
 
 function bind(){document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{currentView=b.dataset.go;render()});document.querySelectorAll('.bottom-nav button').forEach(b=>b.onclick=()=>{currentView=b.dataset.view;render()});
  const gs=document.getElementById('groupSel');if(gs)gs.onchange=e=>{state.selectedGroup=e.target.value;state.ui.openEvaluateStudent=null;save();render()};const us=document.getElementById('upSel');if(us)us.onchange=e=>{state.selectedUP=e.target.value;state.ui.openEvaluateStudent=null;save();render()};
+ const es=document.getElementById('evalStudentSel');if(es)es.onchange=e=>{state.ui.openEvaluateStudent=e.target.value;save();render()};
  const ds=document.getElementById('dateSel');if(ds)ds.onchange=e=>{state.selectedDate=e.target.value||todayISO();save();render()};
- document.querySelectorAll('[data-evaluate-student]').forEach(d=>d.addEventListener('toggle',(e)=>{if(e.target!==d)return;if(d.open){state.ui.openEvaluateStudent=d.dataset.evaluateStudent;document.querySelectorAll('[data-evaluate-student]').forEach(o=>{if(o!==d)o.open=false});save();render()}else if(state.ui.openEvaluateStudent===d.dataset.evaluateStudent){state.ui.openEvaluateStudent=null;save();render()}}));
  document.querySelectorAll('[data-eval-jump]').forEach(b=>b.onclick=()=>{if(!b.dataset.evalJump)return;state.ui.openEvaluateStudent=b.dataset.evalJump;save();render();setTimeout(()=>document.querySelector(`[data-evaluate-student=\"${CSS.escape(state.ui.openEvaluateStudent)}\"]`)?.scrollIntoView({block:'start'}),30)});
- document.querySelectorAll('[data-quick-score]').forEach(b=>b.onclick=()=>{const g=fullGroup(),sid=state.ui.openEvaluateStudent;if(!g||!sid)return;const k=b.dataset.quickKey,score=Number(b.dataset.quickScore);state.scores[k]=score;state.rubricMarks[k]={label:b.dataset.quickLevel||'',score,desc:b.dataset.quickRubricDesc||'',criterion:b.dataset.quickC,up:b.dataset.quickUp,evidence:b.dataset.quickDesc};save();toast(`${b.dataset.quickC} · ${score}`);render();setTimeout(()=>{const card=document.querySelector('[data-evaluate-student][open]');const next=card?.querySelector('.quick-eval-row.current');if(next)next.scrollIntoView({behavior:'smooth',block:'center'});else card?.querySelector('.quick-finished')?.scrollIntoView({behavior:'smooth',block:'center'})},50)});
+ document.querySelectorAll('[data-quick-score]').forEach(b=>b.onclick=()=>{const g=fullGroup(),sid=activeEvalSid();if(!g||!sid)return;const y=window.scrollY,k=b.dataset.quickKey,score=Number(b.dataset.quickScore);state.ui.openEvaluateStudent=sid;state.scores[k]=score;state.rubricMarks[k]={label:b.dataset.quickLevel||'',score,desc:b.dataset.quickRubricDesc||'',criterion:b.dataset.quickC,up:b.dataset.quickUp,evidence:b.dataset.quickDesc};save();toast(`${b.dataset.quickC} · ${score}`);render();requestAnimationFrame(()=>window.scrollTo(0,y))});
  document.querySelectorAll('[data-quick-clear]').forEach(b=>b.onclick=()=>{delete state.scores[b.dataset.quickClear];delete state.rubricMarks[b.dataset.quickClear];save();render()});
- document.querySelectorAll('[data-eval-period]').forEach(b=>b.onclick=()=>{state.ui.evaluationPeriod=b.dataset.evalPeriod;state.ui.openSummaryStudent=null;save();render()});
+ document.querySelectorAll('[data-eval-note]').forEach(t=>{const store=()=>{const k=t.dataset.evalNote,v=t.value.trim();if(v)state.notes[k]=v;else delete state.notes[k];save()};t.oninput=store;t.onchange=()=>{store();toast('Observación guardada')}});
+ document.querySelectorAll('[data-qual-key]').forEach(q=>q.onchange=()=>{if(q.value)state.qual[q.dataset.qualKey]=q.value;else delete state.qual[q.dataset.qualKey];save();toast('Seguimiento guardado')});
+  document.querySelectorAll('[data-eval-period]').forEach(b=>b.onclick=()=>{state.ui.evaluationPeriod=b.dataset.evalPeriod;state.ui.openSummaryStudent=null;save();render()});
  document.querySelectorAll('[data-summary-student]').forEach(d=>d.addEventListener('toggle',()=>{if(d.open){state.ui.openSummaryStudent=d.dataset.summaryStudent;document.querySelectorAll('[data-summary-student]').forEach(o=>{if(o!==d)o.open=false})}else if(state.ui.openSummaryStudent===d.dataset.summaryStudent){state.ui.openSummaryStudent=null}save()}));
  const fcut=document.getElementById('firstEvalCut');if(fcut)fcut.onchange=e=>{state.evalConfig.firstCut=e.target.value;if(upIndex(state.evalConfig.secondCut)<upIndex(state.evalConfig.firstCut))state.evalConfig.secondCut=state.evalConfig.firstCut;save();render()};
  const scut=document.getElementById('secondEvalCut');if(scut)scut.onchange=e=>{if(upIndex(e.target.value)<upIndex(state.evalConfig.firstCut)){alert('El cierre de la 2.ª evaluación no puede ser anterior al de la 1.ª.');render();return}state.evalConfig.secondCut=e.target.value;save();render()};
