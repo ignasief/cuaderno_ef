@@ -30,3 +30,8 @@
  .rubric-buttons button{min-height:62px}
  .rubric-buttons .clear-level{grid-column:1 / -1;min-height:44px}
 }
+
+/* V2.4 · UP1 Pasaporte de la condición física */
+.fitness-title{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.fitness-title .pill{flex:0 0 auto}.fitness-student{border:1px solid var(--line);border-radius:12px;margin:9px 0;background:#fbfdff;overflow:hidden}.fitness-student summary{display:flex;justify-content:space-between;gap:10px;cursor:pointer;padding:12px 14px}.fitness-student summary span{font-size:12px;color:var(--muted)}.fitness-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;padding:0 12px 12px}.fitness-grid label{margin:0}.fitness-grid label>span{display:block;font-size:12px;margin-bottom:4px}.unit-input{display:flex;align-items:center;border:1px solid #cbd8e5;border-radius:10px;background:#fff;overflow:hidden}.unit-input input{border:0;border-radius:0;min-width:0}.unit-input em{font-style:normal;font-size:12px;color:var(--muted);padding:0 9px 0 4px;white-space:nowrap}
+@media(max-width:760px){.fitness-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.fitness-passport h2{font-size:20px}.fitness-student summary{padding:12px}.unit-input input{font-size:16px;padding:10px 8px}}
+@media(max-width:390px){.fitness-grid{grid-template-columns:1fr}}
