@@ -39,6 +39,12 @@ const rubricOverrides={
   {label:'Adecuado',score:8,desc:'Realiza y registra correctamente las pruebas, identifica las capacidades físicas implicadas e interpreta sus resultados para obtener una valoración razonada de su propia condición física.'},
   {label:'Avanzado',score:10,desc:'Además de lo anterior, analiza de forma autónoma sus resultados, identifica fortalezas y aspectos de mejora y formula decisiones realistas y saludables para mejorar su condición física.'}
  ],
+ 'UP1|1.6':[
+  {label:'Inicio',score:4,desc:'Participa en la tarea, pero le cuesta reconocer la intensidad de su esfuerzo y ajustar el ritmo; registra RPE o paradas de forma poco consistente y necesita recordatorios frecuentes para regularse.'},
+  {label:'Básico',score:6,desc:'Reconoce de forma básica su nivel de esfuerzo y registra RPE y paradas; realiza algunos ajustes de ritmo, aunque de manera irregular o con orientación puntual.'},
+  {label:'Adecuado',score:8,desc:'Regula de forma autónoma la intensidad durante la tarea, utiliza su RPE y sus sensaciones para ajustar el ritmo y explica de manera razonada las decisiones tomadas sobre paradas, continuidad y esfuerzo.'},
+  {label:'Avanzado',score:10,desc:'Anticipa y ajusta eficazmente su esfuerzo durante toda la tarea, interpreta la evolución de su RPE y sus sensaciones, toma decisiones pertinentes para sostener el esfuerzo y valora críticamente su estrategia proponiendo mejoras realistas.'}
+ ],
  'UP2|1.2':[
   {label:'Inicio',score:4,desc:'Realiza un calentamiento incompleto o desorganizado y necesita ayuda frecuente para seleccionar, ordenar y dirigir los ejercicios.'},
   {label:'Básico',score:6,desc:'Diseña y dirige un calentamiento sencillo, aunque presenta algunas carencias en la estructura, la progresión o la adecuación de los ejercicios.'},
@@ -167,7 +173,7 @@ function viewAjustes(){const a=auditData();return `<div class="card"><h2>Grupos 
 function bind(){document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{currentView=b.dataset.go;render()});document.querySelectorAll('.bottom-nav button').forEach(b=>b.onclick=()=>{currentView=b.dataset.view;render()});
  const gs=document.getElementById('groupSel');if(gs)gs.onchange=e=>{state.selectedGroup=e.target.value;save();render()};const us=document.getElementById('upSel');if(us)us.onchange=e=>{state.selectedUP=e.target.value;save();render()};
  const ds=document.getElementById('dateSel');if(ds)ds.onchange=e=>{state.selectedDate=e.target.value||todayISO();save();render()};
- document.querySelectorAll('[data-fit-field]').forEach(inp=>{inp.onchange=()=>{const k=inp.dataset.fitKey,f=inp.dataset.fitField;state.fitness[k]=state.fitness[k]||{};const val=inp.value.trim();if(val)state.fitness[k][f]=val;else delete state.fitness[k][f];save();toast('Marca guardada')};});
+ document.querySelectorAll('[data-fit-field]').forEach(inp=>{const store=()=>{const k=inp.dataset.fitKey,f=inp.dataset.fitField;state.fitness[k]=state.fitness[k]||{};const val=inp.value.trim();if(val)state.fitness[k][f]=val;else delete state.fitness[k][f];save();const card=inp.closest('.fitness-student');if(card){const total=card.querySelectorAll('[data-fit-field]').length;const done=[...card.querySelectorAll('[data-fit-field]')].filter(x=>x.value.trim()!=='').length;const c=card.querySelector('.fitness-count');if(c)c.textContent=`${done}/${total} datos`}};inp.oninput=store;inp.onchange=()=>{store();toast('Marca guardada')}});
  const ap=document.getElementById('allPresentBtn');if(ap)ap.onclick=()=>{const g=group();if(!g)return;allPresent(g);const box=document.getElementById('attendanceList');if(box)box.innerHTML=attendanceHTML(g);const st=attendanceStats(g),done=document.getElementById('attDone');if(done)done.textContent=`${st.done}/${st.total}`;bindAttendanceOnly();document.querySelectorAll('[data-note-student]').forEach(n=>n.onclick=()=>editNote(n.dataset.noteStudent));toast('Asistencia marcada: todos presentes')};
  document.querySelectorAll('[data-att]').forEach(b=>b.onclick=()=>{const k=b.dataset.attKey,x=b.dataset.att;if(state.attendance[k]===x)delete state.attendance[k];else state.attendance[k]=x;save();const box=document.getElementById('attendanceList');if(box)box.innerHTML=attendanceHTML(group());bindAttendanceOnly()});
  bindAttendanceOnly();
