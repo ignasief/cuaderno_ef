@@ -100,3 +100,9 @@
 .up4-game-card .warmup-indicator{padding-bottom:16px}
 .up4-game-card .pill{margin-bottom:6px}
 @media(min-width:760px){.criterion-register-row{grid-template-columns:1fr minmax(220px,auto);align-items:center}.criterion-register-row .registered-confirm{width:auto}}
+
+/* V3.6.1 · corrección visual UP4 móvil: criterio y foco en líneas separadas */
+.up4-indicator>div:first-child{display:flex;flex-direction:column;align-items:flex-start;gap:5px;min-width:0}
+.up4-indicator>div:first-child .pill{display:inline-flex;align-self:flex-start;max-width:100%;white-space:normal;line-height:1.25}
+.up4-indicator>div:first-child>b{display:block;width:100%;line-height:1.25;margin:0}
+.up4-indicator>div:first-child>small{width:100%}
