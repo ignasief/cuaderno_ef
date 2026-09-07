@@ -106,3 +106,12 @@
 .up4-indicator>div:first-child .pill{display:inline-flex;align-self:flex-start;max-width:100%;white-space:normal;line-height:1.25}
 .up4-indicator>div:first-child>b{display:block;width:100%;line-height:1.25;margin:0}
 .up4-indicator>div:first-child>small{width:100%}
+
+
+/* V3.6.2 · UP4: separación estructural real entre criterio y foco */
+.up4-indicator-head{display:block!important;width:100%;min-width:0}
+.up4-criterion-row{display:block!important;width:100%;margin:0 0 7px 0}
+.up4-criterion-row .pill{display:inline-flex!important;max-width:100%;white-space:normal;line-height:1.25;margin:0!important}
+.up4-focus-title{display:block!important;width:100%;font-weight:800;font-size:18px;line-height:1.25;color:var(--text);margin:0 0 5px 0;clear:both}
+.up4-indicator-head>small{display:block!important;width:100%;clear:both}
+@media(max-width:760px){.up4-focus-title{font-size:17px}.up4-criterion-row{margin-bottom:8px}}
