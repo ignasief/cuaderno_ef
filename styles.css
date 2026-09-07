@@ -91,3 +91,12 @@
 /* V3.5 · UP3 terminado: instrumento analítico CFB */
 .up3-task-card h2{margin-bottom:4px}.up3-indicator>div:first-child{display:flex;flex-direction:column;align-items:flex-start;gap:4px}.up3-indicator .pill{font-size:10px}.up3-task-suggestions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.up3-task-suggestions .warmup-suggestion{margin:0}.up3-rpe-link{margin-top:10px;background:#eef5f9;border:1px solid var(--line);border-radius:11px;padding:10px 12px}.up3-rpe-link b,.up3-rpe-link span{display:block}.up3-rpe-link b{color:#174f76;font-size:13px}.up3-rpe-link span{font-size:11px;color:var(--muted);margin-top:3px}.up3-task-student summary .instrument-result{font-size:10px}
 @media(max-width:760px){.up3-task-suggestions{grid-template-columns:1fr}.up3-indicator .indicator-buttons{grid-template-columns:repeat(2,minmax(0,1fr))}.up3-task-card{padding:12px}}
+
+/* V3.6 · confirmación de registro y UP4 */
+.registered-confirm{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:10px 14px;border-radius:12px;background:#dff4e3;color:#176b2b;font-weight:800;text-align:center;width:100%;box-sizing:border-box}
+.criterion-register-row{margin-top:10px;padding-top:10px;border-top:1px solid #e4edf2;display:grid;gap:8px}
+.criterion-register-row>span:first-child{display:flex;flex-direction:column;gap:2px}
+.criterion-register-row small{color:#617484;font-weight:400}
+.up4-game-card .warmup-indicator{padding-bottom:16px}
+.up4-game-card .pill{margin-bottom:6px}
+@media(min-width:760px){.criterion-register-row{grid-template-columns:1fr minmax(220px,auto);align-items:center}.criterion-register-row .registered-confirm{width:auto}}
