@@ -6,3 +6,27 @@
   .attendance-card{padding:12px}.attendance-head{display:block}.attendance-tools{justify-content:space-between;margin:8px 0 4px}.attendance-tools .btn{padding:10px 12px}.attendance-row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:6px;padding:8px 0}.attendance-row .student-name{min-width:0}.attendance-row .student-name>b{font-size:15px}.attendance-actions{gap:4px}.attendance button,.note-btn{width:44px;height:44px;border-radius:10px;font-size:16px}.note-btn{font-size:18px}.note-preview{font-size:10px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:210px}.desktop-summary{display:none}.mobile-summary{display:block}.summary-meta{grid-template-columns:repeat(3,1fr)}.session-summary-card{padding:12px}.session-head{gap:6px}.session-head h2{font-size:20px}.session-date{max-width:none}.evidence-card{padding:10px}.evidence-card .btn{width:auto;min-width:90px;align-self:stretch}.card h2{font-size:21px}
 }
 @media(max-width:390px){.attendance button,.note-btn{width:40px;height:40px}.student-index{display:none}.note-preview{margin-left:0;max-width:165px}.summary-meta{grid-template-columns:repeat(2,1fr)}}
+
+
+/* V2.3 · Rúbricas por evidencia */
+.rubric-ref{margin-top:12px;border:1px solid #cad8e4;border-radius:14px;background:#f8fbfd;overflow:hidden}
+.rubric-ref summary{cursor:pointer;font-weight:800;padding:12px 14px;color:#173f60}
+.rubric-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:0 12px 12px}
+.rubric-level{background:#fff;border:1px solid #d7e2ea;border-radius:12px;padding:10px;min-height:118px}
+.rubric-level-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
+.rubric-level-head span{display:inline-flex;min-width:28px;height:28px;align-items:center;justify-content:center;border-radius:999px;background:#e8f1f7;font-weight:800}
+.rubric-level p{font-size:.87rem;line-height:1.35;margin:0;color:#354d61}
+.rubric-note{padding:0 14px 12px;margin:0}
+.rubric-buttons{align-items:stretch}
+.rubric-buttons .clear-level{min-width:46px}
+.student-rubric-desc{margin-top:8px;font-size:.82rem;line-height:1.35;color:#40596c;background:#f4f8fb;border-left:3px solid #2f79ad;padding:7px 9px;border-radius:7px}
+.history-rubric{margin-top:5px;color:#40596c;font-size:.88rem;line-height:1.35}
+@media(max-width:760px){
+ .rubric-grid{grid-template-columns:1fr;padding:0 10px 10px}
+ .rubric-level{min-height:auto}
+ .rubric-ref summary{font-size:.95rem}
+ .rubric-ref[open] .rubric-grid{max-height:48vh;overflow:auto}
+ .rubric-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%}
+ .rubric-buttons button{min-height:62px}
+ .rubric-buttons .clear-level{grid-column:1 / -1;min-height:44px}
+}
