@@ -211,3 +211,47 @@
 
 /* V3.8.3 · informe de evaluación */
 .report-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.report-actions .btn{min-height:42px}@media(max-width:520px){.report-actions{display:grid;grid-template-columns:1fr}.report-actions .btn{width:100%}}
+
+/* V3.8.5 · navegación de alumno más legible + anotaciones del profesor */
+.eval-fast-nav.stable-nav{display:grid;grid-template-columns:minmax(92px,118px) minmax(0,1fr) minmax(92px,118px);gap:10px;align-items:stretch}
+.eval-fast-nav .eval-nav-btn{width:100%;min-width:0;padding:10px 8px;white-space:nowrap}
+.eval-fast-position{min-width:0;display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;gap:10px!important;padding:7px 9px;border:1px solid #d8e2ea;border-radius:14px;background:#f8fbfd}
+.eval-fast-position>.student-avatar{flex:0 0 auto}
+.eval-student-name-block{min-width:0;display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center}
+.eval-student-name-block b{display:block;max-width:100%;font-size:14px;line-height:1.15;overflow-wrap:anywhere;word-break:normal;text-align:left}
+.eval-student-name-block span{font-size:12px;color:var(--muted);margin-top:3px}
+.teacher-annotations{border:1px solid #cbddeb;background:#f7fbff}
+.teacher-annotations-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}
+.teacher-annotations h3{margin:0 0 3px}
+.teacher-annotations-head p{margin:0}
+.teacher-note-count{flex:0 0 auto;font-size:12px;color:var(--muted);font-weight:700}
+.teacher-annotations textarea{width:100%;box-sizing:border-box;resize:vertical;min-height:96px}
+@media(max-width:430px){
+ .eval-fast-nav.stable-nav{grid-template-columns:88px minmax(0,1fr) 92px;gap:6px}
+ .eval-fast-nav .eval-nav-btn{font-size:12px;padding:9px 4px}
+ .eval-fast-position{gap:6px!important;padding:6px}
+ .eval-fast-position>.student-avatar.sm{width:36px;height:36px;min-width:36px}
+ .eval-student-name-block b{font-size:12px;line-height:1.12}
+ .eval-student-name-block span{font-size:11px}
+}
+
+
+/* V3.8.6 · escala 2–10 y navegación refinada */
+.quick-score-buttons{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:6px}
+.quick-score-buttons button{min-width:0;padding-left:3px;padding-right:3px}
+.quick-score-buttons button strong{font-size:18px}
+.quick-score-buttons button small{font-size:9px;line-height:1.05;overflow-wrap:anywhere}
+.level-buttons{grid-template-columns:repeat(5,minmax(64px,1fr))}
+.eval-fast-nav.stable-nav{grid-template-columns:minmax(84px,108px) minmax(0,1fr) minmax(84px,108px)}
+.eval-fast-position{overflow:hidden}
+.eval-student-name-block{overflow:hidden;width:100%}
+.eval-student-name-block b{overflow-wrap:break-word;hyphens:auto}
+@media(max-width:430px){
+ .quick-score-buttons{gap:4px}
+ .quick-score-buttons button{padding:6px 2px;min-height:54px}
+ .quick-score-buttons button strong{font-size:17px}
+ .quick-score-buttons button small{font-size:8px}
+ .eval-fast-nav.stable-nav{grid-template-columns:76px minmax(0,1fr) 82px;gap:5px}
+ .eval-fast-nav .eval-nav-btn{font-size:11px;padding:8px 2px}
+ .eval-student-name-block b{font-size:11.5px}
+}
