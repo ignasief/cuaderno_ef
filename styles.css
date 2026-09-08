@@ -255,3 +255,16 @@
  .eval-fast-nav .eval-nav-btn{font-size:11px;padding:8px 2px}
  .eval-student-name-block b{font-size:11.5px}
 }
+
+/* V3.8.7 · Evaluación continua visible en Evaluar */
+.continuous-eval-card{border-top:4px solid #6d5cae}
+.pill.continuous{background:#eeeafd;color:#54428f;border:1px solid #d8cff7}
+.continuous-row{background:linear-gradient(180deg,#fbfaff 0%,#f7f4ff 100%);border-color:#ddd5f4}
+.continuous-label{color:#64598a}
+.continuous-status{background:#eeeafd;color:#54428f}
+.continuous-score-buttons button{border-color:#cec4ed;background:#fff}
+.continuous-score-buttons button.selected{background:#6553a6;color:#fff;border-color:#6553a6;box-shadow:0 0 0 2px rgba(101,83,166,.12)}
+.continuous-progress{background:#eeeafd;color:#54428f}
+.continuous-progress.complete{background:#dff4e7;color:#207341}
+.continuous-context{background:#f3f0fc;border-color:#ddd5f4}
+.continuous-context b{color:#54428f}
