@@ -208,3 +208,6 @@
 
 /* V3.8.0 · asignación flexible UP → evaluación */
 .up-period-list{display:grid;gap:8px;margin-top:14px}.up-period-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(150px,210px);gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid #e6edf2}.up-period-row:last-child{border-bottom:0}.up-period-row>div{display:flex;flex-direction:column;gap:2px}.up-period-row span{font-size:.88rem;color:#667786}.up-period-row select{width:100%;margin:0}@media(max-width:520px){.up-period-row{grid-template-columns:1fr 155px;gap:8px}.up-period-row span{font-size:.8rem}}
+
+/* V3.8.3 · informe de evaluación */
+.report-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.report-actions .btn{min-height:42px}@media(max-width:520px){.report-actions{display:grid;grid-template-columns:1fr}.report-actions .btn{width:100%}}
