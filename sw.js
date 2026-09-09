@@ -1,11 +1,11 @@
-const CACHE='cuaderno-ef-v3-9-4';
-const ASSETS=['./','./index.html','./styles-v394.css?v=3.9.4','./app-v394.js?v=3.9.4','./manifest.webmanifest?v=3.9.4','./icons/icon-192-v382.png','./icons/icon-512-v382.png','./icons/apple-touch-icon-v382.png'];
+const CACHE='cuaderno-ef-v3-9-5';
+const ASSETS=['./','./index.html','./styles-v395.css?v=3.9.5','./app-v395.js?v=3.9.5','./manifest.webmanifest?v=3.9.5','./icons/icon-192-v382.png','./icons/icon-512-v382.png','./icons/apple-touch-icon-v382.png'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',e=>{
  if(e.request.method!=='GET') return;
  const u=new URL(e.request.url);
- const isCore=u.pathname.endsWith('/index.html')||u.pathname.endsWith('/styles-v394.css')||u.pathname.endsWith('/app-v394.js')||u.pathname.endsWith('/cuaderno_ef/');
+ const isCore=u.pathname.endsWith('/index.html')||u.pathname.endsWith('/styles-v395.css')||u.pathname.endsWith('/app-v395.js')||u.pathname.endsWith('/cuaderno_ef/');
  if(isCore){e.respondWith(fetch(e.request,{cache:'no-store'}).then(resp=>{const copy=resp.clone();caches.open(CACHE).then(c=>c.put(e.request,copy));return resp}).catch(()=>caches.match(e.request).then(r=>r||caches.match('./index.html'))));}
  else{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(resp=>{const copy=resp.clone();caches.open(CACHE).then(c=>c.put(e.request,copy));return resp})));}
 });
