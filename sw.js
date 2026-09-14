@@ -1,5 +1,5 @@
-const CACHE='cuaderno-ef-v4-0-4';
-const ASSETS=['./','./index.html','./styles-v4.css?v=4.0.4','./app-v4.js?v=4.0.4','./manifest.webmanifest?v=4.0.4','./icons/icon-192-v382.png','./icons/icon-512-v382.png','./icons/apple-touch-icon-v382.png'];
+const CACHE='cuaderno-ef-v4-0-5';
+const ASSETS=['./','./index.html','./styles-v4.css?v=4.0.5','./app-v4.js?v=4.0.5','./manifest.webmanifest?v=4.0.5','./icons/icon-192-v382.png','./icons/icon-512-v382.png','./icons/apple-touch-icon-v382.png'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',e=>{

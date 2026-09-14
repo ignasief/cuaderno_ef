@@ -13,7 +13,7 @@ const criterionShort={
  '2.1':'Planificación de retos motores','2.2':'Decisiones en situaciones motrices','2.3':'Resolución eficaz de problemas motores','2.4':'Autoevaluación del proceso motor',
  '3.1':'Participación y deportividad','3.2':'Cooperación y responsabilidad grupal','3.3':'Respeto y convivencia motriz',
  '4.1':'Cultura motriz y expresión','4.2':'Deporte, género e igualdad','4.3':'Expresión corporal y comunicación',
- '5.1':'Actividad física en el entorno','5.2':'Seguridad en el medio natural','5.3':'Cuidado del entorno durante práctica'
+ '5.1':'Actividad física en el entorno','5.2':'Cuidado responsable y sostenible del entorno','5.3':'Prevención y seguridad en el medio natural'
 };
 function criterionLabel(c){return `${c} · ${criterionShort[c]||''}`}
 
@@ -30,7 +30,7 @@ const quickEvalContext={
  'UP10':{title:'Creación y representación colectiva',what:'Qué observo: resolución motriz, cooperación, cultura motriz y comunicación corporal.',focus:{'2.3':'Resuelve con eficacia las demandas motrices de la creación.','3.2':'Coopera y asume responsabilidades dentro del proceso creativo.','3.3':'Respeta aportaciones y favorece la convivencia en el grupo.','4.1':'Integra recursos de la cultura motriz en la representación.','4.3':'Utiliza el cuerpo de forma expresiva y comunicativa.'}},
  'UP11':{title:'Juegos y deportes alternativos',what:'Qué observo: planificación, participación, cooperación y convivencia en situaciones motrices nuevas.',focus:{'2.1':'Planifica y ajusta estrategias para resolver situaciones motrices.','2.2':'Toma decisiones adecuadas ante situaciones cambiantes de juego.','3.1':'Participa con autonomía y deportividad.','3.2':'Coopera y asume responsabilidades en el juego.','3.3':'Respeta normas, compañeros y adversarios.'}},
  'UP12':{title:'Baúl de los juegos del instituto · ApS',what:'Qué observo: cooperación, cultura motriz, igualdad y transmisión del patrimonio lúdico.',focus:{'3.2':'Coopera y asume responsabilidades en el proyecto ApS.','4.1':'Reconoce, practica y transmite manifestaciones de la cultura motriz.','4.2':'Analiza estereotipos y valora la diversidad en la memoria lúdica.'}},
- 'UP13':{title:'Recorrido/reto de orientación',what:'Qué observo: autonomía, cooperación, seguridad y cuidado del entorno durante la práctica.',focus:{'3.1':'Participa y se autorregula con autonomía en el entorno real.','3.2':'Coopera y asume responsabilidades durante orientación y senderismo.','5.1':'Se orienta y resuelve el recorrido utilizando los recursos del entorno.','5.2':'Identifica riesgos y aplica medidas de seguridad adecuadas.','5.3':'Actúa de forma responsable y sostenible durante la práctica.'}}
+ 'UP13':{title:'Recorrido/reto de orientación',what:'Qué observo: autonomía, cooperación, seguridad y cuidado del entorno durante la práctica.',focus:{'3.1':'Participa y se autorregula con autonomía en el entorno real.','3.2':'Coopera y asume responsabilidades durante orientación y senderismo.','5.1':'Planifica y realiza la ruta con autonomía, regulando su actuación en el entorno.','5.2':'Toma decisiones responsables y sostenibles que reducen el impacto sobre el entorno.','5.3':'Identifica riesgos, aplica medidas preventivas y contribuye a la seguridad individual y colectiva.'}}
 };
 function quickFocus(up,c,desc){return quickEvalContext[up]?.focus?.[c]||desc}
 const ups=[
@@ -186,7 +186,79 @@ function makeRubric(proc,focus){
  const ds=templates[proc]||templates['Prueba de ejecución'];
  return [{label:'Muy inicial',score:2,desc:`No realiza ${f} o su participación es tan limitada que apenas permite evidenciar el criterio, pese a disponer de la oportunidad y las condiciones para realizar la tarea.`},...['Inicio','Básico','Adecuado','Avanzado'].map((label,i)=>({label,score:[4,6,8,10][i],desc:ds[i]}))];
 }
-function rubricFor(ev){return rubricOverrides[`${ev.up}|${ev.c}`]||makeRubric(ev.proc,ev.desc)}
+const evidenceRubricOverrides={
+ 'UP13|5.1|1':[
+  {label:'Muy inicial',score:2,desc:'No logra elaborar una planificación utilizable de la ruta o necesita una guía constante para identificar los elementos básicos del itinerario.'},
+  {label:'Inicio',score:4,desc:'Sitúa algunos elementos de la ruta, pero necesita ayuda frecuente para calcular distancia y tiempo, localizar referencias o prever paradas.'},
+  {label:'Básico',score:6,desc:'Planifica una ruta sencilla con distancia, tiempo y referencias básicas, aunque presenta alguna imprecisión o necesita orientación puntual.'},
+  {label:'Adecuado',score:8,desc:'Planifica la ruta con autonomía: establece itinerario, distancia, duración, referencias y paradas de forma coherente y viable.'},
+  {label:'Avanzado',score:10,desc:'Planifica con gran autonomía, contrasta alternativas y ajusta recorrido, tiempos, paradas y referencias anticipando necesidades y justificando sus decisiones.'}
+ ],
+ 'UP13|5.1|2':[
+  {label:'Muy inicial',score:2,desc:'No mantiene un registro suficiente de su preparación o los datos aportados no permiten valorar el proceso realizado.'},
+  {label:'Inicio',score:4,desc:'Registra de forma irregular sus paseos y necesita ayuda para anotar datos relevantes o interpretar cómo se ha preparado.'},
+  {label:'Básico',score:6,desc:'Registra de forma suficiente distancia o tiempo, RPE y sensaciones, aunque la reflexión sobre su preparación es todavía sencilla.'},
+  {label:'Adecuado',score:8,desc:'Mantiene un registro veraz y completo de su preparación, interpreta esfuerzo y sensaciones y explica cómo ha progresado antes de la ruta.'},
+  {label:'Avanzado',score:10,desc:'Registra de forma sistemática y precisa, relaciona distancia, tiempo, RPE y sensaciones, identifica tendencias y propone ajustes razonados para mejorar su preparación.'}
+ ],
+ 'UP13|5.1|3':[
+  {label:'Muy inicial',score:2,desc:'No consigue realizar la ruta aplicando las pautas básicas de participación autónoma, pese a disponer de las condiciones para hacerlo.'},
+  {label:'Inicio',score:4,desc:'Realiza la ruta con supervisión frecuente y necesita recordatorios para gestionar ritmo, paradas, hidratación o seguimiento del itinerario.'},
+  {label:'Básico',score:6,desc:'Realiza la ruta y aplica pautas básicas de ritmo, hidratación y seguimiento, aunque requiere alguna indicación puntual.'},
+  {label:'Adecuado',score:8,desc:'Realiza la ruta con autonomía adecuada, regula ritmo y esfuerzo y aplica de forma consistente las pautas trabajadas.'},
+  {label:'Avanzado',score:10,desc:'Realiza la ruta con plena autonomía, anticipa necesidades, ajusta su actuación al contexto y transfiere lo aprendido para resolver situaciones nuevas.'}
+ ],
+ 'UP13|5.2|1':[
+  {label:'Muy inicial',score:2,desc:'No incorpora medidas de cuidado del entorno en la planificación o propone actuaciones claramente incompatibles con una práctica responsable.'},
+  {label:'Inicio',score:4,desc:'Reconoce alguna norma de cuidado ambiental, pero necesita ayuda frecuente para incorporarla a la planificación de la ruta.'},
+  {label:'Básico',score:6,desc:'Incluye medidas básicas de respeto al entorno y gestión de residuos, aunque la justificación de sus decisiones es todavía sencilla.'},
+  {label:'Adecuado',score:8,desc:'Integra de forma autónoma medidas sostenibles en la planificación y justifica decisiones que reducen el impacto de la actividad.'},
+  {label:'Avanzado',score:10,desc:'Compara opciones, prioriza las de menor impacto y justifica de forma sólida medidas sostenibles aplicables antes, durante y después de la ruta.'}
+ ],
+ 'UP13|5.2|2':[
+  {label:'Muy inicial',score:2,desc:'Selecciona el material sin atender a su necesidad, adecuación o impacto y no justifica sus elecciones.'},
+  {label:'Inicio',score:4,desc:'Reconoce parte del material necesario, pero necesita ayuda frecuente para evitar elementos innecesarios o justificar una preparación responsable.'},
+  {label:'Básico',score:6,desc:'Selecciona material suficiente y adecuado, evita excesos evidentes y aporta una justificación básica de sus elecciones.'},
+  {label:'Adecuado',score:8,desc:'Prepara una mochila equilibrada y razonada, adapta el material a la meteorología y evita cargas o consumos innecesarios.'},
+  {label:'Avanzado',score:10,desc:'Optimiza material, peso y consumo con criterios de necesidad y sostenibilidad, justificando alternativas que reducen el impacto sin comprometer la actividad.'}
+ ],
+ 'UP13|5.2|3':[
+  {label:'Muy inicial',score:2,desc:'Durante la salida no respeta las pautas básicas de cuidado del entorno y necesita intervención constante.'},
+  {label:'Inicio',score:4,desc:'Respeta algunas normas, pero necesita recordatorios frecuentes para gestionar residuos, permanecer en zonas adecuadas o evitar impactos innecesarios.'},
+  {label:'Básico',score:6,desc:'Respeta las normas básicas, recoge sus residuos y mantiene una conducta generalmente cuidadosa con el entorno.'},
+  {label:'Adecuado',score:8,desc:'Actúa de forma autónoma y sostenible durante toda la ruta, reduce su impacto y toma decisiones coherentes con el cuidado del medio.'},
+  {label:'Avanzado',score:10,desc:'Mantiene una conducta ejemplar, anticipa impactos evitables, propone soluciones sostenibles y favorece que el grupo cuide activamente el entorno.'}
+ ],
+ 'UP13|5.3|1':[
+  {label:'Muy inicial',score:2,desc:'No identifica los riesgos básicos del itinerario ni incorpora medidas de seguridad a la planificación.'},
+  {label:'Inicio',score:4,desc:'Reconoce algún riesgo evidente, pero necesita ayuda frecuente para relacionarlo con medidas preventivas concretas.'},
+  {label:'Básico',score:6,desc:'Identifica riesgos habituales de la ruta y propone medidas básicas de prevención, aunque de forma poco detallada.'},
+  {label:'Adecuado',score:8,desc:'Anticipa riesgos relevantes, considera meteorología y características del itinerario y planifica medidas preventivas adecuadas.'},
+  {label:'Avanzado',score:10,desc:'Analiza de forma completa los riesgos, prioriza medidas preventivas y justifica decisiones que mejoran la seguridad individual y colectiva.'}
+ ],
+ 'UP13|5.3|2':[
+  {label:'Muy inicial',score:2,desc:'No relaciona el material o las pautas de actuación con la prevención de riesgos habituales de la ruta.'},
+  {label:'Inicio',score:4,desc:'Reconoce algunos riesgos o materiales preventivos, pero necesita ayuda frecuente para decidir qué hacer ante torceduras, ampollas, caídas, heridas o deshidratación.'},
+  {label:'Básico',score:6,desc:'Relaciona los riesgos habituales con material y pautas básicas de prevención y sabe que debe detenerse, proteger y avisar.'},
+  {label:'Adecuado',score:8,desc:'Selecciona y justifica material preventivo adecuado y resuelve correctamente situaciones habituales aplicando la pauta detenerse, proteger, avisar y seguir indicaciones.'},
+  {label:'Avanzado',score:10,desc:'Anticipa necesidades preventivas, prioriza actuaciones seguras y justifica con claridad cómo reducir riesgos sin asumir intervenciones que no le corresponden.'}
+ ],
+ 'UP13|5.3|3':[
+  {label:'Muy inicial',score:2,desc:'Durante la preparación práctica incumple pautas de seguridad o no reconoce señales y riesgos básicos, generando situaciones que requieren intervención docente.'},
+  {label:'Inicio',score:4,desc:'Reconoce algunas señales o riesgos, pero necesita recordatorios frecuentes para mantener una conducta segura y cumplir su función.'},
+  {label:'Básico',score:6,desc:'Identifica los riesgos habituales y aplica las normas y señales básicas de seguridad, aunque requiere alguna indicación puntual.'},
+  {label:'Adecuado',score:8,desc:'Aplica de forma autónoma las pautas de seguridad, comunica riesgos o incidencias y cumple responsablemente el rol asignado.'},
+  {label:'Avanzado',score:10,desc:'Anticipa riesgos durante la práctica, comunica con claridad, ajusta su actuación y contribuye activamente a que el grupo mantenga condiciones seguras.'}
+ ],
+ 'UP13|5.3|4':[
+  {label:'Muy inicial',score:2,desc:'Durante la salida incumple normas esenciales de seguridad o actúa de forma que genera riesgo para sí mismo o para el grupo.'},
+  {label:'Inicio',score:4,desc:'Reconoce normas y riesgos, pero necesita supervisión frecuente para aplicarlos o comunicar incidencias.'},
+  {label:'Básico',score:6,desc:'Identifica riesgos habituales, cumple normas y comunica incidencias básicas, aunque puede necesitar alguna indicación puntual.'},
+  {label:'Adecuado',score:8,desc:'Previene riesgos, actúa responsablemente, comunica incidencias y sigue las pautas establecidas con autonomía durante la ruta.'},
+  {label:'Avanzado',score:10,desc:'Anticipa riesgos, toma decisiones prudentes dentro de su responsabilidad, comunica eficazmente y contribuye de forma activa a la seguridad colectiva.'}
+ ]
+};
+function rubricFor(ev){return evidenceRubricOverrides[`${ev.up}|${ev.c}|${ev.seq}`]||rubricOverrides[`${ev.up}|${ev.c}`]||makeRubric(ev.proc,ev.desc)}
 function rubricReferenceHTML(ev){
  const r=rubricFor(ev);
  return `<details class="rubric-ref"><summary><span class="rubric-summary-label">Ver rúbrica</span><span class="rubric-summary-title">${esc(ev.desc)}</span></summary><div class="rubric-grid">${r.map(x=>`<div class="rubric-level"><div class="rubric-level-head"><b>${x.label}</b><span>${x.score}</span></div><p>${esc(x.desc)}</p></div>`).join('')}</div><p class="tiny rubric-note">Seleccionar un nivel registra su valor numérico como evidencia principal del criterio. El descriptor queda asociado a la valoración en el historial.</p></details>`;
