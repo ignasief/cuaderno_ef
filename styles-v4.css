@@ -332,3 +332,4 @@ body{padding-bottom:104px}
 @media(max-width:760px){.pent-layout{grid-template-columns:1fr}.pent-cap-row{grid-template-columns:1fr}.pent-level-buttons{grid-template-columns:repeat(5,1fr);}.pent-level-buttons .pent-clear{grid-column:1/-1;min-height:34px}.pent-label{font-size:9px}}
 
 .pent-phase-head{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}.pent-phase-head h4{margin:0}.pent-delete-phase{color:#9b1c1c;border-color:#efcaca}
+.assessment-participants{margin-top:10px;border-top:1px solid #e5e7eb;padding-top:8px}.participant-assessment{margin:10px 0;padding:10px;border-radius:10px;background:#f8fafc}.participant-assessment>b{display:block;margin-bottom:4px}.assessment-participants .tiny{display:block;margin:4px 0 8px}

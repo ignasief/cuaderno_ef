@@ -9,11 +9,11 @@ const criteria=[
 ];
 const ceWeights={CE1:20,CE2:30,CE3:30,CE4:10,CE5:10};
 const criterionShort={
- '1.1':'Actividad física y salud','1.2':'Preparación de la práctica física','1.3':'Hábitos saludables y bienestar','1.4':'Prevención y seguridad corporal','1.5':'Higiene y hábitos posturales','1.6':'Regulación responsable del esfuerzo',
- '2.1':'Planificación de retos motores','2.2':'Decisiones en situaciones motrices','2.3':'Resolución eficaz de problemas motores','2.4':'Autoevaluación del proceso motor',
+ '1.1':'Actividad física y salud','1.2':'Preparación de la práctica física','1.3':'Hábitos saludables y bienestar','1.4':'Prevención y seguridad corporal','1.5':'Uso educativo de TIC','1.6':'Responsabilidad y hábitos de práctica',
+ '2.1':'Valoración y ajuste del desempeño motor','2.2':'Decisiones en situaciones motrices','2.3':'Resolución eficaz de problemas motores','2.4':'Reglas, fundamentos y estrategias',
  '3.1':'Participación y deportividad','3.2':'Cooperación y responsabilidad grupal','3.3':'Respeto y convivencia motriz',
  '4.1':'Cultura motriz y expresión','4.2':'Deporte, género e igualdad','4.3':'Expresión corporal y comunicación',
- '5.1':'Actividad física en el entorno','5.2':'Cuidado responsable y sostenible del entorno','5.3':'Prevención y seguridad en el medio natural'
+ '5.1':'Cuidado responsable del entorno','5.2':'Orientación, itinerario y preparación','5.3':'Prevención y seguridad en el medio natural'
 };
 function criterionLabel(c){return `${c} · ${criterionShort[c]||''}`}
 
@@ -23,14 +23,14 @@ const quickEvalContext={
  'UP3':{title:'Capacidades físicas básicas',what:'Qué observo: comprensión de las CFB, selección de tareas y autorregulación del esfuerzo.',focus:{'1.1':'Relaciona las tareas de CFB con sus efectos sobre condición física y salud.','1.2':'Selecciona y organiza tareas adecuadas, progresivas y seguras.','1.6':'Anticipa, contrasta y ajusta el esfuerzo previsto y real.'}},
  'UP4':{title:'Juego real/modificado · Bádminton',what:'Qué observo: decisiones, resolución técnico-táctica, reglas, deportividad y convivencia. No se evalúa el resultado del partido.',focus:{'2.2':'Se coloca, anticipa y elige respuestas adecuadas durante el juego.','2.3':'Resuelve las situaciones técnico-tácticas con eficacia y continuidad.','2.4':'Aplica reglas y principios del juego y valora su propia actuación.','3.1':'Participa activamente, se autorregula y mantiene deportividad.','3.3':'Respeta al oponente, a los compañeros y las normas de convivencia.'}},
  'UP5':{title:'Circuito/reto coordinativo',what:'Qué observo: resolución eficaz de retos de coordinación y equilibrio.',focus:{'2.3':'Ajusta y combina sus acciones para resolver el reto coordinativo con eficacia.'}},
- 'UP6':{title:'Hábitos saludables',what:'Qué observo: aplicación razonada de hábitos saludables, prevención, higiene y bienestar.',focus:{'1.2':'Prepara y organiza una práctica física saludable y segura en situaciones concretas.','1.3':'Aplica hábitos saludables vinculados al bienestar.','1.4':'Reconoce riesgos y aplica medidas de prevención y seguridad.','1.5':'Analiza hábitos de higiene y postura y propone mejoras.'}},
+ 'UP6':{title:'Hábitos saludables',what:'Qué observo: comprensión de la salud, aplicación de hábitos saludables, prevención, uso educativo de TIC y cuidado personal.',focus:{'1.1':'Comprende el concepto de salud, distingue factores beneficiosos y perjudiciales y relaciona los malos hábitos con sus efectos.','1.3':'Aplica hábitos saludables relacionados con postura, core, respiración, bienestar y alimentación.','1.4':'Reconoce riesgos y aplica medidas de prevención, PAS/112 y actuación básica ante accidentes.','1.5':'Busca, selecciona y utiliza de forma responsable información sobre salud mediante TIC.','1.6':'Utiliza ropa y calzado adecuados y mantiene hábitos de aseo vinculados a la práctica.'}},
  'UP7':{title:'Composición gimnástica',what:'Qué observo: resolución motriz, cooperación y respeto durante la composición.',focus:{'2.3':'Resuelve con eficacia los elementos y enlaces de la composición.','3.2':'Coopera, asume responsabilidades y contribuye al resultado grupal.','3.3':'Respeta, ayuda y favorece un clima seguro durante la práctica.'}},
  'UP8':{title:'Secuencia cooperativa de combas',what:'Qué observo: resolución eficaz y coordinada de una secuencia colectiva.',focus:{'2.3':'Resuelve y enlaza acciones de comba con eficacia dentro de la secuencia cooperativa.'}},
  'UP9':{title:'Juego reducido 3×3 · Minibásquet',what:'Qué observo: decisiones, resolución técnico-táctica, reglas, participación, deportividad e igualdad.',focus:{'2.2':'Lee la situación de juego y toma decisiones adecuadas.','2.3':'Resuelve con eficacia las acciones técnico-tácticas del 3×3.','2.4':'Aplica reglas y principios y revisa su propia actuación.','3.1':'Participa, se autorregula y mantiene deportividad.','3.3':'Respeta a compañeros, oponentes y decisiones durante el juego.','4.2':'Reconoce y cuestiona estereotipos, valorando referentes diversos en baloncesto.'}},
  'UP10':{title:'Creación y representación colectiva',what:'Qué observo: resolución motriz, cooperación, cultura motriz y comunicación corporal.',focus:{'2.3':'Resuelve con eficacia las demandas motrices de la creación.','3.2':'Coopera y asume responsabilidades dentro del proceso creativo.','3.3':'Respeta aportaciones y favorece la convivencia en el grupo.','4.1':'Integra recursos de la cultura motriz en la representación.','4.3':'Utiliza el cuerpo de forma expresiva y comunicativa.'}},
- 'UP11':{title:'Juegos y deportes alternativos',what:'Qué observo: planificación, participación, cooperación y convivencia en situaciones motrices nuevas.',focus:{'2.1':'Planifica y ajusta estrategias para resolver situaciones motrices.','2.2':'Toma decisiones adecuadas ante situaciones cambiantes de juego.','3.1':'Participa con autonomía y deportividad.','3.2':'Coopera y asume responsabilidades en el juego.','3.3':'Respeta normas, compañeros y adversarios.'}},
- 'UP12':{title:'Baúl de los juegos del instituto · ApS',what:'Qué observo: cooperación, cultura motriz, igualdad y transmisión del patrimonio lúdico.',focus:{'3.2':'Coopera y asume responsabilidades en el proyecto ApS.','4.1':'Reconoce, practica y transmite manifestaciones de la cultura motriz.','4.2':'Analiza estereotipos y valora la diversidad en la memoria lúdica.'}},
- 'UP13':{title:'Recorrido/reto de orientación',what:'Qué observo: autonomía, cooperación, seguridad y cuidado del entorno durante la práctica.',focus:{'3.1':'Participa y se autorregula con autonomía en el entorno real.','3.2':'Coopera y asume responsabilidades durante orientación y senderismo.','5.1':'Planifica y realiza la ruta con autonomía, regulando su actuación en el entorno.','5.2':'Toma decisiones responsables y sostenibles que reducen el impacto sobre el entorno.','5.3':'Identifica riesgos, aplica medidas preventivas y contribuye a la seguridad individual y colectiva.'}}
+ 'UP11':{title:'Juegos y deportes alternativos',what:'Qué observo: planificación, participación, cooperación y convivencia en situaciones motrices nuevas.',focus:{'2.1':'Valora su desempeño y utiliza autoevaluación/coevaluación para identificar ajustes de mejora.','2.2':'Toma decisiones adecuadas ante situaciones cambiantes de juego.','3.1':'Participa con autonomía y deportividad.','3.2':'Coopera y asume responsabilidades en el juego.','3.3':'Respeta normas, compañeros y adversarios.'}},
+ 'UP12':{title:'Baúl de los juegos del instituto · ApS',what:'Qué observo: cooperación, cultura motriz, igualdad y transmisión del patrimonio lúdico.',focus:{'3.2':'Coopera y asume responsabilidades en el proyecto ApS.','4.1':'Reconoce, practica y transmite manifestaciones de la cultura motriz.','4.2':'Participa con cualquier compañero/a respetando diferencias y evitando exclusiones.'}},
+ 'UP13':{title:'Senderismo y orientación',what:'Qué observo: responsabilidad, cooperación, cuidado del entorno, orientación y seguridad antes y durante la ruta.',focus:{'3.1':'Actúa responsablemente consigo mismo, con los demás y con el entorno en la preparación y la salida.','3.2':'Asume responsabilidades y coopera de forma eficaz durante la preparación y la ruta.','5.1':'Cuida el entorno y respeta las normas de conservación durante la práctica en el medio natural.','5.2':'Planifica y sigue el itinerario, se orienta y selecciona el material necesario de forma adecuada.','5.3':'Identifica riesgos, aplica medidas preventivas y utiliza de forma segura los recursos de orientación y meteorología.'}}
 };
 function quickFocus(up,c,desc){return quickEvalContext[up]?.focus?.[c]||desc}
 const ups=[
@@ -41,9 +41,9 @@ const evidence={
 '1.2':[['UP2','Presentación de producto','Diseño y dirección de calentamiento'],['UP3','Prueba de ejecución','Reto de regulación del esfuerzo']],
 '1.3':[['UP6','Prueba objetiva','Aplicación de hábitos saludables']],
 '1.4':[['UP6','Prueba objetiva','Prevención y actuación ante situaciones de riesgo']],
-'1.5':[['UP2','Revisión de portfolio','Decálogo del calentamiento: higiene y hábitos posturales'],['UP6','Uso educativo de TIC','Búsqueda, selección y uso responsable de información sobre salud']],
+'1.5':[['UP2','Revisión de portfolio','Uso educativo de TIC en el aprendizaje del calentamiento'],['UP6','Uso educativo de TIC','Búsqueda, selección y uso responsable de información sobre salud']],
 '1.6':[['UP1','Observación sistemática','Participación responsable y regulación del esfuerzo'],['UP2','Revisión de portfolio','Decálogo y seguimiento de una práctica responsable'],['UP3','Observación sistemática','Participación responsable y autorregulación'],['UP6','Observación sistemática','Ropa, calzado y aseo adecuados para la práctica']],
-'2.1':[['UP4','Prueba de ejecución','Planificación y ajuste de respuestas en bádminton'],['UP11','Prueba de ejecución','Resolución autónoma de situaciones motrices']],
+'2.1':[['UP4','Autoevaluación/coevaluación','Valoración técnico-táctica del juego de bádminton'],['UP11','Autoevaluación/coevaluación','Valoración del desempeño en juegos y deportes alternativos']],
 '2.2':[['UP4','Prueba de ejecución','Juego real/modificado de bádminton'],['UP9','Prueba de ejecución','Juego reducido 3×3 de minibásquet'],['UP11','Prueba de ejecución','Toma de decisiones en juegos y deportes alternativos']],
 '2.3':[['UP4','Prueba de ejecución','Juego real/modificado de bádminton'],['UP5','Prueba de ejecución','Circuito/reto coordinativo'],['UP7','Prueba de ejecución','Composición gimnástica'],['UP8','Presentación de producto','Secuencia cooperativa de combas'],['UP9','Prueba de ejecución','Juego reducido 3×3 de minibásquet'],['UP10','Presentación de producto','Creación y representación colectiva']],
 '2.4':[['UP4','Prueba de ejecución','Aplicación de principios y reglas en bádminton'],['UP9','Prueba de ejecución','Aplicación de principios y reglas en minibásquet']],
@@ -51,9 +51,9 @@ const evidence={
 '3.2':[],
 '3.3':[],
 '4.1':[['UP8','Presentación de producto','Cultura motriz presente en la secuencia cooperativa de combas'],['UP10','Presentación de producto','Representación expresiva colectiva'],['UP12','Revisión de portfolio','Baúl de los juegos del instituto']],
-'4.2':[['UP9','Diálogo/debate','Baloncesto, igualdad y referentes'],['UP12','Trabajo de investigación','Estereotipos y memoria lúdica']],
+'4.2':[['UP9','Diálogo/debate','Baloncesto, igualdad y referentes'],['UP12','Observación sistemática','Participación inclusiva en juegos tradicionales']],
 '4.3':[['UP10','Presentación de producto','Uso expresivo y comunicativo del cuerpo']],
-'5.1':[['UP13','Análisis de producción y diálogo','Planificación de la ruta'],['UP13','Análisis del registro personal','Cuaderno «Mi progreso»'],['UP13','Observación en contexto real','Realización de la ruta']],
+'5.1':[['UP13','Análisis de producción y diálogo','Planificación de la ruta'],['UP13','Análisis del registro personal','Cuaderno «Mi progreso»'],['UP13','Observación en contexto real','Realización de la ruta'],['UP13','Observación en contexto real','Realización de la ruta']],
 '5.2':[['UP13','Análisis de producción y diálogo','Planificación de la ruta'],['UP13','Resolución de problemas','Preparación razonada de la mochila'],['UP13','Observación en contexto real','Realización de la ruta']],
 '5.3':[['UP13','Análisis de producción y diálogo','Planificación de la ruta'],['UP13','Resolución de problemas','Preparación razonada de la mochila'],['UP13','Observación sistemática','Regulación, cooperación y seguridad'],['UP13','Observación en contexto real','Realización de la ruta']]
 };
@@ -103,7 +103,7 @@ const continuousRubrics={
  'UP13|3.2|s3':['No asume el rol o responsabilidad asignada en la preparación','Necesita recordatorios frecuentes para cumplir su función','Asume una responsabilidad básica y coopera','Cumple su función con autonomía y contribuye a organizar la preparación','Asume responsabilidades con iniciativa y ayuda a que el grupo se organice eficazmente'],
  'UP13|3.2|s4':['No asume responsabilidades durante la salida','Necesita recordatorios frecuentes para cumplir su función','Cumple las responsabilidades asignadas durante la ruta','Asume responsabilidades con autonomía y coopera eficazmente','Se anticipa a las necesidades del grupo, coopera y ejerce su responsabilidad sin invadir funciones ajenas']
 };
-function continuousContextId(up){if(up==='UP13'&&(state.ui.evaluationView||'activity')==='session')return `s${Number(state.ui.selectedSession)||1}`;return 'base'}
+function continuousContextId(up){if(up!=='UP13')return 'base';const mode=state.ui.evaluationView||'activity';if(mode==='session')return `s${Number(state.ui.selectedSession)||1}`;if(mode==='activity'){const a=state.ui.selectedActivity||'';if(a==='Regulación, cooperación y seguridad')return 's3';if(a==='Realización de la ruta')return 's4';}return 'base'}
 function contextualQualKey(gid,sid,c,up){const ctx=continuousContextId(up);return ctx==='base'?qualKey(gid,sid,c,up):`${gid}|${sid}|${c}|${up}|${ctx}`}
 function continuousRubricFor(up,c){const ctx=continuousContextId(up),raw=continuousRubrics[`${up}|${c}|${ctx}`]||continuousRubrics[`${up}|${c}`];const labels=['Muy inicial','Inicio','Básico','Adecuado','Avanzado'],scores=[2,4,6,8,10];return (raw||scores.map(n=>`Nivel ${n} del criterio ${c} observado en ${up}.`)).map((desc,i)=>({label:labels[i],score:scores[i],desc}))}
 
@@ -235,6 +235,174 @@ function makeRubric(proc,focus){
  const ds=templates[proc]||templates['Prueba de ejecución'];
  return [{label:'Muy inicial',score:2,desc:`No realiza ${f} o su participación es tan limitada que apenas permite evidenciar el criterio, pese a disponer de la oportunidad y las condiciones para realizar la tarea.`},...['Inicio','Básico','Adecuado','Avanzado'].map((label,i)=>({label,score:[4,6,8,10][i],desc:ds[i]}))];
 }
+
+// V4.2.0 · Rúbricas específicas para todas las evidencias principales activas.
+// Se derivan del saber básico seleccionado y de la actividad/evidencia ya definida en la app.
+const contextualRubricAdditions={
+ 'UP6|1.1':[
+  {label:'Muy inicial',score:2,desc:'No distingue con claridad qué es la salud ni reconoce factores básicos que la favorecen o perjudican.'},
+  {label:'Inicio',score:4,desc:'Reconoce algunos hábitos beneficiosos o perjudiciales, pero necesita ayuda para explicar sus efectos sobre la salud.'},
+  {label:'Básico',score:6,desc:'Explica de forma suficiente el concepto de salud, diferencia hábitos beneficiosos y perjudiciales y relaciona algunos con sus efectos.'},
+  {label:'Adecuado',score:8,desc:'Analiza con autonomía distintos hábitos y explica de forma coherente cómo influyen positiva o negativamente en la salud.'},
+  {label:'Avanzado',score:10,desc:'Relaciona con precisión factores y hábitos con sus efectos y argumenta decisiones realistas orientadas a una vida activa y saludable.'}
+ ],
+ 'UP6|1.3':[
+  {label:'Muy inicial',score:2,desc:'No identifica pautas básicas de postura, respiración, bienestar o alimentación saludable trabajadas en la unidad.'},
+  {label:'Inicio',score:4,desc:'Reconoce algunas pautas saludables, pero las aplica o justifica de forma incompleta.'},
+  {label:'Básico',score:6,desc:'Aplica las pautas fundamentales de postura, core, respiración, bienestar y alimentación en situaciones sencillas.'},
+  {label:'Adecuado',score:8,desc:'Selecciona y aplica con autonomía hábitos adecuados y explica su relación con el bienestar y la práctica física.'},
+  {label:'Avanzado',score:10,desc:'Integra y justifica de forma precisa diferentes hábitos saludables y propone ajustes realistas para mejorar su bienestar cotidiano.'}
+ ],
+ 'UP6|1.4':[
+  {label:'Muy inicial',score:2,desc:'No reconoce riesgos básicos ni sabe ordenar una actuación elemental ante un accidente.'},
+  {label:'Inicio',score:4,desc:'Identifica algún riesgo o paso de actuación, pero necesita ayuda frecuente para aplicar PAS, 112 o el uso básico del botiquín.'},
+  {label:'Básico',score:6,desc:'Reconoce riesgos habituales y aplica de forma suficiente PAS, aviso al 112 y pautas básicas ante accidentes comunes.'},
+  {label:'Adecuado',score:8,desc:'Analiza la situación, prioriza medidas preventivas y aplica con autonomía pautas seguras de actuación dentro de su responsabilidad.'},
+  {label:'Avanzado',score:10,desc:'Anticipa riesgos, justifica las medidas preventivas y organiza una respuesta segura y proporcionada sin asumir actuaciones que no le corresponden.'}
+ ],
+ 'UP2|1.5':[
+  {label:'Muy inicial',score:2,desc:'No utiliza los recursos digitales propuestos o copia información sin seleccionar su utilidad para aprender sobre el calentamiento.'},
+  {label:'Inicio',score:4,desc:'Utiliza algún recurso digital con ayuda, pero selecciona o integra la información de forma poco pertinente.'},
+  {label:'Básico',score:6,desc:'Utiliza recursos digitales de forma suficiente para localizar y organizar información útil sobre el calentamiento.'},
+  {label:'Adecuado',score:8,desc:'Selecciona con autonomía información digital pertinente y la integra correctamente en su aprendizaje y elaboración del calentamiento.'},
+  {label:'Avanzado',score:10,desc:'Contrasta y utiliza de forma responsable recursos digitales, selecciona información relevante y justifica cómo mejora su aprendizaje.'}
+ ],
+ 'UP6|1.5':[
+  {label:'Muy inicial',score:2,desc:'No localiza información útil sobre salud o utiliza recursos digitales sin criterio.'},
+  {label:'Inicio',score:4,desc:'Encuentra información básica con ayuda, pero presenta dificultades para seleccionar su relevancia o fiabilidad.'},
+  {label:'Básico',score:6,desc:'Busca y selecciona información suficiente sobre salud utilizando de forma adecuada los recursos digitales propuestos.'},
+  {label:'Adecuado',score:8,desc:'Selecciona, organiza y utiliza con autonomía información pertinente y responsable para resolver la tarea de salud.'},
+  {label:'Avanzado',score:10,desc:'Contrasta fuentes y justifica la selección de información, utilizando los recursos digitales de forma crítica, responsable y eficaz.'}
+ ],
+ 'UP2|1.6':[
+  {label:'Muy inicial',score:2,desc:'No completa las tareas previstas ni mantiene una actitud responsable durante el trabajo de calentamiento.'},
+  {label:'Inicio',score:4,desc:'Completa parte de las tareas, pero necesita recordatorios frecuentes para responsabilizarse de su trabajo.'},
+  {label:'Básico',score:6,desc:'Realiza las tareas esenciales y mantiene una responsabilidad suficiente durante el proceso.'},
+  {label:'Adecuado',score:8,desc:'Cumple con autonomía las tareas, revisa su trabajo y mantiene una actitud responsable y constante.'},
+  {label:'Avanzado',score:10,desc:'Trabaja con constancia y autonomía, mejora sus producciones por iniciativa propia y contribuye a una práctica responsable.'}
+ ],
+ 'UP6|1.6':[
+  {label:'Muy inicial',score:2,desc:'Acude de forma reiterada sin ropa, calzado o condiciones de aseo adecuadas para realizar la práctica con seguridad.'},
+  {label:'Inicio',score:4,desc:'Cumple solo parte de las pautas de equipamiento y aseo y necesita recordatorios frecuentes.'},
+  {label:'Básico',score:6,desc:'Utiliza habitualmente ropa y calzado adecuados y mantiene las pautas básicas de aseo vinculadas a la práctica.'},
+  {label:'Adecuado',score:8,desc:'Mantiene con autonomía y regularidad hábitos adecuados de equipamiento y aseo antes y después de la práctica.'},
+  {label:'Avanzado',score:10,desc:'Integra de forma constante estos hábitos, anticipa sus necesidades y comprende su relación con seguridad, higiene y bienestar.'}
+ ],
+ 'UP4|2.1':[
+  {label:'Muy inicial',score:2,desc:'No identifica aspectos básicos de su juego ni utiliza la autoevaluación o coevaluación para reconocer necesidades de mejora.'},
+  {label:'Inicio',score:4,desc:'Reconoce algún acierto o dificultad con ayuda, pero sus valoraciones son poco concretas o no orientan ajustes.'},
+  {label:'Básico',score:6,desc:'Identifica fortalezas y dificultades técnicas o tácticas básicas y propone algún ajuste coherente.'},
+  {label:'Adecuado',score:8,desc:'Autoevalúa y coevalúa con criterios claros su desempeño técnico-táctico y utiliza la información para ajustar su juego.'},
+  {label:'Avanzado',score:10,desc:'Analiza con precisión su desempeño y el de sus iguales, aporta feedback respetuoso y transforma la valoración en ajustes eficaces.'}
+ ],
+ 'UP11|2.1':[
+  {label:'Muy inicial',score:2,desc:'No identifica cómo está resolviendo las situaciones motrices ni utiliza la valoración propia o de iguales para mejorar.'},
+  {label:'Inicio',score:4,desc:'Reconoce algún aspecto de su desempeño con ayuda, pero propone ajustes poco relacionados con la situación de juego.'},
+  {label:'Básico',score:6,desc:'Valora de forma suficiente su actuación y propone algún ajuste adecuado para resolver situaciones motrices nuevas.'},
+  {label:'Adecuado',score:8,desc:'Utiliza autoevaluación y coevaluación para identificar decisiones eficaces y ajustar con autonomía su actuación.'},
+  {label:'Avanzado',score:10,desc:'Analiza con precisión diferentes alternativas, ofrece feedback útil y aplica ajustes eficaces ante situaciones motrices cambiantes.'}
+ ],
+ 'UP9|2.2':[
+  {label:'Muy inicial',score:2,desc:'Toma decisiones sin atender a compañeros, adversarios, espacio o situación ofensiva/defensiva.'},
+  {label:'Inicio',score:4,desc:'Reconoce algunas opciones de juego, pero decide tarde o necesita ayuda frecuente para adaptarse.'},
+  {label:'Básico',score:6,desc:'Toma decisiones adecuadas en situaciones sencillas de ataque y defensa, aunque con cierta irregularidad.'},
+  {label:'Adecuado',score:8,desc:'Lee con autonomía la situación del 3×3 y adapta sus decisiones ofensivas y defensivas con eficacia.'},
+  {label:'Avanzado',score:10,desc:'Anticipa situaciones, selecciona opciones eficaces y reajusta rápidamente sus decisiones en función del juego.'}
+ ],
+ 'UP11|2.2':[
+  {label:'Muy inicial',score:2,desc:'Actúa sin adaptar sus decisiones a las reglas, compañeros, adversarios o cambios de la situación.'},
+  {label:'Inicio',score:4,desc:'Toma algunas decisiones adecuadas, pero necesita ayuda frecuente para responder a situaciones cambiantes.'},
+  {label:'Básico',score:6,desc:'Adapta sus decisiones de forma suficiente en situaciones habituales de los juegos alternativos.'},
+  {label:'Adecuado',score:8,desc:'Interpreta la situación y toma decisiones eficaces y autónomas ante cambios de espacio, roles o oposición.'},
+  {label:'Avanzado',score:10,desc:'Anticipa alternativas, reajusta con rapidez su actuación y selecciona soluciones eficaces en situaciones nuevas.'}
+ ],
+ 'UP5|2.3':[
+  {label:'Muy inicial',score:2,desc:'No ajusta su cuerpo a las demandas básicas del reto de coordinación o equilibrio.'},
+  {label:'Inicio',score:4,desc:'Resuelve partes del reto, pero pierde con frecuencia control, equilibrio o coordinación y necesita ayuda.'},
+  {label:'Básico',score:6,desc:'Ajusta suficientemente sus acciones al espacio y a la tarea y resuelve los retos fundamentales.'},
+  {label:'Adecuado',score:8,desc:'Controla y combina sus acciones con eficacia, adaptando el cuerpo a diferentes retos, espacios y condiciones.'},
+  {label:'Avanzado',score:10,desc:'Resuelve con precisión y fluidez, anticipa ajustes corporales y transfiere soluciones a retos coordinativos nuevos.'}
+ ],
+ 'UP7|2.3':[
+  {label:'Muy inicial',score:2,desc:'No ejecuta con seguridad los elementos básicos de la composición ni ajusta el cuerpo a la tarea.'},
+  {label:'Inicio',score:4,desc:'Ejecuta algunos elementos con ayuda, pero presenta errores frecuentes de control, enlace o seguridad.'},
+  {label:'Básico',score:6,desc:'Ejecuta los elementos fundamentales y los enlaza de forma suficiente dentro de la composición.'},
+  {label:'Adecuado',score:8,desc:'Ejecuta y enlaza con control, seguridad y autonomía las habilidades específicas de la composición.'},
+  {label:'Avanzado',score:10,desc:'Ejecuta con precisión y fluidez, adapta conscientemente su cuerpo y mejora la calidad de enlaces y transiciones.'}
+ ],
+ 'UP8|2.3':[
+  {label:'Muy inicial',score:2,desc:'No mantiene los saltos o enlaces básicos necesarios para participar en la secuencia de combas.'},
+  {label:'Inicio',score:4,desc:'Realiza algunas acciones, pero pierde con frecuencia ritmo o coordinación y necesita ayuda para enlazarlas.'},
+  {label:'Básico',score:6,desc:'Ejecuta y enlaza las acciones fundamentales manteniendo una coordinación suficiente con la secuencia.'},
+  {label:'Adecuado',score:8,desc:'Ejecuta con control y continuidad, aporta variaciones creativas y se coordina eficazmente con el grupo.'},
+  {label:'Avanzado',score:10,desc:'Combina con precisión habilidades y recursos creativos, adapta la ejecución y enriquece la secuencia colectiva.'}
+ ],
+ 'UP9|2.3':[
+  {label:'Muy inicial',score:2,desc:'Presenta grandes dificultades para ejecutar las habilidades técnicas necesarias en el 3×3.'},
+  {label:'Inicio',score:4,desc:'Ejecuta algunas habilidades básicas, pero con errores frecuentes y poca continuidad en situación de juego.'},
+  {label:'Básico',score:6,desc:'Ejecuta correctamente las habilidades técnicas fundamentales en situaciones sencillas del 3×3.'},
+  {label:'Adecuado',score:8,desc:'Ejecuta y aplica con eficacia las habilidades técnicas en diferentes situaciones ofensivas y defensivas.'},
+  {label:'Avanzado',score:10,desc:'Ejecuta con precisión, control y autonomía, adaptando eficazmente las habilidades a la situación de juego.'}
+ ],
+ 'UP10|2.3':[
+  {label:'Muy inicial',score:2,desc:'No aporta ni ejecuta recursos motrices suficientes para construir la creación colectiva.'},
+  {label:'Inicio',score:4,desc:'Reproduce acciones sencillas, pero necesita ayuda frecuente para variarlas, enlazarlas o adaptarlas a la creación.'},
+  {label:'Básico',score:6,desc:'Propone y ejecuta recursos motrices suficientes y los integra de forma coherente en la creación colectiva.'},
+  {label:'Adecuado',score:8,desc:'Utiliza con autonomía recursos variados y creativos, adaptándolos al espacio, ritmo y sentido de la representación.'},
+  {label:'Avanzado',score:10,desc:'Explora, combina y transforma recursos motrices con originalidad y los integra con precisión al servicio de la creación colectiva.'}
+ ],
+ 'UP9|2.4':[
+  {label:'Muy inicial',score:2,desc:'Desconoce o incumple reglas y principios básicos del minibásquet durante el 3×3.'},
+  {label:'Inicio',score:4,desc:'Reconoce algunas reglas y principios, pero necesita recordatorios frecuentes para aplicarlos.'},
+  {label:'Básico',score:6,desc:'Aplica las reglas fundamentales y comprende principios estratégicos básicos en situaciones sencillas.'},
+  {label:'Adecuado',score:8,desc:'Aplica con autonomía reglas, lógica interna y principios estratégicos y ajusta su actuación al juego.'},
+  {label:'Avanzado',score:10,desc:'Interpreta y aplica con precisión reglas y principios, justifica decisiones y ayuda a que el juego se desarrolle correctamente.'}
+ ],
+ 'UP8|4.1':[
+  {label:'Muy inicial',score:2,desc:'Participa de forma muy limitada y no reconoce el valor lúdico y recreativo de la práctica con combas.'},
+  {label:'Inicio',score:4,desc:'Participa con ayuda y reconoce de forma básica la comba como práctica lúdica, pero sin relacionarla con otras formas de juego motor.'},
+  {label:'Básico',score:6,desc:'Participa y reconoce la comba como manifestación lúdica y recreativa de la cultura motriz.'},
+  {label:'Adecuado',score:8,desc:'Valora y utiliza de forma autónoma diferentes posibilidades lúdicas de la comba dentro de la secuencia colectiva.'},
+  {label:'Avanzado',score:10,desc:'Enriquece la práctica con propuestas lúdicas variadas y explica su valor como forma de juego motor y recreación compartida.'}
+ ],
+ 'UP10|4.1':[
+  {label:'Muy inicial',score:2,desc:'No identifica ni incorpora recursos básicos de danza o manifestaciones expresivas en la representación.'},
+  {label:'Inicio',score:4,desc:'Reconoce o reproduce algún recurso expresivo con ayuda, pero lo integra de forma poco coherente.'},
+  {label:'Básico',score:6,desc:'Integra recursos básicos de danza y reconoce su valor como manifestación expresiva y cultural.'},
+  {label:'Adecuado',score:8,desc:'Selecciona e integra con autonomía recursos de danza coherentes con la representación y explica su dimensión cultural.'},
+  {label:'Avanzado',score:10,desc:'Combina y contextualiza recursos de danza con intención, mostrando comprensión de su valor expresivo y como patrimonio cultural.'}
+ ],
+ 'UP12|4.1':[
+  {label:'Muy inicial',score:2,desc:'No identifica el juego tradicional trabajado ni aporta información suficiente sobre su práctica u origen.'},
+  {label:'Inicio',score:4,desc:'Reconoce algunos elementos del juego, pero necesita ayuda para explicar su origen, reglas o valor cultural.'},
+  {label:'Básico',score:6,desc:'Describe y practica el juego tradicional, recoge información básica sobre su origen y reconoce su valor como herencia cultural.'},
+  {label:'Adecuado',score:8,desc:'Investiga, explica y transmite con autonomía reglas, origen y significado cultural del juego seleccionado.'},
+  {label:'Avanzado',score:10,desc:'Contrasta información, contextualiza el juego como patrimonio cultural y lo transmite de forma clara y rigurosa a otros participantes.'}
+ ],
+ 'UP9|4.2':[
+  {label:'Muy inicial',score:2,desc:'Reproduce estereotipos o muestra rechazo a participar con determinados compañeros durante las tareas de baloncesto.'},
+  {label:'Inicio',score:4,desc:'Reconoce algún estereotipo con ayuda, pero todavía muestra conductas o argumentos poco inclusivos.'},
+  {label:'Básico',score:6,desc:'Identifica estereotipos básicos y participa respetando a cualquier compañero o compañera.'},
+  {label:'Adecuado',score:8,desc:'Cuestiona estereotipos, valora referentes diversos y mantiene una participación inclusiva en la práctica.'},
+  {label:'Avanzado',score:10,desc:'Argumenta de forma crítica frente a estereotipos y contribuye activamente a una práctica igualitaria e inclusiva.'}
+ ],
+ 'UP12|4.2':[
+  {label:'Muy inicial',score:2,desc:'Evita participar con determinados compañeros o muestra conductas de exclusión durante los juegos tradicionales.'},
+  {label:'Inicio',score:4,desc:'Participa con distintos compañeros cuando se le indica, pero necesita recordatorios para aceptar diferencias.'},
+  {label:'Básico',score:6,desc:'Participa con cualquier compañero o compañera y respeta las diferencias durante los juegos.'},
+  {label:'Adecuado',score:8,desc:'Muestra predisposición constante a participar con todos, adapta su interacción y favorece una práctica inclusiva.'},
+  {label:'Avanzado',score:10,desc:'Promueve activamente agrupamientos inclusivos, evita exclusiones y ayuda a que todos puedan participar respetando sus diferencias.'}
+ ],
+ 'UP10|4.3':[
+  {label:'Muy inicial',score:2,desc:'No utiliza el cuerpo de forma intencional para comunicar dentro de la representación.'},
+  {label:'Inicio',score:4,desc:'Utiliza gestos o movimientos expresivos aislados, pero necesita ayuda para darles intención comunicativa.'},
+  {label:'Básico',score:6,desc:'Utiliza de forma suficiente gesto, movimiento y ritmo para comunicar una intención reconocible.'},
+  {label:'Adecuado',score:8,desc:'Combina con autonomía recursos corporales y rítmico-musicales para comunicar con claridad dentro de la representación.'},
+  {label:'Avanzado',score:10,desc:'Utiliza el cuerpo como instrumento expresivo con precisión, variedad e intención, ajustando recursos para potenciar el mensaje colectivo.'}
+ ]
+};
+Object.assign(rubricOverrides,contextualRubricAdditions);
+
 const evidenceRubricOverrides={
  'UP13|5.1|1':[
   {label:'Muy inicial',score:2,desc:'No logra elaborar una planificación utilizable de la ruta o necesita una guía constante para identificar los elementos básicos del itinerario.'},
@@ -257,26 +425,33 @@ const evidenceRubricOverrides={
   {label:'Adecuado',score:8,desc:'Realiza la ruta con autonomía adecuada, regula ritmo y esfuerzo y aplica de forma consistente las pautas trabajadas.'},
   {label:'Avanzado',score:10,desc:'Realiza la ruta con plena autonomía, anticipa necesidades, ajusta su actuación al contexto y transfiere lo aprendido para resolver situaciones nuevas.'}
  ],
+ 'UP13|5.1|4':[
+  {label:'Muy inicial',score:2,desc:'Durante la salida incumple las normas básicas de conservación o realiza acciones que generan un impacto evitable sobre el entorno.'},
+  {label:'Inicio',score:4,desc:'Conoce algunas pautas de cuidado, pero necesita recordatorios frecuentes para respetar el recorrido, gestionar residuos o evitar impactos innecesarios.'},
+  {label:'Básico',score:6,desc:'Respeta las normas básicas de conservación, mantiene el entorno limpio y evita conductas claramente perjudiciales, aunque puede necesitar alguna indicación puntual.'},
+  {label:'Adecuado',score:8,desc:'Actúa de forma autónoma y responsable durante toda la ruta, respeta las normas de conservación y toma decisiones coherentes con el cuidado del entorno.'},
+  {label:'Avanzado',score:10,desc:'Mantiene una conducta ejemplar, anticipa impactos evitables y contribuye activamente a que el grupo respete y conserve el entorno durante la ruta.'}
+ ],
  'UP13|5.2|1':[
-  {label:'Muy inicial',score:2,desc:'No incorpora medidas de cuidado del entorno en la planificación o propone actuaciones claramente incompatibles con una práctica responsable.'},
-  {label:'Inicio',score:4,desc:'Reconoce alguna norma de cuidado ambiental, pero necesita ayuda frecuente para incorporarla a la planificación de la ruta.'},
-  {label:'Básico',score:6,desc:'Incluye medidas básicas de respeto al entorno y gestión de residuos, aunque la justificación de sus decisiones es todavía sencilla.'},
-  {label:'Adecuado',score:8,desc:'Integra de forma autónoma medidas sostenibles en la planificación y justifica decisiones que reducen el impacto de la actividad.'},
-  {label:'Avanzado',score:10,desc:'Compara opciones, prioriza las de menor impacto y justifica de forma sólida medidas sostenibles aplicables antes, durante y después de la ruta.'}
+  {label:'Muy inicial',score:2,desc:'No consigue identificar un itinerario utilizable ni interpretar las referencias básicas necesarias para planificar la ruta.'},
+  {label:'Inicio',score:4,desc:'Reconoce algunos elementos del itinerario, pero necesita ayuda frecuente para localizar referencias, estimar distancia o tiempo y organizar el recorrido.'},
+  {label:'Básico',score:6,desc:'Planifica un itinerario sencillo con referencias, distancia y tiempo aproximados, aunque presenta alguna imprecisión o necesita orientación puntual.'},
+  {label:'Adecuado',score:8,desc:'Planifica con autonomía un itinerario viable, interpreta las referencias necesarias y relaciona recorrido, distancia, duración y paradas.'},
+  {label:'Avanzado',score:10,desc:'Planifica con precisión, contrasta alternativas de itinerario y justifica referencias, recorrido, tiempos y paradas adaptándolos a las condiciones previstas.'}
  ],
  'UP13|5.2|2':[
-  {label:'Muy inicial',score:2,desc:'Selecciona el material sin atender a su necesidad, adecuación o impacto y no justifica sus elecciones.'},
-  {label:'Inicio',score:4,desc:'Reconoce parte del material necesario, pero necesita ayuda frecuente para evitar elementos innecesarios o justificar una preparación responsable.'},
-  {label:'Básico',score:6,desc:'Selecciona material suficiente y adecuado, evita excesos evidentes y aporta una justificación básica de sus elecciones.'},
-  {label:'Adecuado',score:8,desc:'Prepara una mochila equilibrada y razonada, adapta el material a la meteorología y evita cargas o consumos innecesarios.'},
-  {label:'Avanzado',score:10,desc:'Optimiza material, peso y consumo con criterios de necesidad y sostenibilidad, justificando alternativas que reducen el impacto sin comprometer la actividad.'}
+  {label:'Muy inicial',score:2,desc:'No selecciona el material básico necesario para la ruta o incluye elementos que no responden a las necesidades previstas.'},
+  {label:'Inicio',score:4,desc:'Reconoce parte del material necesario, pero necesita ayuda frecuente para decidir qué llevar según recorrido, duración y meteorología.'},
+  {label:'Básico',score:6,desc:'Prepara una mochila con el material básico suficiente y relaciona de forma sencilla algunos elementos con las necesidades de la ruta.'},
+  {label:'Adecuado',score:8,desc:'Selecciona y organiza con autonomía una mochila adecuada al itinerario, duración y meteorología, justificando las elecciones principales.'},
+  {label:'Avanzado',score:10,desc:'Optimiza con criterio el material y su organización, anticipa necesidades del itinerario y la meteorología y justifica con precisión cada elección relevante.'}
  ],
  'UP13|5.2|3':[
-  {label:'Muy inicial',score:2,desc:'Durante la salida no respeta las pautas básicas de cuidado del entorno y necesita intervención constante.'},
-  {label:'Inicio',score:4,desc:'Respeta algunas normas, pero necesita recordatorios frecuentes para gestionar residuos, permanecer en zonas adecuadas o evitar impactos innecesarios.'},
-  {label:'Básico',score:6,desc:'Respeta las normas básicas, recoge sus residuos y mantiene una conducta generalmente cuidadosa con el entorno.'},
-  {label:'Adecuado',score:8,desc:'Actúa de forma autónoma y sostenible durante toda la ruta, reduce su impacto y toma decisiones coherentes con el cuidado del medio.'},
-  {label:'Avanzado',score:10,desc:'Mantiene una conducta ejemplar, anticipa impactos evitables, propone soluciones sostenibles y favorece que el grupo cuide activamente el entorno.'}
+  {label:'Muy inicial',score:2,desc:'Durante la salida no consigue seguir el itinerario ni utilizar las referencias trabajadas sin intervención constante.'},
+  {label:'Inicio',score:4,desc:'Sigue parcialmente el itinerario, pero necesita ayuda frecuente para reconocer referencias o tomar decisiones de orientación.'},
+  {label:'Básico',score:6,desc:'Sigue el itinerario y reconoce las referencias principales, aunque requiere alguna indicación puntual para orientarse o confirmar decisiones.'},
+  {label:'Adecuado',score:8,desc:'Se orienta con autonomía durante la ruta, interpreta referencias y toma decisiones coherentes para mantener el itinerario previsto.'},
+  {label:'Avanzado',score:10,desc:'Se orienta con precisión y autonomía, contrasta referencias y recursos disponibles y ajusta decisiones ante cambios sin perder la seguridad ni el itinerario.'}
  ],
  'UP13|5.3|1':[
   {label:'Muy inicial',score:2,desc:'No identifica los riesgos básicos del itinerario ni incorpora medidas de seguridad a la planificación.'},
@@ -307,7 +482,7 @@ const evidenceRubricOverrides={
   {label:'Avanzado',score:10,desc:'Anticipa riesgos, toma decisiones prudentes dentro de su responsabilidad, comunica eficazmente y contribuye de forma activa a la seguridad colectiva.'}
  ]
 };
-function rubricFor(ev){return evidenceRubricOverrides[`${ev.up}|${ev.c}|${ev.seq}`]||rubricOverrides[`${ev.up}|${ev.c}`]||makeRubric(ev.proc,ev.desc)}
+function rubricFor(ev){const base=evidenceRubricOverrides[`${ev.up}|${ev.c}|${ev.seq}`]||rubricOverrides[`${ev.up}|${ev.c}`]||makeRubric(ev.proc,ev.desc);return base.some(x=>Number(x.score)===0)?base:[{label:'No entregado',score:0,desc:'No entrega o no realiza la evidencia prevista. Este 0 sí computa; una valoración vacía significa que todavía no ha sido evaluada.'},...base]}
 function rubricReferenceHTML(ev){
  const r=rubricFor(ev);
  return `<details class="rubric-ref"><summary><span class="rubric-summary-label">Ver rúbrica</span><span class="rubric-summary-title">${esc(ev.desc)}</span></summary><div class="rubric-grid">${r.map(x=>`<div class="rubric-level"><div class="rubric-level-head"><b>${x.label}</b><span>${x.score}</span></div><p>${esc(x.desc)}</p></div>`).join('')}</div><p class="tiny rubric-note">Seleccionar un nivel registra su valor numérico como evidencia principal del criterio. El descriptor queda asociado a la valoración en el historial.</p></details>`;
@@ -318,8 +493,8 @@ let deferredPrompt=null;
 let currentView='inicio';
 function todayISO(){const d=new Date();return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10)}
 function defaultUpPeriods(){const out={};ups.forEach(([u],i)=>out[u]=i<4?'eval1':i<10?'eval2':'eval3');out.UP13='eval1';return out}
-function defaultState(){return {groups:[],scores:{},rubricMarks:{},qual:{},qualDates:{},continuousClosures:{},attendance:{},notes:{},teacherNotes:{},fitness:{},reflections:{},fitnessPentagon:{},fitnessPentagonReflections:{},warmups:{},up3RPE:{},up3Tasks:{},up4Game:{},photos:{},selectedGroup:null,selectedUP:'UP1',selectedDate:todayISO(),evalConfig:{upPeriods:defaultUpPeriods()},ui:{scoreMode:'levels',evaluationPeriod:'eval1',openWarmup:null,openUp3RPE:null,openUp3Task:null,openUp4Game:null,openSummaryStudent:null,openEvaluateStudent:null,lastBackupExport:null,evaluationView:'activity',selectedSession:4}}}
-function migrate(raw){const d=defaultState(),preV4=!(raw?.ui&&Object.prototype.hasOwnProperty.call(raw.ui,'evaluationView')),s=Object.assign(d,raw||{});s.attendance=s.attendance||{};s.notes=s.notes||{};s.teacherNotes=s.teacherNotes||{};s.rubricMarks=s.rubricMarks||{};s.fitness=s.fitness||{};s.reflections=s.reflections||{};s.fitnessPentagon=s.fitnessPentagon||{};s.fitnessPentagonReflections=s.fitnessPentagonReflections||{};s.warmups=s.warmups||{};s.up3RPE=s.up3RPE||{};s.up3Tasks=s.up3Tasks||{};s.up4Game=s.up4Game||{};s.photos=s.photos||{};s.qual=s.qual||{};s.qualDates=s.qualDates||{};s.continuousClosures=s.continuousClosures||{};if(preV4){const legacyMap={'5.1':3,'5.2':3,'5.3':4};Object.entries(legacyMap).forEach(([c,targetSeq])=>{Object.keys(s.scores||{}).filter(k=>{const p=k.split('|');return p.length===4&&p[2]===c&&p[3]==='1'}).forEach(k=>{const p=k.split('|'),nk=`${p[0]}|${p[1]}|${c}|${targetSeq}`;if(s.scores[nk]===undefined)s.scores[nk]=s.scores[k];delete s.scores[k];if(s.rubricMarks[k]){const mark={...s.rubricMarks[k],legacyEvidence:s.rubricMarks[k].evidence,evidence:(evidence[c]?.[targetSeq-1]?.[2]||s.rubricMarks[k].evidence)};if(!s.rubricMarks[nk])s.rubricMarks[nk]=mark;delete s.rubricMarks[k]}})})}Object.keys(s.qual).forEach(k=>{const v=s.qual[k];if(v==='En proceso')s.qual[k]=4;else if(v==='Adecuado')s.qual[k]=8;else if(v==='Consolidado')s.qual[k]=10});s.selectedDate=s.selectedDate||todayISO();const old=s.evalConfig||{},periods=Object.assign({},defaultUpPeriods(),old.upPeriods||{});if(!old.upPeriods&&(old.firstCut||old.secondCut)){const a=upIndex(old.firstCut||'UP4'),b=upIndex(old.secondCut||'UP10');ups.forEach(([u],i)=>periods[u]=i<=a?'eval1':i<=b?'eval2':'eval3')}s.evalConfig={upPeriods:periods};s.ui=Object.assign({scoreMode:'levels',evaluationPeriod:'eval1',openWarmup:null,openUp3RPE:null,openUp3Task:null,openUp4Game:null,openSummaryStudent:null,openEvaluateStudent:null,lastBackupExport:null,evaluationView:'activity',selectedSession:4},s.ui||{});return s}
+function defaultState(){return {groups:[],scores:{},rubricMarks:{},selfScores:{},peerScores:{},selfRubricMarks:{},peerRubricMarks:{},qual:{},selfQual:{},peerQual:{},qualDates:{},continuousClosures:{},attendance:{},notes:{},teacherNotes:{},fitness:{},reflections:{},fitnessPentagon:{},fitnessPentagonReflections:{},warmups:{},up3RPE:{},up3Tasks:{},up4Game:{},photos:{},selectedGroup:null,selectedUP:'UP1',selectedDate:todayISO(),evalConfig:{upPeriods:defaultUpPeriods()},ui:{scoreMode:'levels',evaluationPeriod:'eval1',openWarmup:null,openUp3RPE:null,openUp3Task:null,openUp4Game:null,openSummaryStudent:null,openEvaluateStudent:null,lastBackupExport:null,evaluationView:'activity',selectedSession:4}}}
+function migrate(raw){const d=defaultState(),preV4=!(raw?.ui&&Object.prototype.hasOwnProperty.call(raw.ui,'evaluationView')),s=Object.assign(d,raw||{});s.attendance=s.attendance||{};s.notes=s.notes||{};s.teacherNotes=s.teacherNotes||{};s.rubricMarks=s.rubricMarks||{};s.selfScores=s.selfScores||{};s.peerScores=s.peerScores||{};s.selfRubricMarks=s.selfRubricMarks||{};s.peerRubricMarks=s.peerRubricMarks||{};s.selfQual=s.selfQual||{};s.peerQual=s.peerQual||{};s.fitness=s.fitness||{};s.reflections=s.reflections||{};s.fitnessPentagon=s.fitnessPentagon||{};s.fitnessPentagonReflections=s.fitnessPentagonReflections||{};s.warmups=s.warmups||{};s.up3RPE=s.up3RPE||{};s.up3Tasks=s.up3Tasks||{};s.up4Game=s.up4Game||{};s.photos=s.photos||{};s.qual=s.qual||{};s.qualDates=s.qualDates||{};s.continuousClosures=s.continuousClosures||{};/* V4.2.0: las copias antiguas se conservan sin mover ni reinterpretar claves históricas de 5.1/5.2/5.3. */Object.keys(s.qual).forEach(k=>{const v=s.qual[k];if(v==='En proceso')s.qual[k]=4;else if(v==='Adecuado')s.qual[k]=8;else if(v==='Consolidado')s.qual[k]=10});s.selectedDate=s.selectedDate||todayISO();const old=s.evalConfig||{},periods=Object.assign({},defaultUpPeriods(),old.upPeriods||{});if(!old.upPeriods&&(old.firstCut||old.secondCut)){const a=upIndex(old.firstCut||'UP4'),b=upIndex(old.secondCut||'UP10');ups.forEach(([u],i)=>periods[u]=i<=a?'eval1':i<=b?'eval2':'eval3')}s.evalConfig={upPeriods:periods};s.ui=Object.assign({scoreMode:'levels',evaluationPeriod:'eval1',openWarmup:null,openUp3RPE:null,openUp3Task:null,openUp4Game:null,openSummaryStudent:null,openEvaluateStudent:null,lastBackupExport:null,evaluationView:'activity',selectedSession:4},s.ui||{});return s}
 function load(){
  try{
   const s=migrate(JSON.parse(localStorage.getItem(APP_KEY)||'{}'));
@@ -349,14 +524,14 @@ function group(){return fullGroup()}
 function scoreKey(gid,sid,c,seq){return `${gid}|${sid}|${c}|${seq}`}
 function qualKey(gid,sid,c,up){return `${gid}|${sid}|${c}|${up}`}
 function closureKey(gid,sid,c,up){return `${gid}|${sid}|${c}|${up}`}
-function continuousHistory(gid,sid,c,currentUp=null){
- const arr=[];
- Object.entries(state.qual||{}).forEach(([k,v])=>{const parts=k.split('|');if(parts.length<4)return;const [g,sid2,cc,up]=parts;if(g!==gid||sid2!==sid||cc!==c||v===undefined||v===null||v==='')return;if(currentUp&&upIndex(up)>upIndex(currentUp))return;arr.push({up,value:Number(v),date:state.qualDates?.[k]||'',idx:upIndex(up)})});
- arr.sort((a,b)=>{if(a.date&&b.date&&a.date!==b.date)return a.date.localeCompare(b.date);return a.idx-b.idx});return arr;
-}
+function hasValue(v){return v!==undefined&&v!==null&&v!==''}
+function blendedAssessment(teacher,self,peer){if(!hasValue(teacher))return null;if(Number(teacher)===0)return 0;const vals=[[teacher,.8],[self,.1],[peer,.1]].filter(([v])=>hasValue(v));const den=vals.reduce((a,[,w])=>a+w,0);return vals.reduce((a,[v,w])=>a+Number(v)*w,0)/den}
+function evidenceValue(gid,sid,c,seq){const k=scoreKey(gid,sid,c,seq);return blendedAssessment(state.scores[k],state.selfScores[k],state.peerScores[k])}
+function continuousObservationValue(k){return blendedAssessment(state.qual[k],state.selfQual[k],state.peerQual[k])}
+function continuousHistory(gid,sid,c,currentUp=null){const keys=new Set([...Object.keys(state.qual||{}),...Object.keys(state.selfQual||{}),...Object.keys(state.peerQual||{})]),arr=[];keys.forEach(k=>{const [g,sid2,cc,up]=k.split('|');if(g!==gid||sid2!==sid||cc!==c)return;if(currentUp&&upIndex(up)>upIndex(currentUp))return;const v=continuousObservationValue(k);if(v===null)return;arr.push({up,value:Number(v),date:state.qualDates?.[k]||'',idx:upIndex(up)})});arr.sort((a,b)=>{if(a.date&&b.date&&a.date!==b.date)return a.date.localeCompare(b.date);return a.idx-b.idx});return arr}
 function continuousLevel(gid,sid,c,currentUp=null){const h=continuousHistory(gid,sid,c,currentUp),recent=h.slice(-3);if(!recent.length)return null;const w=recent.length===1?[1]:recent.length===2?[.2941176471,.7058823529]:[.15,.25,.60];return recent.reduce((a,x,i)=>a+x.value*w[i],0)}
 function periodRank(p){return p==='eval1'?1:p==='eval2'?2:3}
-function continuousHistoryForPeriod(gid,sid,c,period){const max=period==='final'?3:periodRank(period),arr=[];Object.entries(state.qual||{}).forEach(([k,v])=>{const [gg,ss,cc,up]=k.split('|');if(gg!==gid||ss!==sid||cc!==c||v===undefined||v===null||v==='')return;const p=upPeriod(up);if(periodRank(p)>max)return;arr.push({up,value:Number(v),date:state.qualDates?.[k]||'',idx:upIndex(up),period:p})});arr.sort((a,b)=>{if(a.date&&b.date&&a.date!==b.date)return a.date.localeCompare(b.date);return a.idx-b.idx});return arr}
+function continuousHistoryForPeriod(gid,sid,c,period){const max=period==='final'?3:periodRank(period),keys=new Set([...Object.keys(state.qual||{}),...Object.keys(state.selfQual||{}),...Object.keys(state.peerQual||{})]),arr=[];keys.forEach(k=>{const [gg,ss,cc,up]=k.split('|');if(gg!==gid||ss!==sid||cc!==c)return;const p=upPeriod(up);if(periodRank(p)>max)return;const v=continuousObservationValue(k);if(v===null)return;arr.push({up,value:Number(v),date:state.qualDates?.[k]||'',idx:upIndex(up),period:p})});arr.sort((a,b)=>{if(a.date&&b.date&&a.date!==b.date)return a.date.localeCompare(b.date);return a.idx-b.idx});return arr}
 function continuousLevelForPeriod(gid,sid,c,period){const recent=continuousHistoryForPeriod(gid,sid,c,period).slice(-3);if(!recent.length)return null;const w=recent.length===1?[1]:recent.length===2?[.2941176471,.7058823529]:[.15,.25,.60];return recent.reduce((a,x,i)=>a+x.value*w[i],0)}
 function periodClosureKey(gid,sid,c,period){return `${gid}|${sid}|${c}|${period}`}
 function invalidateContinuousClosuresForObservationKey(k){
@@ -413,13 +588,25 @@ async function compressPhoto(file){return new Promise((resolve,reject)=>{const i
 function attendanceStats(g){const vals=g.students.map(s=>state.attendance[attendanceKey(g.id,s.id,state.selectedDate)]||'');return {total:g.students.length,done:vals.filter(Boolean).length,present:vals.filter(v=>v==='P').length,absent:vals.filter(v=>v==='A').length,justified:vals.filter(v=>v==='J').length}}
 function allPresent(g){g.students.forEach(s=>state.attendance[attendanceKey(g.id,s.id,state.selectedDate)]='P');save()}
 function weightedEvidenceValue(vals,c){if(!vals.length)return null;if(isContinuousCriterion(c)){const recent=vals.slice(-3);const weights=recent.length===1?[1]:recent.length===2?[.2941176471,.7058823529]:[.15,.25,.60];return recent.reduce((a,v,i)=>a+v*weights[i],0)}return vals.reduce((a,v)=>a+Number(v),0)/vals.length}
-function criterionValue(gid,sid,c){const items=[];(evidence[c]||[]).forEach((e,i)=>{const v=state.scores[scoreKey(gid,sid,c,i+1)];if(v!==undefined&&v!==null&&v!=='')items.push({up:e[0],order:0,v:Number(v)})});Object.entries(state.continuousClosures||{}).forEach(([k,o])=>{const [gg,ss,cc,up]=k.split('|');if(gg===gid&&ss===sid&&cc===c&&o&&o.value!==undefined)items.push({up,order:1,v:Number(o.value)})});items.sort((a,b)=>upIndex(a.up)-upIndex(b.up)||a.order-b.order);return weightedEvidenceValue(items.map(x=>x.v),c)}
+function closureTagRank(tag){if(tag==='eval1')return 1;if(tag==='eval2')return 2;if(tag==='eval3')return 3;if(tag==='final')return 4;if(/^UP\d+$/.test(tag||''))return periodRank(upPeriod(tag));return 0}
+function latestContinuousClosureValue(gid,sid,c,period='final'){
+ const max=period==='final'?4:periodRank(period),candidates=[];
+ Object.entries(state.continuousClosures||{}).forEach(([k,o])=>{const [gg,ss,cc,tag]=k.split('|');if(gg!==gid||ss!==sid||cc!==c||!o)return;const rank=closureTagRank(tag);if(!rank||rank>max)return;let v=null;if(hasValue(o.value))v=Number(o.value);else if(o.mode==='kept'&&hasValue(o.maintainedValue))v=Number(o.maintainedValue);if(Number.isFinite(v))candidates.push({rank,v,tag})});
+ candidates.sort((a,b)=>a.rank-b.rank);return candidates.length?candidates[candidates.length-1].v:null;
+}
+function criterionValue(gid,sid,c){
+ if(isContinuousCriterion(c))return latestContinuousClosureValue(gid,sid,c,'final');
+ const vals=[];(evidence[c]||[]).forEach((e,i)=>{const v=evidenceValue(gid,sid,c,i+1);if(v!==null)vals.push(Number(v))});return weightedEvidenceValue(vals,c)
+}
 function ceValue(gid,sid,ce){const vals=criteria.filter(x=>x[1]===ce).map(([c])=>criterionValue(gid,sid,c)).filter(v=>v!==null);return vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:null}
 function coverage(gid,sid){return criteria.reduce((a,[c,,w])=>a+(criterionValue(gid,sid,c)!==null?w:0),0)}
 function finalGrade(gid,sid){let num=0,den=0;Object.entries(ceWeights).forEach(([ce,w])=>{const v=ceValue(gid,sid,ce);if(v!==null){num+=v*w;den+=w}});return den?num/den:null}
 
 function upIndex(up){return ups.findIndex(x=>x[0]===up)}
-function criterionValueRange(gid,sid,c,startUp,endUp){const start=startUp?upIndex(startUp):0,end=endUp?upIndex(endUp):Infinity,items=[];(evidence[c]||[]).forEach((e,i)=>{const ui=upIndex(e[0]);if(ui<start||ui>end)return;const v=state.scores[scoreKey(gid,sid,c,i+1)];if(v!==undefined&&v!==null&&v!=='')items.push({up:e[0],order:0,v:Number(v)})});Object.entries(state.continuousClosures||{}).forEach(([k,o])=>{const [gg,ss,cc,up]=k.split('|'),ui=upIndex(up);if(gg===gid&&ss===sid&&cc===c&&o&&o.value!==undefined&&ui>=start&&ui<=end)items.push({up,order:1,v:Number(o.value)})});items.sort((a,b)=>upIndex(a.up)-upIndex(b.up)||a.order-b.order);return weightedEvidenceValue(items.map(x=>x.v),c)}
+function criterionValueRange(gid,sid,c,startUp,endUp){
+ if(isContinuousCriterion(c))return latestContinuousClosureValue(gid,sid,c,'final');
+ const start=startUp?upIndex(startUp):0,end=endUp?upIndex(endUp):Infinity,vals=[];(evidence[c]||[]).forEach((e,i)=>{const ui=upIndex(e[0]);if(ui<start||ui>end)return;const v=evidenceValue(gid,sid,c,i+1);if(v!==null)vals.push(Number(v))});return weightedEvidenceValue(vals,c)
+}
 function ceValueRange(gid,sid,ce,startUp,endUp){const vals=criteria.filter(x=>x[1]===ce).map(([c])=>criterionValueRange(gid,sid,c,startUp,endUp)).filter(v=>v!==null);return vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:null}
 function coverageRange(gid,sid,startUp,endUp){return Object.entries(ceWeights).reduce((a,[ce,w])=>a+(ceValueRange(gid,sid,ce,startUp,endUp)!==null?w:0),0)}
 function gradeRange(gid,sid,startUp,endUp){let num=0,den=0;Object.entries(ceWeights).forEach(([ce,w])=>{const v=ceValueRange(gid,sid,ce,startUp,endUp);if(v!==null){num+=v*w;den+=w}});return den?num/den:null}
@@ -431,7 +618,10 @@ function evalCut(period){return null}
 function evalLabel(period){return period==='eval1'?'1.ª evaluación':period==='eval2'?'2.ª evaluación':period==='eval3'?'3.ª evaluación':'Evaluación final'}
 function isContinuousCriterion(c){return c==='3.1'||c==='3.2'||c==='3.3'}
 function evidenceInPeriod(c,up,period){if(period==='final')return true;const p=upPeriod(up);if(period==='eval2'&&isContinuousCriterion(c))return p==='eval1'||p==='eval2';if(period==='eval3'&&isContinuousCriterion(c))return p==='eval1'||p==='eval2'||p==='eval3';return p===period}
-function criterionValueForPeriod(gid,sid,c,period){const items=[];(evidence[c]||[]).forEach((e,i)=>{if(!evidenceInPeriod(c,e[0],period))return;const v=state.scores[scoreKey(gid,sid,c,i+1)];if(v!==undefined&&v!==null&&v!=='')items.push({up:e[0],order:0,v:Number(v)})});if(isContinuousCriterion(c)){const o=state.continuousClosures?.[periodClosureKey(gid,sid,c,period)];if(o&&o.value!==undefined)items.push({up:'UP99',order:1,v:Number(o.value)})}items.sort((a,b)=>upIndex(a.up)-upIndex(b.up)||a.order-b.order);return weightedEvidenceValue(items.map(x=>x.v),c)}
+function criterionValueForPeriod(gid,sid,c,period){
+ if(isContinuousCriterion(c))return latestContinuousClosureValue(gid,sid,c,period);
+ const vals=[];(evidence[c]||[]).forEach((e,i)=>{if(!evidenceInPeriod(c,e[0],period))return;const v=evidenceValue(gid,sid,c,i+1);if(v!==null)vals.push(Number(v))});return weightedEvidenceValue(vals,c)
+}
 function ceValueForPeriod(gid,sid,ce,period){const vals=criteria.filter(x=>x[1]===ce).map(([c])=>criterionValueForPeriod(gid,sid,c,period)).filter(v=>v!==null);return vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:null}
 function coverageForPeriod(gid,sid,period){return Object.entries(ceWeights).reduce((a,[ce,w])=>a+(ceValueForPeriod(gid,sid,ce,period)!==null?w:0),0)}
 function assessedCountForPeriod(gid,sid,period){return criteria.filter(([c])=>criterionValueForPeriod(gid,sid,c,period)!==null).length}
@@ -563,13 +753,14 @@ function up4GameInstrumentHTML(){
   ['2.3','Resolución técnico-táctica','Mantiene el intercambio y resuelve situaciones de juego con control, continuidad y eficacia.'],
   ['2.4','Reglas y autoevaluación','Aplica las reglas básicas, reconoce errores propios y ajusta su actuación durante el juego.'],
   ['3.1','Participación y deportividad','Participa activamente, acepta resultados y decisiones y regula su conducta en el juego.'],
+  ['3.2','Esfuerzo y mejora','Mantiene el esfuerzo, persevera y busca mejorar su actuación durante el juego.'],
   ['3.3','Respeto y convivencia','Respeta a compañeros y oponentes, cuida el material y cumple normas y acuerdos.']
  ];
  const evMap={};
  indicators.forEach(([c])=>{evMap[c]=(evidence[c]||[]).map((e,i)=>({e,seq:i+1})).find(x=>x.e[0]==='UP4')});
- return `<div class="card up4-game-card"><div class="fitness-title"><div><h2>Juego real/modificado · Bádminton</h2><p class="muted">Instrumento de observación en situación de juego. Cinco focos permiten registrar una única evidencia principal por criterio. <b>No evalúa el resultado del partido</b>, sino las decisiones, la resolución motriz y las conductas observables.</p></div><span class="pill main">UP4 · juego real</span></div>
- ${g.students.map(st=>{const k=up4GameKey(g.id,st.id),v=state.up4Game[k]||{},done=indicators.filter(([c])=>Number(v[c])).length,open=state.ui.openUp4Game===st.id;return `<details id="bad-${st.id}" data-up4-game-student="${st.id}" class="warmup-student compact-instrument up4-game-student" ${open?'open':''}><summary><div class="warmup-summary-left">${avatarHTML(g.id,st,'sm')}<div><b>${esc(st.name)}</b><span class="warmup-count">${done}/5 criterios observados</span></div></div><div class="warmup-summary-right">${done===5?`<span class="instrument-result registered">Completo ✓</span>`:`<span class="instrument-pending">${done?`${done}/5`:'Sin completar'}</span>`}<span class="chev">›</span></div></summary><div class="warmup-body">
- ${indicators.map(([c,name,help])=>{const val=Number(v[c])||0,ev=evMap[c],sk=ev?scoreKey(g.id,st.id,c,ev.seq):'',registered=sk&&state.scores[sk]!==undefined&&state.scores[sk]!=='',same=registered&&Number(state.scores[sk])===val,lab=levels.find(x=>x[1]===val)?.[0]||'';return `<div class="warmup-indicator up4-indicator"><div class="up4-indicator-head"><div class="up4-criterion-row"><span class="pill main">${criterionLabel(c)}</span></div><div class="up4-focus-title">${name}</div><small>${help}</small></div><div class="indicator-buttons">${levels.map(([label,n])=>`<button type="button" data-up4-game-key="${k}" data-up4-game-sid="${st.id}" data-up4-game-criterion="${c}" data-up4-game-value="${n}" class="${val===n?'selected':''}">${label}</button>`).join('')}</div>${val?`<div class="criterion-register-row"><span><b>${lab} · ${val}</b><small>Juicio docente final.</small></span>${same?`<span class="registered-confirm">✓ Registrado · ${val} en ${c}</span>`:`<button class="btn small" data-apply-up4-game="${k}" data-up4-game-sid="${st.id}" data-up4-game-criterion="${c}" data-up4-game-score="${val}" data-up4-game-level="${lab}">${registered?'Actualizar a':'Registrar'} ${val}</button>`}</div>`:''}</div>`}).join('')}
+ return `<div class="card up4-game-card"><div class="fitness-title"><div><h2>Juego real/modificado · Bádminton</h2><p class="muted">Instrumento de observación en situación de juego. Seis focos permiten registrar las evidencias ● de CE2 y las observaciones ○ contextualizadas de CE3. <b>No evalúa el resultado del partido</b>, sino las decisiones, la resolución motriz y las conductas observables.</p></div><span class="pill main">UP4 · juego real</span></div>
+ ${g.students.map(st=>{const k=up4GameKey(g.id,st.id),v=state.up4Game[k]||{},done=indicators.filter(([c])=>Number(v[c])).length,open=state.ui.openUp4Game===st.id;return `<details id="bad-${st.id}" data-up4-game-student="${st.id}" class="warmup-student compact-instrument up4-game-student" ${open?'open':''}><summary><div class="warmup-summary-left">${avatarHTML(g.id,st,'sm')}<div><b>${esc(st.name)}</b><span class="warmup-count">${done}/6 criterios observados</span></div></div><div class="warmup-summary-right">${done===6?`<span class="instrument-result registered">Completo ✓</span>`:`<span class="instrument-pending">${done?`${done}/6`:'Sin completar'}</span>`}<span class="chev">›</span></div></summary><div class="warmup-body">
+ ${indicators.map(([c,name,help])=>{const val=Number(v[c])||0,ev=evMap[c],isCont=isContinuousCriterion(c),sk=isCont?contextualQualKey(g.id,st.id,c,'UP4'):(ev?scoreKey(g.id,st.id,c,ev.seq):''),stored=isCont?state.qual[sk]:state.scores[sk],registered=sk&&stored!==undefined&&stored!==null&&stored!=='',same=registered&&Number(stored)===val,lab=levels.find(x=>x[1]===val)?.[0]||'';return `<div class="warmup-indicator up4-indicator"><div class="up4-indicator-head"><div class="up4-criterion-row"><span class="pill ${isCont?'continuous':'main'}">${isCont?'○ ':'● '}${criterionLabel(c)}</span></div><div class="up4-focus-title">${name}</div><small>${help}</small></div><div class="indicator-buttons">${levels.map(([label,n])=>`<button type="button" data-up4-game-key="${k}" data-up4-game-sid="${st.id}" data-up4-game-criterion="${c}" data-up4-game-value="${n}" class="${val===n?'selected':''}">${label}</button>`).join('')}</div>${val?`<div class="criterion-register-row"><span><b>${lab} · ${val}</b><small>${isCont?'Observación continua contextualizada.':'Juicio docente final.'}</small></span>${same?`<span class="registered-confirm">✓ Registrado · ${val} en ${c}</span>`:`<button class="btn small" data-apply-up4-game="${k}" data-up4-game-sid="${st.id}" data-up4-game-criterion="${c}" data-up4-game-score="${val}" data-up4-game-level="${lab}">${registered?'Actualizar a':'Registrar'} ${val}</button>`}</div>`:''}</div>`}).join('')}
  </div></details>`}).join('')}
  </div>`;
 }
@@ -590,13 +781,14 @@ function quickEvaluationHTML(evs){
  const g=fullGroup(),sid=activeEvalSid();if(!g||!sid)return '';
  const st=g.students.find(x=>x.id===sid);if(!st)return '';
  const scored=evs.filter(ev=>{const v=state.scores[scoreKey(g.id,sid,ev.c,ev.seq)];return v!==undefined&&v!==null&&v!==''}).length;
- const levels=[2,4,6,8,10],ctx=quickEvalContext[state.selectedUP],assignedPeriod=upPeriod(state.selectedUP),criterionMeans=[...new Set(evs.map(e=>e.c))].map(c=>({c,v:criterionValueForPeriod(g.id,sid,c,assignedPeriod)}));
+ const levels=[0,2,4,6,8,10],ctx=quickEvalContext[state.selectedUP],assignedPeriod=upPeriod(state.selectedUP),criterionMeans=[...new Set(evs.map(e=>e.c))].map(c=>({c,v:criterionValueForPeriod(g.id,sid,c,assignedPeriod)}));
  const rows=evs.map((ev,i)=>{const k=scoreKey(g.id,sid,ev.c,ev.seq),v=state.scores[k],done=v!==undefined&&v!==null&&v!=='',rubric=rubricFor(ev),mark=state.rubricMarks[k],focus=quickFocus(ev.up,ev.c,ev.desc);
   const ceClass=`ce-block-${ev.c.split('.')[0]}`;
   return `<div class="quick-eval-row ${ceClass} ${done?'done':''}">
    <div class="quick-eval-head"><div><span class="pill main ce-pill ${ceClass}">${criterionLabel(ev.c)}</span><b class="quick-focus">${esc(focus)}</b></div><span class="quick-status">${done?`✓ ${mark?.label?esc(mark.label)+' · ':''}${v}`:'Pendiente'}</span></div>
-   <div class="quick-evidence-label">Evidencia: ${esc(ev.desc)}</div>${knowledgeFor(ev.up,ev.c)?`<div class="quick-evidence-label"><b>Saber básico:</b> ${esc(knowledgeFor(ev.up,ev.c))}</div>`:''}
+   <div class="quick-evidence-label"><b>Actividad/evidencia:</b> ${esc(ev.desc)} · <b>Instrumento:</b> ${esc(ev.proc)}</div>${knowledgeFor(ev.up,ev.c)?`<div class="quick-evidence-label"><b>Saber básico:</b> ${esc(knowledgeFor(ev.up,ev.c))}</div>`:''}
    <div class="quick-score-buttons">${levels.map(n=>{const r=rubric.find(x=>Number(x.score)===n);return `<button type="button" data-quick-score="${n}" data-quick-key="${k}" data-quick-c="${ev.c}" data-quick-seq="${ev.seq}" data-quick-up="${ev.up}" data-quick-desc="${esc(ev.desc)}" data-quick-level="${esc(r?.label||'')}" data-quick-rubric-desc="${esc(r?.desc||'')}" class="${Number(v)===n?'selected':''}"><strong>${n}</strong><small>${esc(r?.label||'')}</small></button>`}).join('')}</div>
+   <details class="quick-native-details assessment-participants"><summary>Autoevaluación y coevaluación</summary><div class="participant-assessment"><b>Autoevaluación · 10%</b><span class="tiny">Misma rúbrica · vacío no computa</span><div class="quick-score-buttons">${levels.map(n=>{const r=rubric.find(x=>Number(x.score)===n),sv=state.selfScores[k];return `<button type="button" data-self-score="${n}" data-assess-key="${k}" data-assess-label="${esc(r?.label||'')}" data-assess-desc="${esc(r?.desc||'')}" class="${hasValue(sv)&&Number(sv)===n?'selected':''}"><strong>${n}</strong><small>${esc(r?.label||'')}</small></button>`}).join('')}</div></div><div class="participant-assessment"><b>Coevaluación · 10%</b><span class="tiny">Misma rúbrica · vacío no computa</span><div class="quick-score-buttons">${levels.map(n=>{const r=rubric.find(x=>Number(x.score)===n),pv=state.peerScores[k];return `<button type="button" data-peer-score="${n}" data-assess-key="${k}" data-assess-label="${esc(r?.label||'')}" data-assess-desc="${esc(r?.desc||'')}" class="${hasValue(pv)&&Number(pv)===n?'selected':''}"><strong>${n}</strong><small>${esc(r?.label||'')}</small></button>`}).join('')}</div></div><div class="tiny"><b>Nota combinada:</b> ${(()=>{const x=blendedAssessment(state.scores[k],state.selfScores[k],state.peerScores[k]);return x===null?'—':x.toFixed(2)})()} · Profesor 80% · Auto 10% · Co 10%</div></details>
    <details class="quick-native-details"><summary>Ver qué significa cada nivel</summary><div class="quick-rubric-grid">${rubric.map(r=>`<div><b>${r.score} · ${esc(r.label)}</b><span>${esc(r.desc)}</span></div>`).join('')}</div></details>
    ${done?`<button type="button" class="quick-clear" data-quick-clear="${k}">Borrar</button>`:''}
   </div>`}).join('');
@@ -613,6 +805,7 @@ function continuousEvaluationHTML(comps){
    <div class="quick-evidence-label continuous-label">Observación contextual · ${esc(ev.up)}${ctxId!=='base'?` · ${esc(ctxId.toUpperCase())}`:''}</div>
    ${knowledgeFor(ev.up,ev.c)?`<div class="quick-evidence-label"><b>Saber básico:</b> ${esc(knowledgeFor(ev.up,ev.c))}</div>`:''}
    <div class="quick-score-buttons continuous-score-buttons">${rubric.map(r=>`<button type="button" data-cont-score="${r.score}" data-cont-key="${k}" class="${Number(v)===Number(r.score)?'selected':''}"><strong>${r.score}</strong><small>${esc(r.label)}</small></button>`).join('')}</div>
+   <details class="quick-native-details assessment-participants"><summary>Autoevaluación y coevaluación</summary><div class="participant-assessment"><b>Autoevaluación · 10%</b><div class="quick-score-buttons continuous-score-buttons">${rubric.map(r=>`<button type="button" data-self-cont-score="${r.score}" data-assess-key="${k}" class="${hasValue(state.selfQual[k])&&Number(state.selfQual[k])===Number(r.score)?'selected':''}"><strong>${r.score}</strong><small>${esc(r.label)}</small></button>`).join('')}</div></div><div class="participant-assessment"><b>Coevaluación · 10%</b><div class="quick-score-buttons continuous-score-buttons">${rubric.map(r=>`<button type="button" data-peer-cont-score="${r.score}" data-assess-key="${k}" class="${hasValue(state.peerQual[k])&&Number(state.peerQual[k])===Number(r.score)?'selected':''}"><strong>${r.score}</strong><small>${esc(r.label)}</small></button>`).join('')}</div></div><div class="tiny"><b>Seguimiento combinado:</b> ${(()=>{const x=continuousObservationValue(k);return x===null?'—':x.toFixed(2)})()}</div></details>
    <details class="quick-native-details"><summary>Ver qué observo en este contexto</summary><div class="quick-rubric-grid">${rubric.map(r=>`<div><b>${r.score} · ${esc(r.label)}</b><span>${esc(r.desc)}</span></div>`).join('')}</div></details>
    ${done?`<button type="button" class="quick-clear" data-cont-clear="${k}">Borrar</button>`:''}
   </div>`}).join('');
@@ -650,39 +843,53 @@ const up13ActivityContinuous={
  'Regulación, cooperación y seguridad':['3.1','3.2'],
  'Realización de la ruta':['3.1','3.2']
 };
-function activityNamesForUP(up){return [...new Set(principalForUP(up).map(e=>e.desc))]}
+// Para UP1-UP12 no se inventan sesiones que no estén definidas en la app.
+// La contextualización se realiza por la actividad/evidencia curricular ya existente.
+const continuousActivityByUP={
+ 'UP1':'Participación responsable y regulación del esfuerzo',
+ 'UP2':'Diseño y dirección de calentamiento',
+ 'UP3':'Participación responsable y autorregulación',
+ 'UP4':'Juego real/modificado de bádminton',
+ 'UP5':'Circuito/reto coordinativo',
+ 'UP7':'Composición gimnástica',
+ 'UP8':'Secuencia cooperativa de combas',
+ 'UP9':'Juego reducido 3×3 de minibásquet',
+ 'UP10':'Creación y representación colectiva',
+ 'UP11':'Toma de decisiones en juegos y deportes alternativos',
+ 'UP12':'Baúl de los juegos del instituto'
+};
+function isLegacyUP13Evidence(ev){return ev?.up==='UP13'&&ev?.c==='5.1'&&Number(ev?.seq)<=3}
+function activityNamesForUP(up){return [...new Set(principalForUP(up).filter(e=>!isLegacyUP13Evidence(e)).map(e=>e.desc))]}
+function selectedActivityForUP(up){const acts=activityNamesForUP(up);const chosen=state.ui.selectedActivity&&acts.includes(state.ui.selectedActivity)?state.ui.selectedActivity:acts[0];state.ui.selectedActivity=chosen;return chosen}
 function filteredPrincipalForEvaluation(up){
- const all=principalForUP(up),mode=state.ui.evaluationView||'activity';
- if(up!=='UP13')return all;
- if(mode==='activity'){
-  const acts=activityNamesForUP(up),chosen=state.ui.selectedActivity&&acts.includes(state.ui.selectedActivity)?state.ui.selectedActivity:acts[0];
-  state.ui.selectedActivity=chosen;return all.filter(e=>e.desc===chosen);
- }
- if(mode==='session'){
+ const all=principalForUP(up).filter(e=>!isLegacyUP13Evidence(e)),mode=state.ui.evaluationView||'activity';
+ if(mode==='session'&&up==='UP13'){
   const sn=Number(state.ui.selectedSession)||1,acts=up13Sessions[sn]?.activities||[];
   return all.filter(e=>acts.includes(e.desc));
  }
- return all;
+ const chosen=selectedActivityForUP(up);
+ return chosen?all.filter(e=>e.desc===chosen):all;
 }
 function filteredContinuousForEvaluation(up){
  const all=compsForUP(up),mode=state.ui.evaluationView||'activity';
- if(up!=='UP13')return all;
- if(mode==='activity'){
-  const acts=activityNamesForUP(up),chosen=state.ui.selectedActivity&&acts.includes(state.ui.selectedActivity)?state.ui.selectedActivity:acts[0];
-  const allowed=up13ActivityContinuous[chosen]||[];
+ if(up==='UP13'){
+  if(mode==='session'){
+   const sn=Number(state.ui.selectedSession)||1,allowed=up13Sessions[sn]?.continuous||[];
+   return all.filter(e=>allowed.includes(e.c));
+  }
+  const chosen=selectedActivityForUP(up),allowed=up13ActivityContinuous[chosen]||[];
   return all.filter(e=>allowed.includes(e.c));
  }
- if(mode==='session'){
-  const sn=Number(state.ui.selectedSession)||1,allowed=up13Sessions[sn]?.continuous||[];
-  return all.filter(e=>allowed.includes(e.c));
- }
- return all;
+ const chosen=selectedActivityForUP(up),contextActivity=continuousActivityByUP[up];
+ return chosen&&contextActivity===chosen?all:[];
 }
 function evaluationModeHTML(){
- if(state.selectedUP!=='UP13')return '';
- const mode=state.ui.evaluationView||'activity',acts=activityNamesForUP('UP13'),activity=state.ui.selectedActivity&&acts.includes(state.ui.selectedActivity)?state.ui.selectedActivity:acts[0],session=Number(state.ui.selectedSession)||1;
- const selector=mode==='activity'?`<label>Actividad / procedimiento</label><select id="evalActivitySel">${acts.map(a=>`<option ${a===activity?'selected':''}>${esc(a)}</option>`).join('')}</select>`:`<label>Sesión</label><select id="evalSessionSel">${Object.entries(up13Sessions).map(([n,o])=>`<option value="${n}" ${Number(n)===session?'selected':''}>${esc(o.title)}</option>`).join('')}</select>`;
- return `<div class="card v4-eval-mode"><div class="v4-mode-tabs"><button type="button" data-v4-mode="activity" class="${mode==='activity'?'active':''}">Por actividad</button><button type="button" data-v4-mode="session" class="${mode==='session'?'active':''}">Por sesión</button></div>${selector}<p class="tiny">Las evidencias ● del mismo criterio se integran mediante media aritmética. Vacío no equivale a cero.</p></div>`;
+ const up=state.selectedUP,mode=(up==='UP13'?(state.ui.evaluationView||'activity'):'activity'),acts=activityNamesForUP(up),activity=selectedActivityForUP(up),session=Number(state.ui.selectedSession)||1;
+ if(!acts.length)return '';
+ const activitySelector=`<label>Actividad / evidencia</label><select id="evalActivitySel">${acts.map(a=>`<option ${a===activity?'selected':''}>${esc(a)}</option>`).join('')}</select>`;
+ if(up!=='UP13')return `<div class="card v4-eval-mode"><div class="v4-mode-tabs"><button type="button" class="active">Por actividad</button></div>${activitySelector}<p class="tiny">La rúbrica, el saber básico y el instrumento se adaptan a la actividad seleccionada. Vacío no equivale a cero.</p></div>`;
+ const selector=mode==='activity'?activitySelector:`<label>Sesión</label><select id="evalSessionSel">${Object.entries(up13Sessions).map(([n,o])=>`<option value="${n}" ${Number(n)===session?'selected':''}>${esc(o.title)}</option>`).join('')}</select>`;
+ return `<div class="card v4-eval-mode"><div class="v4-mode-tabs"><button type="button" data-v4-mode="activity" class="${mode==='activity'?'active':''}">Por actividad</button><button type="button" data-v4-mode="session" class="${mode==='session'?'active':''}">Por sesión</button></div>${selector}<p class="tiny">La rúbrica, el saber básico y el instrumento se adaptan al contexto seleccionado. Vacío no equivale a cero.</p></div>`;
 }
 function viewEvaluar(){
  const g=fullGroup();if(!g)return `<div class="card empty">Primero crea un grupo en Ajustes.</div>`;
@@ -690,7 +897,7 @@ function viewEvaluar(){
  const sid=activeEvalSid(),evs=filteredPrincipalForEvaluation(state.selectedUP),comps=filteredContinuousForEvaluation(state.selectedUP);
  return `${groupSelectors()}${evaluationModeHTML()}<div class="card eval-student-picker"><div class="eval-picker-head"><div><h2>Evaluar</h2><p class="muted">Un alumno cada vez. Cambia de alumno sin salir de la unidad.</p></div><span class="pill main">${state.selectedUP}</span></div><label>Alumno</label><select id="evalStudentSel">${g.students.map(st=>`<option value="${st.id}" ${st.id===sid?'selected':''}>${esc(st.name)}</option>`).join('')}</select>${evaluateStudentNavHTML()}</div>${pentagonEvaluateHTML()}${quickEvaluationHTML(evs)}${continuousEvaluationHTML(comps)}${teacherAnnotationsHTML()}${evaluateStudentNavHTML()}`;
 }
-function scoreListHTML(ev){const g=group();if(!g)return '';const mode=state.ui.scoreMode,rubric=rubricFor(ev);return g.students.map(s=>{const k=scoreKey(g.id,s.id,ev.c,ev.seq),v=state.scores[k],mark=state.rubricMarks[k];let controls='';if(mode==='levels'){controls=`<div class="level-buttons rubric-buttons">${rubric.map(x=>`<button data-score="${x.score}" data-key="${k}" data-level="${x.label}" data-desc="${esc(x.desc)}" class="${mark?.label===x.label||(!mark&&String(v)===String(x.score))?'selected':''}">${x.label}<small>${x.score}</small></button>`).join('')}</div>${v!==undefined&&v!==''?`<button class="clear-score-text" data-clear="${k}">Borrar valoración</button>`:''}`}else{controls=`<div class="score-buttons">${[2,4,5,6,7,8,9,10].map(x=>`<button data-score="${x}" data-key="${k}" class="${String(v)===String(x)?'selected':''}">${x}</button>`).join('')}${v!==undefined&&v!==''?`<button class="clear-score-inline" data-clear="${k}" title="Borrar valoración">×</button>`:''}</div>`}return `<div class="student-row compact-score-row"><div class="student-name student-with-avatar">${avatarHTML(g.id,s,'sm')}<div class="student-name-text"><b>${esc(s.name)}</b><div class="tiny">Criterio ${ev.c}${v!==undefined&&v!==''?` · ${mark?esc(mark.label)+' · ':''}${v}`:''}</div></div>${controls}</div>`}).join('')}
+function scoreListHTML(ev){const g=group();if(!g)return '';const mode=state.ui.scoreMode,rubric=rubricFor(ev);return g.students.map(s=>{const k=scoreKey(g.id,s.id,ev.c,ev.seq),v=state.scores[k],mark=state.rubricMarks[k];let controls='';if(mode==='levels'){controls=`<div class="level-buttons rubric-buttons">${rubric.map(x=>`<button data-score="${x.score}" data-key="${k}" data-level="${x.label}" data-desc="${esc(x.desc)}" class="${mark?.label===x.label||(!mark&&String(v)===String(x.score))?'selected':''}">${x.label}<small>${x.score}</small></button>`).join('')}</div>${v!==undefined&&v!==''?`<button class="clear-score-text" data-clear="${k}">Borrar valoración</button>`:''}`}else{controls=`<div class="score-buttons">${[0,2,4,5,6,7,8,9,10].map(x=>`<button data-score="${x}" data-key="${k}" class="${String(v)===String(x)?'selected':''}">${x}</button>`).join('')}${v!==undefined&&v!==''?`<button class="clear-score-inline" data-clear="${k}" title="Borrar valoración">×</button>`:''}</div>`}return `<div class="student-row compact-score-row"><div class="student-name student-with-avatar">${avatarHTML(g.id,s,'sm')}<div class="student-name-text"><b>${esc(s.name)}</b><div class="tiny">Criterio ${ev.c}${v!==undefined&&v!==''?` · ${mark?esc(mark.label)+' · ':''}${v}`:''}</div></div>${controls}</div>`}).join('')}
 function qualListHTML(c,up){const g=group();return g.students.map(s=>{const k=qualKey(g.id,s.id,c,up),v=state.qual[k]||'';return `<div class="student-row"><div class="student-name student-with-avatar">${avatarHTML(g.id,s,'sm')}<div class="student-name-text"><b>${esc(s.name)}</b><div class="tiny">${criterionLabel(c)} · ${up}</div></div></div><select data-qual-key="${k}"><option value="">—</option>${['En proceso','Adecuado','Consolidado'].map(x=>`<option ${v===x?'selected':''}>${x}</option>`).join('')}</select></div>`}).join('')}
 function formalCE3ClosureHTML(g,st,period){
  if(!['eval1','eval2','eval3','final'].includes(period))return '';
@@ -728,7 +935,7 @@ function viewAjustes(){
  const photosHTML=active?`<details class="card student-admin-details"><summary><span>Alumnado y fotos</span><small>${active.students.length} alumnos · ${esc(active.name)}</small></summary><div class="student-admin-content"><p class="muted">Grupo activo: <b>${esc(active.name)}</b>. Las fotos se guardan solo en este dispositivo y se incluyen en la copia JSON.</p>${active.students.length?`<div class="student-photo-list always-visible">${active.students.map(st=>{const has=!!state.photos[photoKey(active.id,st.id)];return `<div class="student-photo-row">${avatarHTML(active.id,st,'lg')}<div class="student-photo-name"><b>${esc(st.name)}</b><span>${has?'Foto guardada':'Sin foto'}</span></div><div class="photo-actions"><label class="btn small secondary photo-upload-btn">${has?'Cambiar':'Elegir foto'}<input type="file" accept="image/*" data-photo-upload="${active.id}|${st.id}" hidden></label><label class="btn small secondary photo-upload-btn camera-btn">Cámara<input type="file" accept="image/*" capture="user" data-photo-upload="${active.id}|${st.id}" hidden></label>${has?`<button class="btn small secondary" data-remove-photo="${active.id}|${st.id}">Quitar foto</button>`:''}<button class="btn small warning-action" data-clear-evaluations="${active.id}|${st.id}" data-student-name="${esc(st.name)}">Borrar evaluaciones</button><button class="btn small danger" data-delete-student="${active.id}|${st.id}" data-student-name="${esc(st.name)}">Eliminar alumno</button></div></div>`}).join('')}</div>`:`<div class="muted">Añade alumnado al grupo para poder asignar fotografías.</div>`}</div></details>`:'';
  return `<div class="card"><h2>Grupos y alumnado</h2><div class="row"><input id="newGroup" placeholder="Ej. 1.º ESO A"><button class="btn" id="addGroup">Crear grupo</button></div>${groupsHTML}</div>
  ${photosHTML}
- <div class="card"><h2>Organización flexible de evaluaciones</h2><p class="muted">Asigna cada UP al periodo en el que realmente la impartas. La numeración de la UP no cambia: por ejemplo, puedes realizar UP13 en octubre y asignarla a la 1.ª evaluación. La evaluación final seguirá siendo acumulativa con todo el curso.</p><div class="up-period-list">${ups.map(([u,n])=>`<div class="up-period-row"><div><b>${u}</b><span>${esc(n)}</span></div><select data-up-period="${u}" aria-label="Evaluación de ${u}"><option value="eval1" ${upPeriod(u)==='eval1'?'selected':''}>1.ª evaluación</option><option value="eval2" ${upPeriod(u)==='eval2'?'selected':''}>2.ª evaluación</option><option value="eval3" ${upPeriod(u)==='eval3'?'selected':''}>3.ª / tramo final</option></select></div>`).join('')}</div><p class="tiny"><b>CE3 continua:</b> integra la trayectoria disponible y prioriza las tres evidencias más recientes: 15% · 25% · 60%. Con dos evidencias se normaliza a 29,4% · 70,6%; con una, 100%. Puede reflejar mejora o descenso. La evaluación final integra todas las UP.</p></div>
+ <div class="card"><h2>Organización flexible de evaluaciones</h2><p class="muted">Asigna cada UP al periodo en el que realmente la impartas. La numeración de la UP no cambia: por ejemplo, puedes realizar UP13 en octubre y asignarla a la 1.ª evaluación. La evaluación final seguirá siendo acumulativa con todo el curso.</p><div class="up-period-list">${ups.map(([u,n])=>`<div class="up-period-row"><div><b>${u}</b><span>${esc(n)}</span></div><select data-up-period="${u}" aria-label="Evaluación de ${u}"><option value="eval1" ${upPeriod(u)==='eval1'?'selected':''}>1.ª evaluación</option><option value="eval2" ${upPeriod(u)==='eval2'?'selected':''}>2.ª evaluación</option><option value="eval3" ${upPeriod(u)==='eval3'?'selected':''}>3.ª / tramo final</option></select></div>`).join('')}</div><p class="tiny"><b>CE3 continua:</b> integra la trayectoria disponible y prioriza las tres evidencias más recientes: 15% · 25% · 60%. Con dos evidencias se normaliza a 29,4% · 70,6%; una sola observación se muestra como seguimiento, pero no permite cerrar el criterio. Puede reflejar mejora o descenso. La evaluación final integra todas las UP.</p></div>
  <div class="card"><h2>Auditoría 40 %</h2>${Object.entries(a).map(([p,v])=>`<div style="margin-bottom:9px"><div class="row"><span>${esc(p)}</span><b>${v.toFixed(2)}%</b></div><div class="progress"><span style="width:${Math.min(v,100)}%"></span></div></div>`).join('')}<p class="muted">Todos los procedimientos deben permanecer ≤ 40 %.</p></div>
  <div class="card"><h2>Copias de seguridad</h2><div class="toolbar"><button class="btn" id="exportJson">Exportar copia JSON</button><label class="btn secondary" style="display:inline-block">Importar JSON<input type="file" id="importJson" accept="application/json" hidden></label><button class="btn secondary" id="exportCsv">Exportar resumen CSV</button></div><p class="backup-status"><b>Última copia exportada:</b> ${esc(backupDateText())}</p><p class="muted">Los datos, incluidas las fotos, se guardan solo en este dispositivo/navegador. Las fotos se comprimen y se incluyen en la copia JSON; conserva esas copias en un lugar seguro y no las subas al repositorio público de GitHub.</p></div>`
 }
@@ -760,14 +967,19 @@ function updateContinuousRowUI(btn,score){
  ensureClearButton(row,btn.dataset.contKey,'data-cont-clear');updateProgressForCard(row.closest('.continuous-eval-card'));
 }
 function bind(){document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{currentView=b.dataset.go;render()});document.querySelectorAll('.bottom-nav button').forEach(b=>b.onclick=()=>{currentView=b.dataset.view;render()});
- const gs=document.getElementById('groupSel');if(gs)gs.onchange=e=>{state.selectedGroup=e.target.value;state.ui.openEvaluateStudent=null;save();render()};const us=document.getElementById('upSel');if(us)us.onchange=e=>{state.selectedUP=e.target.value;state.ui.openEvaluateStudent=null;save();render()};
+ const gs=document.getElementById('groupSel');if(gs)gs.onchange=e=>{state.selectedGroup=e.target.value;state.ui.openEvaluateStudent=null;save();render()};const us=document.getElementById('upSel');if(us)us.onchange=e=>{state.selectedUP=e.target.value;state.ui.openEvaluateStudent=null;state.ui.selectedActivity=null;state.ui.evaluationView='activity';save();render()};
  const es=document.getElementById('evalStudentSel');if(es)es.onchange=e=>{state.ui.openEvaluateStudent=e.target.value;save();render()};
  const ds=document.getElementById('dateSel');if(ds)ds.onchange=e=>{state.selectedDate=e.target.value||todayISO();save();render()};
  document.querySelectorAll('[data-eval-jump]').forEach(b=>b.onclick=()=>{if(!b.dataset.evalJump)return;state.ui.openEvaluateStudent=b.dataset.evalJump;save();render();setTimeout(()=>document.querySelector(`[data-evaluate-student=\"${CSS.escape(state.ui.openEvaluateStudent)}\"]`)?.scrollIntoView({block:'start'}),30)});
  document.querySelectorAll('[data-quick-score]').forEach(b=>b.onclick=()=>{const g=fullGroup(),sid=activeEvalSid();if(!g||!sid)return;const k=b.dataset.quickKey,score=Number(b.dataset.quickScore);state.ui.openEvaluateStudent=sid;if(state.scores[k]!==undefined&&state.scores[k]!==null&&state.scores[k]!==''&&Number(state.scores[k])===score){delete state.scores[k];delete state.rubricMarks[k];save();toast(`${b.dataset.quickC} · vacío`);render();return}state.scores[k]=score;state.rubricMarks[k]={label:b.dataset.quickLevel||'',score,desc:b.dataset.quickRubricDesc||'',criterion:b.dataset.quickC,up:b.dataset.quickUp,evidence:b.dataset.quickDesc};save();updateQuickRowUI(b,score,b.dataset.quickLevel||'');toast(`${b.dataset.quickC} · ${score}`)});
  document.querySelectorAll('[data-quick-clear]').forEach(b=>b.onclick=()=>{delete state.scores[b.dataset.quickClear];delete state.rubricMarks[b.dataset.quickClear];save();render()});
+ document.querySelectorAll('[data-self-score]').forEach(b=>b.onclick=()=>{const k=b.dataset.assessKey,score=Number(b.dataset.selfScore);if(hasValue(state.selfScores[k])&&Number(state.selfScores[k])===score){delete state.selfScores[k];delete state.selfRubricMarks[k]}else{state.selfScores[k]=score;state.selfRubricMarks[k]={label:b.dataset.assessLabel||'',score,desc:b.dataset.assessDesc||''}}save();render()});
+ document.querySelectorAll('[data-peer-score]').forEach(b=>b.onclick=()=>{const k=b.dataset.assessKey,score=Number(b.dataset.peerScore);if(hasValue(state.peerScores[k])&&Number(state.peerScores[k])===score){delete state.peerScores[k];delete state.peerRubricMarks[k]}else{state.peerScores[k]=score;state.peerRubricMarks[k]={label:b.dataset.assessLabel||'',score,desc:b.dataset.assessDesc||''}}save();render()});
+ document.querySelectorAll('[data-self-cont-score]').forEach(b=>b.onclick=()=>{const k=b.dataset.assessKey,score=Number(b.dataset.selfContScore);if(hasValue(state.selfQual[k])&&Number(state.selfQual[k])===score)delete state.selfQual[k];else state.selfQual[k]=score;invalidateContinuousClosuresForObservationKey(k);save();render()});
+ document.querySelectorAll('[data-peer-cont-score]').forEach(b=>b.onclick=()=>{const k=b.dataset.assessKey,score=Number(b.dataset.peerContScore);if(hasValue(state.peerQual[k])&&Number(state.peerQual[k])===score)delete state.peerQual[k];else state.peerQual[k]=score;invalidateContinuousClosuresForObservationKey(k);save();render()});
+
  document.querySelectorAll('[data-eval-note]').forEach(t=>{const store=()=>{const k=t.dataset.evalNote,v=t.value.trim();if(v)state.notes[k]=v;else delete state.notes[k];save()};t.oninput=store;t.onchange=()=>{store();toast('Observación guardada')}});
- document.querySelectorAll('[data-cont-score]').forEach(b=>b.onclick=()=>{const score=Number(b.dataset.contScore),k=b.dataset.contKey;if(state.qual[k]!==undefined&&state.qual[k]!==null&&state.qual[k]!==''&&Number(state.qual[k])===score){delete state.qual[k];delete state.qualDates[k];const invalidated=invalidateContinuousClosuresForObservationKey(k);save();toast(invalidated?'Observación borrada · cierres afectados reabiertos':'Evaluación continua · vacío');render();return}const changed=state.qual[k]===undefined||state.qual[k]===null||state.qual[k]===''||Number(state.qual[k])!==score;state.qual[k]=score;state.qualDates[k]=todayISO();const invalidated=changed?invalidateContinuousClosuresForObservationKey(k):0;save();if(invalidated){toast('Observación modificada · cierres afectados reabiertos');render();return}updateContinuousRowUI(b,score);toast('Evaluación continua guardada')});
+ document.querySelectorAll('[data-cont-score]').forEach(b=>b.onclick=()=>{const score=Number(b.dataset.contScore),k=b.dataset.contKey;if(state.qual[k]!==undefined&&state.qual[k]!==null&&state.qual[k]!==''&&Number(state.qual[k])===score){delete state.qual[k];delete state.qualDates[k];const invalidated=invalidateContinuousClosuresForObservationKey(k);save();toast(invalidated?'Observación borrada · cierres afectados reabiertos':'Evaluación continua · vacío');render();return}const changed=state.qual[k]===undefined||state.qual[k]===null||state.qual[k]===''||Number(state.qual[k])!==score;state.qual[k]=score;state.qualDates[k]=new Date().toISOString();const invalidated=changed?invalidateContinuousClosuresForObservationKey(k):0;save();if(invalidated){toast('Observación modificada · cierres afectados reabiertos');render();return}updateContinuousRowUI(b,score);toast('Evaluación continua guardada')});
  document.querySelectorAll('[data-cont-clear]').forEach(b=>b.onclick=()=>{const k=b.dataset.contClear;delete state.qual[k];delete state.qualDates[k];const invalidated=invalidateContinuousClosuresForObservationKey(k);save();toast(invalidated?'Seguimiento borrado · cierres afectados reabiertos':'Seguimiento borrado');render()});
  document.querySelectorAll('[data-closure-keep]').forEach(b=>b.onclick=()=>{const key=b.dataset.closureKeep,c=b.dataset.closureC;if(state.continuousClosures?.[key])return;const p=b.dataset.closurePrincipal===''?null:Number(b.dataset.closurePrincipal),cl=b.dataset.closureContinuous===''?null:Number(b.dataset.closureContinuous);state.continuousClosures[key]={mode:'kept',date:todayISO(),criterion:c,period:b.dataset.closurePeriod||state.ui.evaluationPeriod,source:'Cierre formal de evaluación continua',kind:'decision',confirmed:true,maintainedValue:Number.isFinite(p)?p:null,continuousValue:Number.isFinite(cl)?cl:null};save();toast('Cierre revisado: se mantiene el nivel');render()});
  document.querySelectorAll('[data-closure-confirm]').forEach(b=>b.onclick=()=>{const key=b.dataset.closureConfirm,value=Number(b.dataset.closureValue),c=b.dataset.closureC;if(!Number.isFinite(value)||state.continuousClosures?.[key])return;state.continuousClosures[key]={mode:'updated',value,date:todayISO(),criterion:c,period:b.dataset.closurePeriod||state.ui.evaluationPeriod,source:'Cierre formal de evaluación continua',kind:'principal',confirmed:true};save();toast('Actualización confirmada como evidencia ●');render()});
@@ -792,7 +1004,7 @@ function bind(){document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>
  document.querySelectorAll('[data-apply-up3-task]').forEach(b=>b.onclick=()=>{const g=group(),sid=b.dataset.up3TaskSid,c=b.dataset.up3TaskCriterion,score=Number(b.dataset.up3TaskScore),level=b.dataset.up3TaskLevel,ev=(evidence[c]||[]).map((e,i)=>({e,seq:i+1})).find(x=>x.e[0]==='UP3');if(!g||!ev)return;const k=scoreKey(g.id,sid,c,ev.seq),rub=rubricOverrides[`UP3|${c}`]?.find(x=>x.score===score);state.scores[k]=score;state.rubricMarks[k]={label:level,score,desc:rub?.desc||'',criterion:c,up:'UP3',evidence:ev.e[2]};state.ui.openUp3Task=sid;save();toast(`Nivel registrado en ${c}`);render();setTimeout(()=>document.getElementById('cfb-'+sid)?.scrollIntoView({block:'center'}),60)});
  document.querySelectorAll('[data-up4-game-value]').forEach(b=>b.onclick=()=>{const k=b.dataset.up4GameKey,c=b.dataset.up4GameCriterion,sid=b.dataset.up4GameSid;state.up4Game[k]=state.up4Game[k]||{};state.up4Game[k][c]=Number(b.dataset.up4GameValue);state.ui.openUp4Game=sid;save();render();setTimeout(()=>document.getElementById('bad-'+sid)?.scrollIntoView({block:'nearest'}),20)});
  document.querySelectorAll('[data-up4-game-student]').forEach(d=>d.addEventListener('toggle',()=>{if(d.open){state.ui.openUp4Game=d.dataset.up4GameStudent;document.querySelectorAll('[data-up4-game-student]').forEach(o=>{if(o!==d)o.open=false});save()}else if(state.ui.openUp4Game===d.dataset.up4GameStudent){state.ui.openUp4Game=null;save()}}));
- document.querySelectorAll('[data-apply-up4-game]').forEach(b=>b.onclick=()=>{const g=group(),sid=b.dataset.up4GameSid,c=b.dataset.up4GameCriterion,score=Number(b.dataset.up4GameScore),level=b.dataset.up4GameLevel,ev=(evidence[c]||[]).map((e,i)=>({e,seq:i+1})).find(x=>x.e[0]==='UP4');if(!g||!ev)return;const k=scoreKey(g.id,sid,c,ev.seq),rub=rubricOverrides[`UP4|${c}`]?.find(x=>x.score===score);state.scores[k]=score;state.rubricMarks[k]={label:level,score,desc:rub?.desc||'',criterion:c,up:'UP4',evidence:ev.e[2]};state.ui.openUp4Game=sid;save();toast(`Nivel registrado en ${c}`);render();setTimeout(()=>document.getElementById('bad-'+sid)?.scrollIntoView({block:'center'}),60)});
+ document.querySelectorAll('[data-apply-up4-game]').forEach(b=>b.onclick=()=>{const g=group(),sid=b.dataset.up4GameSid,c=b.dataset.up4GameCriterion,score=Number(b.dataset.up4GameScore),level=b.dataset.up4GameLevel;if(!g)return;if(isContinuousCriterion(c)){const k=contextualQualKey(g.id,sid,c,'UP4');state.qual[k]=score;state.qualDates[k]=new Date().toISOString();invalidateContinuousClosuresForObservationKey(k)}else{const ev=(evidence[c]||[]).map((e,i)=>({e,seq:i+1})).find(x=>x.e[0]==='UP4');if(!ev)return;const k=scoreKey(g.id,sid,c,ev.seq),rub=rubricOverrides[`UP4|${c}`]?.find(x=>x.score===score);state.scores[k]=score;state.rubricMarks[k]={label:level,score,desc:rub?.desc||'',criterion:c,up:'UP4',evidence:ev.e[2]}}state.ui.openUp4Game=sid;save();toast(`Nivel registrado en ${c}`);render();setTimeout(()=>document.getElementById('bad-'+sid)?.scrollIntoView({block:'center'}),60)});
  document.querySelectorAll('[data-warm-value]').forEach(b=>b.onclick=()=>{const k=b.dataset.warmKey,f=b.dataset.warmField;state.warmups[k]=state.warmups[k]||{};state.warmups[k][f]=Number(b.dataset.warmValue);state.ui.openWarmup=k.split('|')[1];save();render();setTimeout(()=>document.getElementById('warm-'+state.ui.openWarmup)?.scrollIntoView({block:'nearest'}),20)});
  document.querySelectorAll('[data-warm-student]').forEach(d=>d.addEventListener('toggle',()=>{if(d.open){state.ui.openWarmup=d.dataset.warmStudent;document.querySelectorAll('[data-warm-student]').forEach(o=>{if(o!==d)o.open=false});save()}else if(state.ui.openWarmup===d.dataset.warmStudent){state.ui.openWarmup=null;save()}}));
  document.querySelectorAll('[data-apply-warmup]').forEach(b=>b.onclick=()=>{const g=group(),sid=b.dataset.applyWarmup.split('|')[1],ev=(evidence['1.2']||[]).map((e,i)=>({e,seq:i+1})).find(x=>x.e[0]==='UP2');if(!g||!ev)return;const k=scoreKey(g.id,sid,'1.2',ev.seq),score=Number(b.dataset.warmScore),level=b.dataset.warmLevel,r=rubricOverrides['UP2|1.2'].find(x=>x.score===score);state.scores[k]=score;state.rubricMarks[k]={label:level,score,desc:r?.desc||'',criterion:'1.2',up:'UP2',evidence:'Diseño y dirección de calentamiento'};const idx=g.students.findIndex(x=>x.id===sid),next=g.students[idx+1];state.ui.openWarmup=next?.id||null;save();toast('Nivel registrado en 1.2');render();if(next)setTimeout(()=>document.getElementById('warm-'+next.id)?.scrollIntoView({behavior:'smooth',block:'center'}),80)});
@@ -808,14 +1020,14 @@ function bind(){document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>
  document.querySelectorAll('[data-v4-mode]').forEach(b=>b.onclick=()=>{state.ui.evaluationView=b.dataset.v4Mode;save();render()});const eas=document.getElementById('evalActivitySel');if(eas)eas.onchange=e=>{state.ui.selectedActivity=e.target.value;save();render()};const ess=document.getElementById('evalSessionSel');if(ess)ess.onchange=e=>{state.ui.selectedSession=Number(e.target.value);save();render()};
  if(currentView==='evaluar'){const evs=principalForUP(state.selectedUP),sel=document.getElementById('evSel'),meta=document.getElementById('evMeta'),box=document.getElementById('studentScores');if(sel&&Number.isInteger(state.ui.openEvidence)&&evs[state.ui.openEvidence]){sel.value=String(state.ui.openEvidence);delete state.ui.openEvidence;save()}const draw=()=>{const ev=evs[Number(sel.value)||0];if(!ev)return;meta.innerHTML=`<div class="row"><div><span class="pill main">● ${ev.c}</span> · ${esc(ev.proc)}<br><b>${esc(ev.desc)}</b></div><div class="counter">${scoredCount(group(),ev)}/${group().students.length} registrados</div></div>${state.ui.scoreMode==='levels'?rubricReferenceHTML(ev):''}`;box.innerHTML=scoreListHTML(ev);box.querySelectorAll('[data-score]').forEach(b=>b.onclick=()=>{state.scores[b.dataset.key]=Number(b.dataset.score);if(state.ui.scoreMode==='levels'&&b.dataset.level){state.rubricMarks[b.dataset.key]={label:b.dataset.level,score:Number(b.dataset.score),desc:b.dataset.desc,criterion:ev.c,up:ev.up,evidence:ev.desc}}else{delete state.rubricMarks[b.dataset.key]}save();draw()});box.querySelectorAll('[data-clear]').forEach(b=>b.onclick=()=>{delete state.scores[b.dataset.clear];delete state.rubricMarks[b.dataset.clear];save();draw()})};if(sel){sel.onchange=draw;draw()}}
  const ag=document.getElementById('addGroup');if(ag)ag.onclick=()=>{const name=document.getElementById('newGroup').value.trim();if(!name)return;const g={id:id(),name,students:[]};state.groups.push(g);state.selectedGroup=g.id;save();render();toast('Grupo creado')};
- document.querySelectorAll('[data-select-group]').forEach(b=>b.onclick=()=>{state.selectedGroup=b.dataset.selectGroup;state.ui.openEvaluateStudent=null;state.ui.openSummaryStudent=null;save();render();toast('Grupo seleccionado')});document.querySelectorAll('[data-delete-group]').forEach(b=>b.onclick=()=>{const gid=b.dataset.deleteGroup,g=state.groups.find(x=>x.id===gid);if(!g)return;const ok=confirm(`Vas a eliminar el grupo “${g.name}” y TODOS sus datos asociados: alumnado, notas, evidencias, asistencia, observaciones, instrumentos y fotos.\n\nEsta acción no se puede deshacer. ¿Eliminar grupo?`);if(ok){state.groups=state.groups.filter(x=>x.id!==gid);[state.scores,state.rubricMarks,state.qual,state.qualDates,state.continuousClosures,state.attendance,state.notes,state.teacherNotes,state.fitness,state.reflections,state.warmups,state.up3RPE,state.up3Tasks,state.up4Game,state.photos].forEach(obj=>Object.keys(obj).filter(k=>k.startsWith(gid+'|')).forEach(k=>delete obj[k]));state.selectedGroup=state.groups[0]?.id||null;state.ui.openEvaluateStudent=null;state.ui.openSummaryStudent=null;savePhotos();save();render();toast('Grupo eliminado')}});
+ document.querySelectorAll('[data-select-group]').forEach(b=>b.onclick=()=>{state.selectedGroup=b.dataset.selectGroup;state.ui.openEvaluateStudent=null;state.ui.openSummaryStudent=null;save();render();toast('Grupo seleccionado')});document.querySelectorAll('[data-delete-group]').forEach(b=>b.onclick=()=>{const gid=b.dataset.deleteGroup,g=state.groups.find(x=>x.id===gid);if(!g)return;const ok=confirm(`Vas a eliminar el grupo “${g.name}” y TODOS sus datos asociados: alumnado, notas, evidencias, asistencia, observaciones, instrumentos y fotos.\n\nEsta acción no se puede deshacer. ¿Eliminar grupo?`);if(ok){state.groups=state.groups.filter(x=>x.id!==gid);[state.scores,state.rubricMarks,state.selfScores,state.peerScores,state.selfRubricMarks,state.peerRubricMarks,state.qual,state.selfQual,state.peerQual,state.qualDates,state.continuousClosures,state.attendance,state.notes,state.teacherNotes,state.fitness,state.reflections,state.warmups,state.up3RPE,state.up3Tasks,state.up4Game,state.photos].forEach(obj=>Object.keys(obj).filter(k=>k.startsWith(gid+'|')).forEach(k=>delete obj[k]));state.selectedGroup=state.groups[0]?.id||null;state.ui.openEvaluateStudent=null;state.ui.openSummaryStudent=null;savePhotos();save();render();toast('Grupo eliminado')}});
  document.querySelectorAll('[data-add-students]').forEach(b=>b.onclick=()=>{const g=state.groups.find(x=>x.id===b.dataset.addStudents),ta=document.getElementById('bulk-'+g.id);ta.value.split(/\n+/).map(x=>x.trim()).filter(Boolean).forEach(name=>g.students.push({id:id(),name}));save();render();toast('Alumnado añadido')});
  document.querySelectorAll('[data-photo-upload]').forEach(inp=>inp.onchange=async()=>{const file=inp.files?.[0];if(!file)return;if(!file.type.startsWith('image/')){alert('Selecciona una imagen.');return}try{const data=await compressPhoto(file);state.photos[inp.dataset.photoUpload]=data;savePhotos();save();toast('Foto guardada');render()}catch{alert('No se pudo procesar la foto.')}});
  document.querySelectorAll('[data-remove-photo]').forEach(b=>b.onclick=()=>{if(confirm('¿Quitar únicamente la foto de este alumno?')){delete state.photos[b.dataset.removePhoto];savePhotos();save();render()}});
  document.querySelectorAll('[data-clear-evaluations]').forEach(b=>b.onclick=()=>{const [gid,sid]=b.dataset.clearEvaluations.split('|'),g=state.groups.find(x=>x.id===gid),st=g?.students.find(x=>x.id===sid);if(!g||!st)return;const ok=confirm(`Vas a borrar TODAS las evaluaciones de “${st.name}”: calificaciones ●, seguimientos ○, cierres CE3, instrumentos de evaluación y anotaciones del profesor.\n\nSe conservarán el alumno, su foto y la asistencia. Esta acción no se puede deshacer.
 
-Recomendado: exporta una copia JSON antes de continuar. ¿Borrar evaluaciones?`);if(!ok)return;const prefix=gid+'|'+sid;[state.scores,state.rubricMarks,state.qual,state.qualDates,state.continuousClosures,state.teacherNotes,state.fitness,state.reflections,state.warmups,state.up3RPE,state.up3Tasks,state.up4Game].forEach(obj=>Object.keys(obj||{}).filter(k=>k===prefix||k.startsWith(prefix+'|')).forEach(k=>delete obj[k]));save();render();toast('Evaluaciones borradas')});
- document.querySelectorAll('[data-delete-student]').forEach(b=>b.onclick=()=>{const [gid,sid]=b.dataset.deleteStudent.split('|'),g=state.groups.find(x=>x.id===gid),st=g?.students.find(x=>x.id===sid);if(!g||!st)return;const ok=confirm(`Vas a eliminar a “${st.name}” y TODOS sus datos asociados: notas, evidencias, asistencia, observaciones, instrumentos y foto.\n\nEsta acción no se puede deshacer. ¿Eliminar alumno?`);if(!ok)return;g.students=g.students.filter(x=>x.id!==sid);const prefix=gid+'|'+sid;[state.scores,state.rubricMarks,state.qual,state.qualDates,state.continuousClosures,state.attendance,state.notes,state.teacherNotes,state.fitness,state.reflections,state.warmups,state.up3RPE,state.up3Tasks,state.up4Game,state.photos].forEach(obj=>Object.keys(obj).filter(k=>k===prefix||k.startsWith(prefix+'|')).forEach(k=>delete obj[k]));if(state.ui.openEvaluateStudent===sid)state.ui.openEvaluateStudent=null;if(state.ui.openSummaryStudent===sid)state.ui.openSummaryStudent=null;if(state.ui.openWarmup===sid)state.ui.openWarmup=null;if(state.ui.openUp3RPE===sid)state.ui.openUp3RPE=null;if(state.ui.openUp3Task===sid)state.ui.openUp3Task=null;if(state.ui.openUp4Game===sid)state.ui.openUp4Game=null;savePhotos();save();render();toast('Alumno eliminado')});
+Recomendado: exporta una copia JSON antes de continuar. ¿Borrar evaluaciones?`);if(!ok)return;const prefix=gid+'|'+sid;[state.scores,state.rubricMarks,state.selfScores,state.peerScores,state.selfRubricMarks,state.peerRubricMarks,state.qual,state.selfQual,state.peerQual,state.qualDates,state.continuousClosures,state.teacherNotes,state.fitness,state.reflections,state.warmups,state.up3RPE,state.up3Tasks,state.up4Game].forEach(obj=>Object.keys(obj||{}).filter(k=>k===prefix||k.startsWith(prefix+'|')).forEach(k=>delete obj[k]));save();render();toast('Evaluaciones borradas')});
+ document.querySelectorAll('[data-delete-student]').forEach(b=>b.onclick=()=>{const [gid,sid]=b.dataset.deleteStudent.split('|'),g=state.groups.find(x=>x.id===gid),st=g?.students.find(x=>x.id===sid);if(!g||!st)return;const ok=confirm(`Vas a eliminar a “${st.name}” y TODOS sus datos asociados: notas, evidencias, asistencia, observaciones, instrumentos y foto.\n\nEsta acción no se puede deshacer. ¿Eliminar alumno?`);if(!ok)return;g.students=g.students.filter(x=>x.id!==sid);const prefix=gid+'|'+sid;[state.scores,state.rubricMarks,state.selfScores,state.peerScores,state.selfRubricMarks,state.peerRubricMarks,state.qual,state.selfQual,state.peerQual,state.qualDates,state.continuousClosures,state.attendance,state.notes,state.teacherNotes,state.fitness,state.reflections,state.warmups,state.up3RPE,state.up3Tasks,state.up4Game,state.photos].forEach(obj=>Object.keys(obj).filter(k=>k===prefix||k.startsWith(prefix+'|')).forEach(k=>delete obj[k]));if(state.ui.openEvaluateStudent===sid)state.ui.openEvaluateStudent=null;if(state.ui.openSummaryStudent===sid)state.ui.openSummaryStudent=null;if(state.ui.openWarmup===sid)state.ui.openWarmup=null;if(state.ui.openUp3RPE===sid)state.ui.openUp3RPE=null;if(state.ui.openUp3Task===sid)state.ui.openUp3Task=null;if(state.ui.openUp4Game===sid)state.ui.openUp4Game=null;savePhotos();save();render();toast('Alumno eliminado')});
  const ej=document.getElementById('exportJson');if(ej)ej.onclick=()=>{try{state.ui.lastBackupExport=new Date().toISOString();save();const json=JSON.stringify(state,null,2);download('cuaderno-ef-backup.json',json,'application/json;charset=utf-8');render();toast('Copia JSON preparada')}catch(err){console.error('Error al exportar JSON',err);alert('No se pudo exportar la copia JSON. Tus datos siguen guardados en este dispositivo.')}};const ij=document.getElementById('importJson');if(ij)ij.onchange=async e=>{const file=e.target.files?.[0];if(!file)return;try{const imported=migrate(JSON.parse(await file.text()));const ok=confirm('La importación sustituirá los datos actuales de este dispositivo.\n\nRecomendamos exportar primero una copia JSON del estado actual.\n\n¿Importar la copia seleccionada?');if(!ok){e.target.value='';toast('Importación cancelada');return}state=imported;savePhotos();save();render();toast('Copia importada')}catch{alert('Archivo no válido');e.target.value=''}};const ec=document.getElementById('exportCsv');if(ec)ec.onclick=exportCSV;
 }
 function bindAttendanceOnly(){

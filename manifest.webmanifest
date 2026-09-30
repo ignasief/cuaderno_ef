@@ -1,7 +1,7 @@
 {
   "name": "Cuaderno EF · 1.º ESO",
   "short_name": "Cuaderno EF",
-  "description": "Cuaderno de evaluación de Educación Física con modelo mixto de progreso.",
+  "description": "Cuaderno de evaluación de Educación Física con rúbricas contextualizadas, evaluación compartida y seguimiento continuo.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
