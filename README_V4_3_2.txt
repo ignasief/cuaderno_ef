@@ -1,0 +1,1 @@
+V4.3.2: 3.3 en 13 UP con descriptores de respaldo, escala textual 3.1/3.2, lista 2.2 en modo global, corrección de etiqueta de valoración. Pruebas de interfaz con navegador simulado; no se ha probado instalación PWA real ni conexión offline. Mantener copia de seguridad antes de usar.

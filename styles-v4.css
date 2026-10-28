@@ -335,3 +335,9 @@ body{padding-bottom:104px}
 .assessment-participants{margin-top:10px;border-top:1px solid #e5e7eb;padding-top:8px}.participant-assessment{margin:10px 0;padding:10px;border-radius:10px;background:#f8fafc}.participant-assessment>b{display:block;margin-bottom:4px}.assessment-participants .tiny{display:block;margin:4px 0 8px}
 /* V4.2.1 · actividad global de autoevaluación / coevaluación */
 .global-assessment-card{display:grid;gap:14px}.global-assessment-row{border:1px solid var(--line,#dbe3ef);border-radius:14px;padding:14px;background:var(--card,#fff)}.global-assessment-head{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:8px}.global-assessment-columns{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px}.global-assessment-columns>div{border:1px solid var(--line,#dbe3ef);border-radius:12px;padding:10px}.global-assessment-columns h4{margin:0 0 8px}.global-assessment-card .quick-score-buttons{grid-template-columns:repeat(6,minmax(52px,1fr))}@media(max-width:760px){.global-assessment-columns{grid-template-columns:1fr}.global-assessment-card .quick-score-buttons{grid-template-columns:repeat(3,1fr)}}
+
+.checklist22-row{padding:12px 0;border-top:1px solid #dce3e9;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.checklist22-choices{display:flex;gap:5px;flex-shrink:0}
+.checklist22-choices button{padding:8px;border-radius:7px;border:1px solid #9ca3af;background:transparent;color:inherit}
+.checklist22-choices .check22-active{background:#dbeafe;color:#1d4ed8;border-color:#2563eb;font-weight:bold}
+@media(max-width:600px){.checklist22-row{display:block}.checklist22-choices{margin-top:8px}.checklist22-choices button{flex:1}}
