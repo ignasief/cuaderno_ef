@@ -992,7 +992,7 @@ const continuousActivityByUP={
 };
 function isLegacyUP13Evidence(ev){return ev?.up==='UP13'&&ev?.c==='5.1'&&Number(ev?.seq)<=3}
 const GLOBAL_ASSESSMENT_ACTIVITY='Autoevaluación / Coevaluación de la UP';
-function activityNamesForUP(up){const names=[...new Set(principalForUP(up).filter(e=>!isLegacyUP13Evidence(e)).map(e=>e.desc))];if(up==='UP2')names.push('Observación de la práctica del calentamiento');return [...names,GLOBAL_ASSESSMENT_ACTIVITY]}
+function activityNamesForUP(up){const names=[...new Set(principalForUP(up).filter(e=>!isLegacyUP13Evidence(e)).map(e=>e.desc))];return [...names,GLOBAL_ASSESSMENT_ACTIVITY]}
 function selectedActivityForUP(up){const acts=activityNamesForUP(up);const chosen=state.ui.selectedActivity&&acts.includes(state.ui.selectedActivity)?state.ui.selectedActivity:acts[0];state.ui.selectedActivity=chosen;return chosen}
 function filteredPrincipalForEvaluation(up){
  const all=principalForUP(up).filter(e=>!isLegacyUP13Evidence(e)),mode=state.ui.evaluationView||'activity';
