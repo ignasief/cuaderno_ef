@@ -53,7 +53,7 @@ const evidence={
 '4.1':[['UP8','Presentación de producto','Cultura motriz presente en la secuencia cooperativa de combas'],['UP10','Presentación de producto','Representación expresiva colectiva'],['UP12','Revisión de portfolio','Baúl de los juegos del instituto']],
 '4.2':[['UP9','Diálogo/debate','Baloncesto, igualdad y referentes'],['UP12','Observación sistemática','Participación inclusiva en juegos tradicionales']],
 '4.3':[['UP10','Presentación de producto','Uso expresivo y comunicativo del cuerpo']],
-'5.1':[['UP13','Análisis de producción y diálogo','Planificación de la ruta'],['UP13','Análisis del registro personal','Cuaderno «Mi progreso»'],['UP13','Observación en contexto real','Realización de la ruta'],['UP13','Observación en contexto real','Realización de la ruta']],
+'5.1':[['UP13','Análisis de producción y diálogo','Planificación de la ruta'],['UP13','Análisis del registro personal','Cuaderno «Mi progreso»'],['UP13','Observación en contexto real','Realización de la ruta']],
 '5.2':[['UP13','Análisis de producción y diálogo','Planificación de la ruta'],['UP13','Resolución de problemas','Preparación razonada de la mochila'],['UP13','Observación en contexto real','Realización de la ruta']],
 '5.3':[['UP13','Análisis de producción y diálogo','Planificación de la ruta'],['UP13','Resolución de problemas','Preparación razonada de la mochila'],['UP13','Observación sistemática','Regulación, cooperación y seguridad'],['UP13','Observación en contexto real','Realización de la ruta']]
 };
@@ -511,7 +511,7 @@ function rubricReferenceHTML(ev){
  return `<details class="rubric-ref"><summary><span class="rubric-summary-label">Ver rúbrica</span><span class="rubric-summary-title">${esc(ev.desc)}</span></summary><div class="rubric-grid">${r.map(x=>`<div class="rubric-level"><div class="rubric-level-head"><b>${x.label}</b><span>${x.score}</span></div><p>${esc(x.desc)}</p></div>`).join('')}</div><p class="tiny rubric-note">Seleccionar un nivel registra su valor numérico como evidencia principal del criterio. El descriptor queda asociado a la valoración en el historial.</p></details>`;
 }
 
-const compMatrix={'3.1':['UP3','UP4','UP5','UP7','UP8','UP9','UP11','UP13'],'3.2':['UP2','UP3','UP4','UP7','UP10','UP11','UP12','UP13'],'3.3':['UP1','UP2','UP3','UP4','UP7','UP9','UP10','UP11']};
+const compMatrix={'3.1':['UP3','UP4','UP5','UP7','UP8','UP9','UP11','UP13'],'3.2':['UP2','UP3','UP4','UP7','UP10','UP11','UP12','UP13'],'3.3':ups.map(([up])=>up)};
 let deferredPrompt=null;
 let currentView='inicio';
 function todayISO(){const d=new Date();return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10)}
@@ -754,8 +754,7 @@ function upHasPrincipalScores(up){for(const g of state.groups){for(const st of g
 function upHasContinuousObservations(up){return Object.entries(state.qual||{}).some(([k,v])=>{const parts=k.split('|');return parts.length>=4&&parts[3]===up&&v!==undefined&&v!==null&&v!==''})}
 function invalidateClosuresForPeriodMove(up,oldPeriod,newPeriod){const a=periodRank(oldPeriod),b=periodRank(newPeriod);if(a===b)return 0;const lo=Math.min(a,b),hi=Math.max(a,b),affected=new Set();Object.keys(state.qual||{}).forEach(k=>{const [gid,sid,c,u]=k.split('|');if(u!==up||!isContinuousCriterion(c))return;for(let rank=lo;rank<hi;rank++){const period=rank===1?'eval1':rank===2?'eval2':'eval3';affected.add(periodClosureKey(gid,sid,c,period))}});let removed=0;affected.forEach(k=>{if(state.continuousClosures?.[k]){delete state.continuousClosures[k];removed++}});return removed}
 function principalForUP(up){let arr=[];criteria.forEach(([c])=>(evidence[c]||[]).forEach((e,i)=>{if(e[0]===up)arr.push({c,seq:i+1,up:e[0],proc:e[1],desc:e[2]})}));return arr}
-// El 3.3 se observa en todas las UP; se mantiene como seguimiento, no evidencia calificadora automática.
-compMatrix['3.3']=ups.map(([up])=>up);
+// El 3.3 está presente en todas las UP desde la matriz principal.
 function compsForUP(up){let out=[];Object.entries(compMatrix).forEach(([c,arr])=>arr.forEach(u=>{if(u===up)out.push({c,up:u})}));return out}
 function upName(up){return ups.find(x=>x[0]===up)?.[1]||up}
 function groupSelectors(){return `<div class="row"><div><label>Grupo</label><select id="groupSel">${state.groups.map(g=>`<option value="${g.id}" ${g.id===state.selectedGroup?'selected':''}>${esc(g.name)}</option>`).join('')}</select></div><div><label>Unidad</label><select id="upSel">${ups.map(([u,n])=>`<option value="${u}" ${u===state.selectedUP?'selected':''}>${u} · ${esc(n)}</option>`).join('')}</select></div></div>`}
@@ -1154,7 +1153,7 @@ function viewEvaluar(){
  // cada actividad o sesión para cada alumno. Respeta las valoraciones existentes.
  // Se registra como evidencia real y participa en el cálculo continuo.
  const globalMode=selectedActivityForUP(state.selectedUP)===GLOBAL_ASSESSMENT_ACTIVITY;
- if(!globalMode&&comps.some(ev=>ev.c==='3.3')){
+ if(!loadFailureMessage&&!globalMode&&comps.some(ev=>ev.c==='3.3')){
   const k=contextualQualKey(g.id,sid,'3.3',state.selectedUP);
   if(!hasValue(state.qual[k])){
    state.qual[k]=6;
@@ -1190,7 +1189,7 @@ function viewResumen(){
  const g=group();if(!g)return `<div class="card empty">Primero crea un grupo en Ajustes.</div>`;
  const period=state.ui.evaluationPeriod||'eval1',label=evalLabel(period);
  return `${groupSelectors()}
- <div class="card evaluation-panel"><div class="evaluation-head"><div><h2>Evaluaciones</h2><p class="muted">CE3 (3.1, 3.2 y 3.3) se observa durante las UP y se cierra formalmente al final de cada evaluación. La trayectoria es acumulativa y prioriza lo reciente (15% · 25% · 60%). Cada evaluación obtiene su propio cierre; los cierres anteriores no se vuelven a promediar.</p></div></div>
+ <div class="card evaluation-panel"><div class="evaluation-head"><div><h2>Evaluaciones</h2><p class="muted">CE3 (3.1, 3.2 y 3.3) se observa durante las UP y se cierra formalmente al final de cada evaluación. La trayectoria es acumulativa: media de observaciones por UP, media de UP por evaluación y ponderación fija de evaluaciones 1:2:3. Las evaluaciones sin observaciones se excluyen sin renumerar los pesos. Los cierres anteriores no se vuelven a promediar.</p></div></div>
  <div class="evaluation-tabs"><button data-eval-period="eval1" class="${period==='eval1'?'active':''}">1.ª evaluación</button><button data-eval-period="eval2" class="${period==='eval2'?'active':''}">2.ª evaluación</button><button data-eval-period="eval3" class="${period==='eval3'?'active':''}">3.ª evaluación</button><button data-eval-period="final" class="${period==='final'?'active':''}">Final</button></div>
  <div class="evaluation-cut"><b>${label}</b><span>${esc(evalRangeText(period))}</span></div><div class="report-actions"><button class="btn" id="generateEvalReport">Generar informe de ${label}</button><button class="btn secondary" id="downloadEvalCsv">Descargar CSV</button></div></div>
  <div class="card summary-class-card"><div class="summary-class-head"><div><h2>${label}</h2><p class="muted">Pulsa un alumno para desplegar toda su información. Solo se mantiene una ficha abierta cada vez.</p></div><span class="summary-count">${g.students.length} alumnos</span></div><div class="summary-accordion-list">${g.students.map((st,i)=>summaryStudentHTML(g,st,period,i)).join('')}</div></div>`
