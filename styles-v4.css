@@ -341,3 +341,7 @@ body{padding-bottom:104px}
 .checklist22-choices button{padding:8px;border-radius:7px;border:1px solid #9ca3af;background:transparent;color:inherit}
 .checklist22-choices .check22-active{background:#dbeafe;color:#1d4ed8;border-color:#2563eb;font-weight:bold}
 @media(max-width:600px){.checklist22-row{display:block}.checklist22-choices{margin-top:8px}.checklist22-choices button{flex:1}}
+
+/* V4.3.4: sugerencia visual sin registrar */
+.continuous-score-buttons button.suggested-default{outline:2px dashed #64748b;outline-offset:2px}
+.default-hint{display:block;margin-top:6px;color:#64748b;font-size:12px}

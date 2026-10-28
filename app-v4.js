@@ -104,7 +104,19 @@ const continuousRubrics={
  'UP13|3.2|s4':['No asume responsabilidades durante la salida','Necesita recordatorios frecuentes para cumplir su función','Cumple las responsabilidades asignadas durante la ruta','Asume responsabilidades con autonomía y coopera eficazmente','Se anticipa a las necesidades del grupo, coopera y ejerce su responsabilidad sin invadir funciones ajenas']
 };
 function continuousContextId(up){if(up!=='UP13')return 'base';const mode=state.ui.evaluationView||'activity';if(mode==='session')return `s${Number(state.ui.selectedSession)||1}`;if(mode==='activity'){const a=state.ui.selectedActivity||'';if(a==='Regulación, cooperación y seguridad')return 's3';if(a==='Realización de la ruta')return 's4';}return 'base'}
-function contextualQualKey(gid,sid,c,up){const ctx=continuousContextId(up);return ctx==='base'?qualKey(gid,sid,c,up):`${gid}|${sid}|${c}|${up}|${ctx}`}
+function contextualQualKey(gid,sid,c,up){
+ if(c==='3.3'){
+  const mode=state.ui.evaluationView||'activity';
+  if(up==='UP13'&&mode==='session')return `${gid}|${sid}|${c}|${up}|s${Number(state.ui.selectedSession)||1}`;
+  const activity=selectedActivityForUP(up);
+  const activities=activityNamesForUP(up).filter(a=>a!==GLOBAL_ASSESSMENT_ACTIVITY);
+  const index=activities.indexOf(activity);
+  if(index>=0)return `${gid}|${sid}|${c}|${up}|a${index+1}`;
+  return qualKey(gid,sid,c,up);
+ }
+ const ctx=continuousContextId(up);
+ return ctx==='base'?qualKey(gid,sid,c,up):`${gid}|${sid}|${c}|${up}|${ctx}`;
+}
 function continuousRubricFor(up,c){
  if(c==='3.1'||c==='3.2')return [
   {label:'No realizado',score:0,desc:'No participa en la situación observada; no confundir con ausencia de observación.'},
@@ -504,32 +516,80 @@ let deferredPrompt=null;
 let currentView='inicio';
 function todayISO(){const d=new Date();return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10)}
 function defaultUpPeriods(){const out={};ups.forEach(([u],i)=>out[u]=i<4?'eval1':i<10?'eval2':'eval3');out.UP13='eval1';return out}
-function defaultState(){return {groups:[],scores:{},rubricMarks:{},selfScores:{},peerScores:{},selfRubricMarks:{},peerRubricMarks:{},upSelfAssessments:{},upPeerAssessments:{},qual:{},selfQual:{},peerQual:{},qualDates:{},continuousClosures:{},attendance:{},notes:{},teacherNotes:{},fitness:{},reflections:{},fitnessPentagon:{},fitnessPentagonReflections:{},warmups:{},up3RPE:{},up3Tasks:{},up4Game:{},checklists22:{},photos:{},selectedGroup:null,selectedUP:'UP1',selectedDate:todayISO(),evalConfig:{upPeriods:defaultUpPeriods()},ui:{scoreMode:'levels',evaluationPeriod:'eval1',openWarmup:null,openUp3RPE:null,openUp3Task:null,openUp4Game:null,openSummaryStudent:null,openEvaluateStudent:null,lastBackupExport:null,evaluationView:'activity',selectedSession:4}}}
-function migrate(raw){const d=defaultState(),preV4=!(raw?.ui&&Object.prototype.hasOwnProperty.call(raw.ui,'evaluationView')),s=Object.assign(d,raw||{});s.attendance=s.attendance||{};s.notes=s.notes||{};s.teacherNotes=s.teacherNotes||{};s.rubricMarks=s.rubricMarks||{};s.selfScores=s.selfScores||{};s.peerScores=s.peerScores||{};s.selfRubricMarks=s.selfRubricMarks||{};s.peerRubricMarks=s.peerRubricMarks||{};s.upSelfAssessments=s.upSelfAssessments||{};s.upPeerAssessments=s.upPeerAssessments||{};/* V4.2.3: consolidación Auto/Co por competencia específica. Conserva las claves antiguas y crea una única clave UP+CE con la media de los criterios previos cuando exista. */['upSelfAssessments','upPeerAssessments'].forEach(storeName=>{const store=s[storeName]||{},buckets={};Object.entries(store).forEach(([k,v])=>{if(!hasValue(v))return;const parts=k.split('|');if(parts.length!==4)return;const [gid,sid,up,last]=parts;if(/^CE[1-5]$/.test(last))return;const ce=criteria.find(x=>x[0]===last)?.[1];if(!ce)return;const nk=`${gid}|${sid}|${up}|${ce}`;(buckets[nk]||(buckets[nk]=[])).push(Number(v))});Object.entries(buckets).forEach(([k,vals])=>{if(!hasValue(store[k])&&vals.length)store[k]=vals.reduce((a,b)=>a+b,0)/vals.length});s[storeName]=store});s.selfQual=s.selfQual||{};s.peerQual=s.peerQual||{};s.fitness=s.fitness||{};s.reflections=s.reflections||{};s.fitnessPentagon=s.fitnessPentagon||{};s.fitnessPentagonReflections=s.fitnessPentagonReflections||{};s.warmups=s.warmups||{};s.up3RPE=s.up3RPE||{};s.up3Tasks=s.up3Tasks||{};s.up4Game=s.up4Game||{};s.checklists22=s.checklists22||{};s.photos=s.photos||{};s.qual=s.qual||{};s.qualDates=s.qualDates||{};s.continuousClosures=s.continuousClosures||{};/* V4.2.2: las copias antiguas se conservan sin mover ni reinterpretar claves históricas de 5.1/5.2/5.3. */Object.keys(s.qual).forEach(k=>{const v=s.qual[k];if(v==='En proceso')s.qual[k]=4;else if(v==='Adecuado')s.qual[k]=8;else if(v==='Consolidado')s.qual[k]=10});s.selectedDate=s.selectedDate||todayISO();const old=s.evalConfig||{},periods=Object.assign({},defaultUpPeriods(),old.upPeriods||{});if(!old.upPeriods&&(old.firstCut||old.secondCut)){const a=upIndex(old.firstCut||'UP4'),b=upIndex(old.secondCut||'UP10');ups.forEach(([u],i)=>periods[u]=i<=a?'eval1':i<=b?'eval2':'eval3')}s.evalConfig={upPeriods:periods};s.ui=Object.assign({scoreMode:'levels',evaluationPeriod:'eval1',openWarmup:null,openUp3RPE:null,openUp3Task:null,openUp4Game:null,openSummaryStudent:null,openEvaluateStudent:null,lastBackupExport:null,evaluationView:'activity',selectedSession:4},s.ui||{});return s}
-function load(){
- try{
-  const s=migrate(JSON.parse(localStorage.getItem(APP_KEY)||'{}'));
-  let split={};
-  try{split=JSON.parse(localStorage.getItem(PHOTO_KEY)||'{}')||{}}catch{}
-  // Migración única: las fotos antiguas salen del estado principal para que cada pulsación no serialice megabytes.
-  if(Object.keys(s.photos||{}).length && !Object.keys(split).length){
-   split=s.photos;
-   try{localStorage.setItem(PHOTO_KEY,JSON.stringify(split))}catch{}
-  }
-  s.photos=Object.assign({},split,s.photos||{});
-  return s;
- }catch{return defaultState()}
+function defaultState(){return {groups:[],scores:{},rubricMarks:{},selfScores:{},peerScores:{},selfRubricMarks:{},peerRubricMarks:{},upSelfAssessments:{},upPeerAssessments:{},qual:{},selfQual:{},peerQual:{},qualDates:{},continuousClosures:{},attendance:{},notes:{},teacherNotes:{},fitness:{},reflections:{},fitnessPentagon:{},fitnessPentagonReflections:{},warmups:{},up3RPE:{},up3Tasks:{},up4Game:{},checklists22:{},checklists22Meta:{},photos:{},selectedGroup:null,selectedUP:'UP1',selectedDate:todayISO(),evalConfig:{upPeriods:defaultUpPeriods()},ui:{scoreMode:'levels',evaluationPeriod:'eval1',openWarmup:null,openUp3RPE:null,openUp3Task:null,openUp4Game:null,openSummaryStudent:null,openEvaluateStudent:null,lastBackupExport:null,evaluationView:'activity',selectedSession:4}}}
+function migrate(raw){const d=defaultState(),preV4=!(raw?.ui&&Object.prototype.hasOwnProperty.call(raw.ui,'evaluationView')),s=Object.assign(d,raw||{});s.attendance=s.attendance||{};s.notes=s.notes||{};s.teacherNotes=s.teacherNotes||{};s.rubricMarks=s.rubricMarks||{};s.selfScores=s.selfScores||{};s.peerScores=s.peerScores||{};s.selfRubricMarks=s.selfRubricMarks||{};s.peerRubricMarks=s.peerRubricMarks||{};s.upSelfAssessments=s.upSelfAssessments||{};s.upPeerAssessments=s.upPeerAssessments||{};/* V4.2.3: consolidación Auto/Co por competencia específica. Conserva las claves antiguas y crea una única clave UP+CE con la media de los criterios previos cuando exista. */['upSelfAssessments','upPeerAssessments'].forEach(storeName=>{const store=s[storeName]||{},buckets={};Object.entries(store).forEach(([k,v])=>{if(!hasValue(v))return;const parts=k.split('|');if(parts.length!==4)return;const [gid,sid,up,last]=parts;if(/^CE[1-5]$/.test(last))return;const ce=criteria.find(x=>x[0]===last)?.[1];if(!ce)return;const nk=`${gid}|${sid}|${up}|${ce}`;(buckets[nk]||(buckets[nk]=[])).push(Number(v))});Object.entries(buckets).forEach(([k,vals])=>{if(!hasValue(store[k])&&vals.length)store[k]=vals.reduce((a,b)=>a+b,0)/vals.length});s[storeName]=store});s.selfQual=s.selfQual||{};s.peerQual=s.peerQual||{};s.fitness=s.fitness||{};s.reflections=s.reflections||{};s.fitnessPentagon=s.fitnessPentagon||{};s.fitnessPentagonReflections=s.fitnessPentagonReflections||{};s.warmups=s.warmups||{};s.up3RPE=s.up3RPE||{};s.up3Tasks=s.up3Tasks||{};s.up4Game=s.up4Game||{};s.checklists22=s.checklists22||{};s.checklists22Meta=s.checklists22Meta||{};s.photos=s.photos||{};s.qual=s.qual||{};s.qualDates=s.qualDates||{};s.continuousClosures=s.continuousClosures||{};/* V4.2.2: las copias antiguas se conservan sin mover ni reinterpretar claves históricas de 5.1/5.2/5.3. */Object.keys(s.qual).forEach(k=>{const v=s.qual[k];if(v==='En proceso')s.qual[k]=4;else if(v==='Adecuado')s.qual[k]=8;else if(v==='Consolidado')s.qual[k]=10});s.selectedDate=s.selectedDate||todayISO();const old=s.evalConfig||{},periods=Object.assign({},defaultUpPeriods(),old.upPeriods||{});if(!old.upPeriods&&(old.firstCut||old.secondCut)){const a=upIndex(old.firstCut||'UP4'),b=upIndex(old.secondCut||'UP10');ups.forEach(([u],i)=>periods[u]=i<=a?'eval1':i<=b?'eval2':'eval3')}s.evalConfig={upPeriods:periods};s.ui=Object.assign({scoreMode:'levels',evaluationPeriod:'eval1',openWarmup:null,openUp3RPE:null,openUp3Task:null,openUp4Game:null,openSummaryStudent:null,openEvaluateStudent:null,lastBackupExport:null,evaluationView:'activity',selectedSession:4},s.ui||{});return s}
+const DATA_LOAD_FAILURE='cuaderno-ef-load-failure';
+let loadFailureMessage='';
+function showLoadFailure(){
+ if(!loadFailureMessage)return;
+ let banner=document.getElementById('dataLoadFailure');
+ if(!banner){banner=document.createElement('div');banner.id='dataLoadFailure';banner.setAttribute('role','alert');banner.style.cssText='position:fixed;top:0;left:0;right:0;z-index:100000;padding:14px;background:#7f1d1d;color:white;font-weight:bold;text-align:center';document.body.appendChild(banner)}
+ banner.textContent=loadFailureMessage;
 }
+function load(){
+ let raw;
+ try{raw=localStorage.getItem(APP_KEY)}catch(err){loadFailureMessage='ERROR: no se puede acceder a los datos locales. No se guardarán cambios. Exporta una copia de seguridad.';return defaultState()}
+ let parsed={};
+ if(raw!==null){
+  try{parsed=JSON.parse(raw);validateBackupShape(parsed)}catch(err){loadFailureMessage='ERROR: los datos guardados no se pueden leer. No se sobrescribirán. Restaura una copia válida o recupera el almacenamiento.';console.error('Datos locales dañados',err);return defaultState()}
+ }
+ let split={};
+ try{const photosRaw=localStorage.getItem(PHOTO_KEY);split=photosRaw?JSON.parse(photosRaw):{};if(!isPlainRecord(split))throw Error('Fotos inválidas')}catch(err){loadFailureMessage='ERROR: el almacenamiento de fotos está dañado. No se sobrescribirá hasta resolver el problema.';console.error(err);return defaultState()}
+ const s=migrate(parsed);
+ if(Object.keys(s.photos||{}).length&&!Object.keys(split).length){split=s.photos;try{localStorage.setItem(PHOTO_KEY,JSON.stringify(split))}catch(err){console.warn('No se pudieron separar las fotos',err)}}
+ s.photos=Object.assign({},split,s.photos||{});
+ return s;
+}
+function isPlainRecord(v){return v!==null&&typeof v==='object'&&!Array.isArray(v)}
+function validateBackupShape(raw){
+ if(!isPlainRecord(raw))throw Error('El archivo debe contener un objeto JSON');
+ if(!Array.isArray(raw.groups))throw Error('Falta la lista de grupos');
+ if(raw.groups.length>1000)throw Error('Demasiados grupos');
+ const ids=new Set();
+ raw.groups.forEach((g,i)=>{
+  if(!isPlainRecord(g)||typeof g.id!=='string'||!g.id||typeof g.name!=='string'||!Array.isArray(g.students))throw Error('Grupo incorrecto: '+i);
+  if(ids.has(g.id))throw Error('ID de grupo duplicado');ids.add(g.id);
+  if(g.students.length>10000)throw Error('Demasiados alumnos');
+  const sids=new Set();g.students.forEach(st=>{if(!isPlainRecord(st)||typeof st.id!=='string'||!st.id||typeof st.name!=='string')throw Error('Alumno incorrecto');if(sids.has(st.id))throw Error('ID de alumno duplicado');sids.add(st.id)});
+ });
+ const stores=['scores','rubricMarks','selfScores','peerScores','selfRubricMarks','peerRubricMarks','upSelfAssessments','upPeerAssessments','qual','selfQual','peerQual','qualDates','continuousClosures','attendance','notes','teacherNotes','fitness','reflections','fitnessPentagon','fitnessPentagonReflections','warmups','up3RPE','up3Tasks','up4Game','checklists22','checklists22Meta','photos'];
+ stores.forEach(k=>{if(Object.prototype.hasOwnProperty.call(raw,k)&&!isPlainRecord(raw[k]))throw Error('Sección inválida: '+k)});
+ if(raw.evalConfig!==undefined&&(!isPlainRecord(raw.evalConfig)||raw.evalConfig.upPeriods!==undefined&&!isPlainRecord(raw.evalConfig.upPeriods)))throw Error('Configuración de evaluaciones incorrecta');
+ if(raw.ui!==undefined&&!isPlainRecord(raw.ui))throw Error('Preferencias incorrectas');
+ if(raw.selectedGroup!==null&&raw.selectedGroup!==undefined&&typeof raw.selectedGroup!=='string')throw Error('Grupo seleccionado incorrecto');
+ return true;
+}
+
 let state=load();
+if(loadFailureMessage)document.addEventListener('DOMContentLoaded',showLoadFailure,{once:true});
 function stateWithoutPhotos(){const lite={...state,photos:{}};return lite}
-function save(){localStorage.setItem(APP_KEY,JSON.stringify(stateWithoutPhotos()))}
-function savePhotos(){localStorage.setItem(PHOTO_KEY,JSON.stringify(state.photos||{}))}
+let storageSaveFailed=false;
+function storageWarning(message){
+ storageSaveFailed=true;
+ let el=document.getElementById('storageCriticalWarning');
+ if(!el){el=document.createElement('div');el.id='storageCriticalWarning';el.setAttribute('role','alert');el.style.cssText='position:fixed;top:0;left:0;right:0;z-index:99999;padding:14px;background:#991b1b;color:white;font-weight:bold;text-align:center';document.body.appendChild(el)}
+ el.textContent=message;
+}
+function save(){
+ if(loadFailureMessage){showLoadFailure();return false}
+ try{
+  localStorage.setItem(APP_KEY,JSON.stringify(stateWithoutPhotos()));
+  storageSaveFailed=false;
+  document.getElementById('storageCriticalWarning')?.remove();
+  return true;
+ }catch(err){
+  console.error('Cuaderno EF: no se han guardado los datos',err);
+  storageWarning('ERROR: los cambios NO se han guardado. Exporta una copia JSON y libera espacio antes de continuar.');
+  return false;
+ }
+}
+function savePhotos(){if(loadFailureMessage){showLoadFailure();return false}try{localStorage.setItem(PHOTO_KEY,JSON.stringify(state.photos||{}));return true}catch(err){console.error(err);storageWarning('ERROR: no se han guardado las fotos. Exporta una copia JSON.');return false}}
 let delayedSaveTimer=null;
 function saveSoon(delay=250){clearTimeout(delayedSaveTimer);delayedSaveTimer=setTimeout(()=>{delayedSaveTimer=null;save()},delay)}
 
 function id(){return Math.random().toString(36).slice(2,10)}
 function esc(s=''){return String(s).replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]))}
-function toast(msg){let t=document.createElement('div');t.className='toast';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),1500)}
+function toast(msg){if(storageSaveFailed)msg='ERROR DE GUARDADO: exporta una copia JSON';let t=document.createElement('div');t.className='toast';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),1500)}
 function fullGroup(){return state.groups.find(g=>g.id===state.selectedGroup)||state.groups[0]||null}
 function group(){return fullGroup()}
 function scoreKey(gid,sid,c,seq){return `${gid}|${sid}|${c}|${seq}`}
@@ -544,11 +604,58 @@ function evidenceValue(gid,sid,c,seq){const k=scoreKey(gid,sid,c,seq);const v=st
 function criterionUpValue(gid,sid,c,up){const vals=[];(evidence[c]||[]).forEach((e,i)=>{if(e[0]!==up)return;const v=evidenceValue(gid,sid,c,i+1);if(v!==null)vals.push(Number(v))});if(!vals.length)return null;const teacher=vals.reduce((a,b)=>a+b,0)/vals.length;return blendedAssessment(teacher,upAssessmentValue('self',gid,sid,up,c),upAssessmentValue('peer',gid,sid,up,c))}
 function criterionAcrossUps(gid,sid,c,allowedUps){const vals=[];allowedUps.forEach(up=>{const v=criterionUpValue(gid,sid,c,up);if(v!==null)vals.push(v)});return vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:null}
 function continuousObservationValue(k){const [gid,sid,c,up]=String(k||'').split('|');return blendedAssessment(state.qual[k],upAssessmentValue('self',gid,sid,up,c),upAssessmentValue('peer',gid,sid,up,c))}
-function continuousHistory(gid,sid,c,currentUp=null){const keys=new Set([...Object.keys(state.qual||{}),...Object.keys(state.selfQual||{}),...Object.keys(state.peerQual||{})]),arr=[];keys.forEach(k=>{const [g,sid2,cc,up]=k.split('|');if(g!==gid||sid2!==sid||cc!==c)return;if(currentUp&&upIndex(up)>upIndex(currentUp))return;const v=continuousObservationValue(k);if(v===null)return;arr.push({up,value:Number(v),date:state.qualDates?.[k]||'',idx:upIndex(up)})});arr.sort((a,b)=>{if(a.date&&b.date&&a.date!==b.date)return a.date.localeCompare(b.date);return a.idx-b.idx});return arr}
-function continuousLevel(gid,sid,c,currentUp=null){const h=continuousHistory(gid,sid,c,currentUp),recent=h.slice(-3);if(!recent.length)return null;const w=recent.length===1?[1]:recent.length===2?[.2941176471,.7058823529]:[.15,.25,.60];return recent.reduce((a,x,i)=>a+x.value*w[i],0)}
+function continuousHistory(gid,sid,c,currentUp=null){
+ const keys=new Set([...Object.keys(state.qual||{}),...Object.keys(state.selfQual||{}),...Object.keys(state.peerQual||{})]),arr=[];
+ const maxRank=currentUp?periodRank(upPeriod(currentUp)):3;
+ keys.forEach(k=>{
+  const [g,student,criterion,up]=k.split('|');
+  if(g!==gid||student!==sid||criterion!==c||periodRank(upPeriod(up))>maxRank)return;
+  const v=continuousObservationValue(k);if(v===null)return;
+  arr.push({up,value:Number(v),date:state.qualDates?.[k]||'',idx:upIndex(up),period:upPeriod(up)});
+ });
+ arr.sort((a,b)=>periodRank(a.period)-periodRank(b.period)||(a.date||'').localeCompare(b.date||'')||a.idx-b.idx);
+ return arr;
+}
+// CE3: primero media de todas las evidencias de cada UP; después media de las UP
+// dentro de cada evaluación; por último ponderación fija 1:2:3 para 1.ª, 2.ª y 3.ª.
+// Los pesos no se renumeran cuando falta alguna evaluación o UP.
+function continuousLevelFromHistory(history){
+ if(!history.length)return null;
+ const periodTotals=new Map();
+ ['eval1','eval2','eval3'].forEach(period=>{
+  const upBuckets=new Map();
+  history.filter(h=>(h.period||upPeriod(h.up))===period).forEach(h=>{
+   if(!Number.isFinite(Number(h.value)))return;
+   if(!upBuckets.has(h.up))upBuckets.set(h.up,[]);
+   upBuckets.get(h.up).push(Number(h.value));
+  });
+  const upMeans=[...upBuckets.values()].map(values=>values.reduce((a,b)=>a+b,0)/values.length);
+  if(upMeans.length)periodTotals.set(period,upMeans.reduce((a,b)=>a+b,0)/upMeans.length);
+ });
+ let numerator=0,denominator=0;
+ [['eval1',1],['eval2',2],['eval3',3]].forEach(([period,weight])=>{
+  if(!periodTotals.has(period))return;
+  numerator+=periodTotals.get(period)*weight;
+  denominator+=weight;
+ });
+ return denominator?numerator/denominator:null;
+}
+function continuousLevel(gid,sid,c,currentUp=null){return continuousLevelFromHistory(continuousHistory(gid,sid,c,currentUp))}
 function periodRank(p){return p==='eval1'?1:p==='eval2'?2:3}
-function continuousHistoryForPeriod(gid,sid,c,period){const max=period==='final'?3:periodRank(period),keys=new Set([...Object.keys(state.qual||{}),...Object.keys(state.selfQual||{}),...Object.keys(state.peerQual||{})]),arr=[];keys.forEach(k=>{const [gg,ss,cc,up]=k.split('|');if(gg!==gid||ss!==sid||cc!==c)return;const p=upPeriod(up);if(periodRank(p)>max)return;const v=continuousObservationValue(k);if(v===null)return;arr.push({up,value:Number(v),date:state.qualDates?.[k]||'',idx:upIndex(up),period:p})});arr.sort((a,b)=>{if(a.date&&b.date&&a.date!==b.date)return a.date.localeCompare(b.date);return a.idx-b.idx});return arr}
-function continuousLevelForPeriod(gid,sid,c,period){const recent=continuousHistoryForPeriod(gid,sid,c,period).slice(-3);if(!recent.length)return null;const w=recent.length===1?[1]:recent.length===2?[.2941176471,.7058823529]:[.15,.25,.60];return recent.reduce((a,x,i)=>a+x.value*w[i],0)}
+function continuousHistoryForPeriod(gid,sid,c,period){
+ const max=period==='final'?3:periodRank(period);
+ const keys=new Set([...Object.keys(state.qual||{}),...Object.keys(state.selfQual||{}),...Object.keys(state.peerQual||{})]),arr=[];
+ keys.forEach(k=>{
+  const [gg,ss,cc,up]=k.split('|');
+  if(gg!==gid||ss!==sid||cc!==c)return;
+  const p=upPeriod(up);if(periodRank(p)>max)return;
+  const v=continuousObservationValue(k);if(v===null)return;
+  arr.push({up,value:Number(v),date:state.qualDates?.[k]||'',idx:upIndex(up),period:p});
+ });
+ arr.sort((a,b)=>periodRank(a.period)-periodRank(b.period)||(a.date||'').localeCompare(b.date||'')||a.idx-b.idx);
+ return arr;
+}
+function continuousLevelForPeriod(gid,sid,c,period){return continuousLevelFromHistory(continuousHistoryForPeriod(gid,sid,c,period))}
 function periodClosureKey(gid,sid,c,period){return `${gid}|${sid}|${c}|${period}`}
 function invalidateContinuousClosuresForObservationKey(k){
  const [gid,sid,c,up]=String(k||'').split('|');
@@ -603,7 +710,7 @@ async function compressPhoto(file){return new Promise((resolve,reject)=>{const i
 
 function attendanceStats(g){const vals=g.students.map(s=>state.attendance[attendanceKey(g.id,s.id,state.selectedDate)]||'');return {total:g.students.length,done:vals.filter(Boolean).length,present:vals.filter(v=>v==='P').length,absent:vals.filter(v=>v==='A').length,justified:vals.filter(v=>v==='J').length}}
 function allPresent(g){g.students.forEach(s=>state.attendance[attendanceKey(g.id,s.id,state.selectedDate)]='P');save()}
-function weightedEvidenceValue(vals,c){if(!vals.length)return null;if(isContinuousCriterion(c)){const recent=vals.slice(-3);const weights=recent.length===1?[1]:recent.length===2?[.2941176471,.7058823529]:[.15,.25,.60];return recent.reduce((a,v,i)=>a+v*weights[i],0)}return vals.reduce((a,v)=>a+Number(v),0)/vals.length}
+function weightedEvidenceValue(vals,c){if(!vals.length)return null;if(isContinuousCriterion(c)){return vals.reduce((a,v)=>a+Number(v),0)/vals.length}return vals.reduce((a,v)=>a+Number(v),0)/vals.length}
 function closureTagRank(tag){if(tag==='eval1')return 1;if(tag==='eval2')return 2;if(tag==='eval3')return 3;if(tag==='final')return 4;if(/^UP\d+$/.test(tag||''))return periodRank(upPeriod(tag));return 0}
 function latestContinuousClosureValue(gid,sid,c,period='final'){
  const max=period==='final'?4:periodRank(period),candidates=[];
@@ -656,7 +763,16 @@ function render(){const app=document.getElementById('app');const fn={inicio:view
 function studentUPComplete(gid,sid,up){
  const principals=principalForUP(up),continuous=compsForUP(up);
  const principalDone=principals.every(ev=>{const v=state.scores[scoreKey(gid,sid,ev.c,ev.seq)];return v!==undefined&&v!==null&&v!==''});
- const continuousDone=continuous.every(ev=>{const v=state.qual[qualKey(gid,sid,ev.c,ev.up)];return v!==undefined&&v!==null&&v!==''});
+ const continuousDone=continuous.every(ev=>{
+  const prefix=qualKey(gid,sid,ev.c,ev.up);
+  const entries=Object.entries(state.qual||{});
+  if(ev.c==='3.3'){
+   const activityCount=activityNamesForUP(up).filter(a=>a!==GLOBAL_ASSESSMENT_ACTIVITY).length;
+   if(!activityCount)return entries.some(([k,v])=>(k===prefix||k.startsWith(prefix+'|'))&&hasValue(v));
+   return Array.from({length:activityCount},(_,i)=>entries.some(([k,v])=>k===prefix+'|a'+(i+1)&&hasValue(v))).every(Boolean);
+  }
+  return entries.some(([k,v])=>(k===prefix||k.startsWith(prefix+'|'))&&hasValue(v));
+ });
  return (principals.length||continuous.length)?principalDone&&continuousDone:false
 }
 function pendingStudentsForUP(g,up){return g?g.students.filter(st=>!studentUPComplete(g.id,st.id,up)).length:0}
@@ -819,11 +935,11 @@ function continuousEvaluationHTML(comps){
  const rows=comps.map(ev=>{const k=contextualQualKey(g.id,sid,ev.c,ev.up),v=state.qual[k],done=v!==undefined&&v!==null&&v!=='',rubric=continuousRubricFor(ev.up,ev.c),ctxId=continuousContextId(ev.up);
   return `<div class="quick-eval-row continuous-row ce-block-3 ${done?'done':''}">
    <div class="quick-eval-head"><div><span class="pill continuous ce-pill ce-block-3">○ ${criterionLabel(ev.c)}</span><b class="quick-focus">${esc(quickFocus(ev.up,ev.c,criterionShort[ev.c]||''))}</b></div><span class="quick-status continuous-status">${done?`✓ ${esc(rubric.find(r=>Number(r.score)===Number(v))?.label||'')} · ${v}`:'Pendiente'}</span></div>
-   <div class="quick-evidence-label continuous-label">Observación contextual · ${esc(ev.up)}${ctxId!=='base'?` · ${esc(ctxId.toUpperCase())}`:''}</div>
+   <div class="quick-evidence-label continuous-label">Observación contextual · ${esc(ev.up)}${ev.c==='3.3'?` · ${esc((state.ui.evaluationView==='session'&&ev.up==='UP13')?'Sesión '+(Number(state.ui.selectedSession)||1):selectedActivityForUP(ev.up))}`:ctxId!=='base'?` · ${esc(ctxId.toUpperCase())}`:''}</div>
    ${knowledgeFor(ev.up,ev.c)?`<div class="quick-evidence-label"><b>Saber básico:</b> ${esc(knowledgeFor(ev.up,ev.c))}</div>`:''}
-   <div class="quick-score-buttons continuous-score-buttons">${rubric.map(r=>`<button type="button" data-cont-score="${r.score}" data-cont-key="${k}" class="${Number(v)===Number(r.score)?'selected':''}"><strong>${r.score}</strong><small>${esc(r.label)}</small></button>`).join('')}</div>
+   <div class="quick-score-buttons continuous-score-buttons">${rubric.map(r=>`<button type="button" data-cont-score="${r.score}" data-cont-key="${k}" class="${done&&Number(v)===Number(r.score)?'selected':(!done&&ev.c==='3.3'&&r.score===6?'suggested-default':'')}"><strong>${r.score}</strong><small>${esc(r.label)}</small></button>`).join('')}</div>
    <details class="quick-native-details"><summary>Ver qué observo en este contexto</summary><div class="quick-rubric-grid">${rubric.map(r=>`<div><b>${r.score} · ${esc(r.label)}</b><span>${esc(r.desc)}</span></div>`).join('')}</div></details>
-   ${done?`<button type="button" class="quick-clear" data-cont-clear="${k}">Borrar</button>`:''}
+   ${!done&&ev.c==='3.3'?'<small class="default-hint">6 sugerido · pulsa 6 para confirmar la observación</small>':''}${done?`<button type="button" class="quick-clear" data-cont-clear="${k}">Borrar</button>`:''}
   </div>`}).join('');
  return `<div class="card quick-eval-card continuous-eval-card"><div class="quick-eval-title"><div><h2>Evaluación continua contextualizada</h2><p>${scored}/${comps.length} seguimientos registrados · guardado automático</p></div><span class="quick-progress continuous-progress ${scored===comps.length&&comps.length?'complete':''}">${scored}/${comps.length}</span></div>
  <div class="quick-context continuous-context"><b>○ Mismo criterio, distinta observación</b><span>La escala se adapta a la UP, sesión o actividad y al saber básico seleccionado. Las observaciones anteriores se conservan.</span></div>
@@ -876,7 +992,7 @@ const continuousActivityByUP={
 };
 function isLegacyUP13Evidence(ev){return ev?.up==='UP13'&&ev?.c==='5.1'&&Number(ev?.seq)<=3}
 const GLOBAL_ASSESSMENT_ACTIVITY='Autoevaluación / Coevaluación de la UP';
-function activityNamesForUP(up){return [...new Set(principalForUP(up).filter(e=>!isLegacyUP13Evidence(e)).map(e=>e.desc)),GLOBAL_ASSESSMENT_ACTIVITY]}
+function activityNamesForUP(up){const names=[...new Set(principalForUP(up).filter(e=>!isLegacyUP13Evidence(e)).map(e=>e.desc))];if(up==='UP2')names.push('Observación de la práctica del calentamiento');return [...names,GLOBAL_ASSESSMENT_ACTIVITY]}
 function selectedActivityForUP(up){const acts=activityNamesForUP(up);const chosen=state.ui.selectedActivity&&acts.includes(state.ui.selectedActivity)?state.ui.selectedActivity:acts[0];state.ui.selectedActivity=chosen;return chosen}
 function filteredPrincipalForEvaluation(up){
  const all=principalForUP(up).filter(e=>!isLegacyUP13Evidence(e)),mode=state.ui.evaluationView||'activity';
@@ -893,13 +1009,13 @@ function filteredContinuousForEvaluation(up){
  if(up==='UP13'){
   if(mode==='session'){
    const sn=Number(state.ui.selectedSession)||1,allowed=up13Sessions[sn]?.continuous||[];
-   return all.filter(e=>allowed.includes(e.c));
+   return all.filter(e=>allowed.includes(e.c)||e.c==='3.3');
   }
   const chosen=selectedActivityForUP(up);if(chosen===GLOBAL_ASSESSMENT_ACTIVITY)return [];const allowed=up13ActivityContinuous[chosen]||[];
-  return all.filter(e=>allowed.includes(e.c));
+  return all.filter(e=>allowed.includes(e.c)||e.c==='3.3');
  }
  const chosen=selectedActivityForUP(up);if(chosen===GLOBAL_ASSESSMENT_ACTIVITY)return [];const contextActivity=continuousActivityByUP[up];
- return chosen&&contextActivity===chosen?all:[];
+ return chosen?(contextActivity===chosen?all:all.filter(e=>e.c==='3.3')):[];
 }
 function globalAssessmentCriteria(up){return [...new Set([...principalForUP(up).filter(e=>!isLegacyUP13Evidence(e)).map(e=>e.c),...compsForUP(up).map(e=>e.c)].filter(Boolean))]}
 function globalAssessmentCEs(up){return [...new Set(globalAssessmentCriteria(up).map(c=>criterionCE(c)).filter(Boolean))]}
@@ -1016,28 +1132,33 @@ const checklist22={
  UP9:['Identifica una opción de pase cuando un compañero está desmarcado.','Decide cuándo avanzar o pasar según la defensa.','Adapta su ubicación al ataque o a la defensa.'],
  UP11:['Reconoce las posibilidades de acción antes de decidir.','Adapta su decisión a los cambios del juego.','Selecciona una respuesta adecuada a las reglas del juego.']
 };
-function checklist22Key(gid,sid,up,who,i){return [gid,sid,up,'2.2',who,state.selectedDate,i].join('|')}
+function checklist22Key(gid,sid,up,who,i){return [gid,sid,up,'2.2',who,state.selectedDate,encodeURIComponent(selectedActivityForUP(up)||'general'),i].join('|')}
 function checklist22HTML(g){
  const up=state.selectedUP,items=checklist22[up];if(!items||!(evidence['2.2']||[]).some(e=>e[0]===up))return '';
  const sid=activeEvalSid(),st=g.students.find(s=>s.id===sid);if(!st)return '';
  const who=state.ui.checklist22Who==='peer'?'peer':'teacher';
+ const evaluator=String(state.ui.checklist22Evaluator||'').trim();
+ const activity=selectedActivityForUP(up)||'';
+ const metaKey=[g.id,sid,up,state.selectedDate,who].join('|');
  const rows=items.map((label,i)=>{const k=checklist22Key(g.id,sid,up,who,i),v=state.checklists22[k]||'';
  return `<div class="checklist22-row"><div>${esc(label)}</div><div class="checklist22-choices">${[['si','Sí'],['no','No'],['','No observado']].map(([value,name])=>`<button type="button" data-check22-key="${esc(k)}" data-check22-value="${value}" class="${v===value?'check22-active':''}" aria-pressed="${v===value}">${name}</button>`).join('')}</div></div>`}).join('');
  const assessed=items.filter((_,i)=>['si','no'].includes(state.checklists22[checklist22Key(g.id,sid,up,who,i)])).length;
- return `<div class="card checklist22"><h2>CE 2.2 · Lista de control Sí / No</h2><p class="muted">Toma de decisiones motrices. Registro por alumno y UP. No observado no equivale a No. La coevaluación se registra por separado y no modifica la nota automáticamente.</p><label>Fecha de observación</label><input type="date" id="checklist22Date" value="${esc(state.selectedDate)}"><label>Modalidad</label><select id="checklist22Who"><option value="teacher" ${who==='teacher'?'selected':''}>Observación docente</option><option value="peer" ${who==='peer'?'selected':''}>Coevaluación</option></select><p class="tiny">${esc(st.name)} · ${esc(state.selectedDate)} · ${assessed}/${items.length} indicadores observados</p>${rows}</div>`;
+ return `<div class="card checklist22"><h2>CE 2.2 · Lista de control Sí / No</h2><p class="muted">Toma de decisiones motrices. Registro por alumno y UP. No observado no equivale a No. La coevaluación se registra por separado y no modifica la nota automáticamente.</p><label>Fecha de observación</label><input type="date" id="checklist22Date" value="${esc(state.selectedDate)}"><label>Actividad / evidencia</label><p class="tiny">${esc(activity)}</p><label>Modalidad</label><select id="checklist22Who"><option value="teacher" ${who==='teacher'?'selected':''}>Observación docente</option><option value="peer" ${who==='peer'?'selected':''}>Coevaluación</option></select>${who==='peer'?`<label>Compañero evaluador (identificación)</label><input id="checklist22Evaluator" placeholder="Nombre del compañero" value="${esc(evaluator)}">`:''}<p class="tiny">${esc(st.name)} · ${esc(state.selectedDate)} · ${assessed}/${items.length} indicadores observados</p>${rows}</div>`;
 }
 function viewEvaluar(){
  const g=fullGroup();if(!g)return `<div class="card empty">Primero crea un grupo en Ajustes.</div>`;
  if(!g.students.length)return `${groupSelectors()}<div class="card empty">Añade alumnado al grupo para poder evaluar.</div>`;
  const sid=activeEvalSid(),evs=filteredPrincipalForEvaluation(state.selectedUP),comps=filteredContinuousForEvaluation(state.selectedUP);
- if(!comps.some(x=>x.c==='3.3'))comps.push({c:'3.3',up:state.selectedUP});
- const globalMode=selectedActivityForUP(state.selectedUP)===GLOBAL_ASSESSMENT_ACTIVITY;return `${groupSelectors()}${evaluationModeHTML()}<div class="card eval-student-picker"><div class="eval-picker-head"><div><h2>Evaluar</h2><p class="muted">Un alumno cada vez. Cambia de alumno sin salir de la unidad.</p></div><span class="pill main">${state.selectedUP}</span></div><label>Alumno</label><select id="evalStudentSel">${g.students.map(st=>`<option value="${st.id}" ${st.id===sid?'selected':''}>${esc(st.name)}</option>`).join('')}</select>${evaluateStudentNavHTML()}</div>${globalMode?`${globalAssessmentHTML()}${checklist22HTML(g)}${continuousEvaluationHTML(comps.filter(x=>x.c==='3.3'))}`:`${pentagonEvaluateHTML()}${quickEvaluationHTML(evs)}${checklist22HTML(g)}${continuousEvaluationHTML(comps)}`}${teacherAnnotationsHTML()}${evaluateStudentNavHTML()}`;
+ if((state.ui.evaluationView==='session'||selectedActivityForUP(state.selectedUP)!==GLOBAL_ASSESSMENT_ACTIVITY)&&!comps.some(x=>x.c==='3.3'))comps.push({c:'3.3',up:state.selectedUP});
+ // El valor 6 se ofrece como sugerencia visual; nunca se registra sin confirmación.
+ // Abrir Evaluar no crea observaciones ni altera cierres.
+ const globalMode=selectedActivityForUP(state.selectedUP)===GLOBAL_ASSESSMENT_ACTIVITY;return `${groupSelectors()}${evaluationModeHTML()}<div class="card eval-student-picker"><div class="eval-picker-head"><div><h2>Evaluar</h2><p class="muted">Un alumno cada vez. Cambia de alumno sin salir de la unidad.</p></div><span class="pill main">${state.selectedUP}</span></div><label>Alumno</label><select id="evalStudentSel">${g.students.map(st=>`<option value="${st.id}" ${st.id===sid?'selected':''}>${esc(st.name)}</option>`).join('')}</select>${evaluateStudentNavHTML()}</div>${globalMode?`${globalAssessmentHTML()}${checklist22HTML(g)}`:`${pentagonEvaluateHTML()}${quickEvaluationHTML(evs)}${checklist22HTML(g)}${continuousEvaluationHTML(comps)}`}${teacherAnnotationsHTML()}${evaluateStudentNavHTML()}`;
 }
 function scoreListHTML(ev){const g=group();if(!g)return '';const mode=state.ui.scoreMode,rubric=rubricFor(ev);return g.students.map(s=>{const k=scoreKey(g.id,s.id,ev.c,ev.seq),v=state.scores[k],mark=state.rubricMarks[k];let controls='';if(mode==='levels'){controls=`<div class="level-buttons rubric-buttons">${rubric.map(x=>`<button data-score="${x.score}" data-key="${k}" data-level="${x.label}" data-desc="${esc(x.desc)}" class="${mark?.label===x.label||(!mark&&String(v)===String(x.score))?'selected':''}">${x.label}<small>${x.score}</small></button>`).join('')}</div>${v!==undefined&&v!==''?`<button class="clear-score-text" data-clear="${k}">Borrar valoración</button>`:''}`}else{controls=`<div class="score-buttons">${[0,2,4,6,8,10].map(x=>`<button data-score="${x}" data-key="${k}" class="${String(v)===String(x)?'selected':''}">${x}</button>`).join('')}${v!==undefined&&v!==''?`<button class="clear-score-inline" data-clear="${k}" title="Borrar valoración">×</button>`:''}</div>`}return `<div class="student-row compact-score-row"><div class="student-name student-with-avatar">${avatarHTML(g.id,s,'sm')}<div class="student-name-text"><b>${esc(s.name)}</b><div class="tiny">Criterio ${ev.c}${v!==undefined&&v!==''?` · ${mark?esc(mark.label)+' · ':''}${v}`:''}</div></div>${controls}</div>`}).join('')}
 function qualListHTML(c,up){const g=group();return g.students.map(s=>{const k=qualKey(g.id,s.id,c,up),v=state.qual[k]||'';return `<div class="student-row"><div class="student-name student-with-avatar">${avatarHTML(g.id,s,'sm')}<div class="student-name-text"><b>${esc(s.name)}</b><div class="tiny">${criterionLabel(c)} · ${up}</div></div></div><select data-qual-key="${k}"><option value="">—</option>${['En proceso','Adecuado','Consolidado'].map(x=>`<option ${v===x?'selected':''}>${x}</option>`).join('')}</select></div>`}).join('')}
 function formalCE3ClosureHTML(g,st,period){
  if(!['eval1','eval2','eval3','final'].includes(period))return '';
- const rows=['3.1','3.2','3.3'].map(c=>{const h=continuousHistoryForPeriod(g.id,st.id,c,period),level=continuousLevelForPeriod(g.id,st.id,c,period),key=periodClosureKey(g.id,st.id,c,period),closed=state.continuousClosures?.[key],principal=criterionValueForPeriod(g.id,st.id,c,period),enough=h.length>=2,kept=closed?.mode==='kept';const status=closed?(kept?'<span class="pill closure-done">✓ Revisado · nivel mantenido</span>':'<span class="pill closure-done">✓ Cierre confirmado</span>'):'';const action=closed?`<div class="closure-confirmed-box"><div class="tiny">${kept?'Decisión docente: mantener el nivel':'Nivel continuo incorporado como evidencia ●: '+Number(closed.value).toFixed(2)} · ${esc(closed.date||'')}</div><button type="button" class="btn secondary small" data-closure-reopen="${key}" data-closure-c="${c}">Reabrir cierre</button></div>`:!enough?'<div class="closure-warning">Seguimiento insuficiente: se necesitan al menos 2 observaciones ○ para cerrar el criterio.</div>':`<div class="closure-actions"><button type="button" class="btn secondary small" data-closure-keep="${key}" data-closure-period="${period}" data-closure-c="${c}" data-closure-principal="${principal===null?'':principal.toFixed(4)}" data-closure-continuous="${level.toFixed(4)}">Mantener nivel actual</button><button type="button" class="btn small" data-closure-confirm="${key}" data-closure-period="${period}" data-closure-value="${level.toFixed(4)}" data-closure-c="${c}">Confirmar cierre · ${level.toFixed(2)}</button></div>`;return `<div class="closure-row"><div class="closure-head"><b>${criterionLabel(c)}</b>${status}</div><div class="closure-metrics"><span>● Nivel criterial (${evalLabel(period)}) <b>${principal===null?'—':principal.toFixed(2)}</b></span><span>○ Nivel continuo acumulado <b>${level===null?'—':level.toFixed(2)}</b></span></div><div class="closure-evolution">Trayectoria ○: ${h.length?h.map(x=>`${x.up} · ${x.value}`).join(' → '):'Sin seguimiento'}</div>${action}</div>`}).join('');return `<details class="criteria-detail" open><summary>Cierre formal CE3 · ${evalLabel(period)}</summary><p class="muted">Las observaciones ○ se acumulan desde el inicio de curso. El cálculo prioriza las tres más recientes: 15% · 25% · 60% (con dos: 29,4% · 70,6%). El cierre actual es la referencia continua de esta evaluación; no se promedian cierres anteriores.</p>${rows}</details>`}
+ const rows=['3.1','3.2','3.3'].map(c=>{const h=continuousHistoryForPeriod(g.id,st.id,c,period),level=continuousLevelForPeriod(g.id,st.id,c,period),key=periodClosureKey(g.id,st.id,c,period),closed=state.continuousClosures?.[key],principal=criterionValueForPeriod(g.id,st.id,c,period),enough=h.length>=2,kept=closed?.mode==='kept';const status=closed?(kept?'<span class="pill closure-done">✓ Revisado · nivel mantenido</span>':'<span class="pill closure-done">✓ Cierre confirmado</span>'):'';const action=closed?`<div class="closure-confirmed-box"><div class="tiny">${kept?'Decisión docente: mantener el nivel':'Nivel continuo incorporado como evidencia ●: '+Number(closed.value).toFixed(2)} · ${esc(closed.date||'')}</div><button type="button" class="btn secondary small" data-closure-reopen="${key}" data-closure-c="${c}">Reabrir cierre</button></div>`:!enough?'<div class="closure-warning">Seguimiento insuficiente: se necesitan al menos 2 observaciones ○ para cerrar el criterio.</div>':`<div class="closure-actions"><button type="button" class="btn secondary small" data-closure-keep="${key}" data-closure-period="${period}" data-closure-c="${c}" data-closure-principal="${principal===null?'':principal.toFixed(4)}" data-closure-continuous="${level.toFixed(4)}">Mantener nivel actual</button><button type="button" class="btn small" data-closure-confirm="${key}" data-closure-period="${period}" data-closure-value="${level.toFixed(4)}" data-closure-c="${c}">Confirmar cierre · ${level.toFixed(2)}</button></div>`;return `<div class="closure-row"><div class="closure-head"><b>${criterionLabel(c)}</b>${status}</div><div class="closure-metrics"><span>● Nivel criterial (${evalLabel(period)}) <b>${principal===null?'—':principal.toFixed(2)}</b></span><span>○ Nivel continuo acumulado <b>${level===null?'—':level.toFixed(2)}</b></span></div><div class="closure-evolution">Trayectoria ○: ${h.length?h.map(x=>`${x.up} · ${x.value}`).join(' → '):'Sin seguimiento'}</div>${action}</div>`}).join('');return `<details class="criteria-detail" open><summary>Cierre formal CE3 · ${evalLabel(period)}</summary><p class="muted">Las observaciones ○ se acumulan desde el inicio de curso. El cálculo considera todas las observaciones: media por UP, media por evaluación y pesos fijos 1:2:3 para primera, segunda y tercera evaluación. El cierre actual es la referencia continua de esta evaluación; no se promedian cierres anteriores.</p>${rows}</details>`}
 function summaryStudentHTML(g,st,period,idx){
  const grade=gradeForPeriod(g.id,st.id,period),cov=coverageForPeriod(g.id,st.id,period),count=assessedCountForPeriod(g.id,st.id,period),current=finalGrade(g.id,st.id);
  const ces=['CE1','CE2','CE3','CE4','CE5'].map(ce=>ceValueForPeriod(g.id,st.id,ce,period));
@@ -1071,7 +1192,7 @@ function viewAjustes(){
  const photosHTML=active?`<details class="card student-admin-details"><summary><span>Alumnado y fotos</span><small>${active.students.length} alumnos · ${esc(active.name)}</small></summary><div class="student-admin-content"><p class="muted">Grupo activo: <b>${esc(active.name)}</b>. Las fotos se guardan solo en este dispositivo y se incluyen en la copia JSON.</p>${active.students.length?`<div class="student-photo-list always-visible">${active.students.map(st=>{const has=!!state.photos[photoKey(active.id,st.id)];return `<div class="student-photo-row">${avatarHTML(active.id,st,'lg')}<div class="student-photo-name"><b>${esc(st.name)}</b><span>${has?'Foto guardada':'Sin foto'}</span></div><div class="photo-actions"><label class="btn small secondary photo-upload-btn">${has?'Cambiar':'Elegir foto'}<input type="file" accept="image/*" data-photo-upload="${active.id}|${st.id}" hidden></label><label class="btn small secondary photo-upload-btn camera-btn">Cámara<input type="file" accept="image/*" capture="user" data-photo-upload="${active.id}|${st.id}" hidden></label>${has?`<button class="btn small secondary" data-remove-photo="${active.id}|${st.id}">Quitar foto</button>`:''}<button class="btn small warning-action" data-clear-evaluations="${active.id}|${st.id}" data-student-name="${esc(st.name)}">Borrar evaluaciones</button><button class="btn small danger" data-delete-student="${active.id}|${st.id}" data-student-name="${esc(st.name)}">Eliminar alumno</button></div></div>`}).join('')}</div>`:`<div class="muted">Añade alumnado al grupo para poder asignar fotografías.</div>`}</div></details>`:'';
  return `<div class="card"><h2>Grupos y alumnado</h2><div class="row"><input id="newGroup" placeholder="Ej. 1.º ESO A"><button class="btn" id="addGroup">Crear grupo</button></div>${groupsHTML}</div>
  ${photosHTML}
- <div class="card"><h2>Organización flexible de evaluaciones</h2><p class="muted">Asigna cada UP al periodo en el que realmente la impartas. La numeración de la UP no cambia: por ejemplo, puedes realizar UP13 en octubre y asignarla a la 1.ª evaluación. La evaluación final seguirá siendo acumulativa con todo el curso.</p><div class="up-period-list">${ups.map(([u,n])=>`<div class="up-period-row"><div><b>${u}</b><span>${esc(n)}</span></div><select data-up-period="${u}" aria-label="Evaluación de ${u}"><option value="eval1" ${upPeriod(u)==='eval1'?'selected':''}>1.ª evaluación</option><option value="eval2" ${upPeriod(u)==='eval2'?'selected':''}>2.ª evaluación</option><option value="eval3" ${upPeriod(u)==='eval3'?'selected':''}>3.ª / tramo final</option></select></div>`).join('')}</div><p class="tiny"><b>CE3 continua:</b> integra la trayectoria disponible y prioriza las tres evidencias más recientes: 15% · 25% · 60%. Con dos evidencias se normaliza a 29,4% · 70,6%; una sola observación se muestra como seguimiento, pero no permite cerrar el criterio. Puede reflejar mejora o descenso. La evaluación final integra todas las UP.</p></div>
+ <div class="card"><h2>Organización flexible de evaluaciones</h2><p class="muted">Asigna cada UP al periodo en el que realmente la impartas. La numeración de la UP no cambia: por ejemplo, puedes realizar UP13 en octubre y asignarla a la 1.ª evaluación. La evaluación final seguirá siendo acumulativa con todo el curso.</p><div class="up-period-list">${ups.map(([u,n])=>`<div class="up-period-row"><div><b>${u}</b><span>${esc(n)}</span></div><select data-up-period="${u}" aria-label="Evaluación de ${u}"><option value="eval1" ${upPeriod(u)==='eval1'?'selected':''}>1.ª evaluación</option><option value="eval2" ${upPeriod(u)==='eval2'?'selected':''}>2.ª evaluación</option><option value="eval3" ${upPeriod(u)==='eval3'?'selected':''}>3.ª / tramo final</option></select></div>`).join('')}</div><p class="tiny"><b>CE3 continua:</b> calcula la media de evidencias por UP, después la media de UP dentro de cada evaluación y finalmente pondera 1.ª × 1, 2.ª × 2 y 3.ª × 3. Las evaluaciones sin datos se omiten sin alterar los pesos de las demás; una sola observación no permite cerrar el criterio. Puede reflejar mejora o descenso. La evaluación final integra todas las UP.</p></div>
  <div class="card"><h2>Auditoría 40 %</h2>${Object.entries(a).map(([p,v])=>`<div style="margin-bottom:9px"><div class="row"><span>${esc(p)}</span><b>${v.toFixed(2)}%</b></div><div class="progress"><span style="width:${Math.min(v,100)}%"></span></div></div>`).join('')}<p class="muted">Todos los procedimientos deben permanecer ≤ 40 %.</p></div>
  <div class="card"><h2>Copias de seguridad</h2><div class="toolbar"><button class="btn" id="exportJson">Exportar copia JSON</button><label class="btn secondary" style="display:inline-block">Importar JSON<input type="file" id="importJson" accept="application/json" hidden></label><button class="btn secondary" id="exportCsv">Exportar resumen CSV</button></div><p class="backup-status"><b>Última copia exportada:</b> ${esc(backupDateText())}</p><p class="muted">Los datos, incluidas las fotos, se guardan solo en este dispositivo/navegador. Las fotos se comprimen y se incluyen en la copia JSON; conserva esas copias en un lugar seguro y no las subas al repositorio público de GitHub.</p></div>`
 }
@@ -1104,11 +1225,18 @@ function updateContinuousRowUI(btn,score){
 }
 function bind(){
  const date22=document.getElementById('checklist22Date');if(date22)date22.onchange=()=>{if(/^\d{4}-\d{2}-\d{2}$/.test(date22.value)){state.selectedDate=date22.value;save();render()}};
+ const evaluator22=document.getElementById('checklist22Evaluator');
+ if(evaluator22)evaluator22.onchange=()=>{state.ui.checklist22Evaluator=evaluator22.value.trim();save()};
  const who22=document.getElementById('checklist22Who');
  if(who22)who22.onchange=()=>{state.ui.checklist22Who=who22.value;save();render()};
  document.querySelectorAll('[data-check22-key]').forEach(b=>b.onclick=()=>{
   const k=b.dataset.check22Key,v=b.dataset.check22Value;
-  if(v==='si'||v==='no')state.checklists22[k]=v;else delete state.checklists22[k];
+  if(v!==''&&state.ui.checklist22Who==='peer'&&!String(state.ui.checklist22Evaluator||'').trim()){alert('Identifica al compañero evaluador antes de registrar la coevaluación.');return}
+  if(state.ui.checklist22Who==='peer'&&!String(state.ui.checklist22Evaluator||'').trim()){alert('Identifica al compañero evaluador antes de registrar la coevaluación.');document.getElementById('checklist22Evaluator')?.focus();return}
+  if(v==='si'||v==='no')state.checklists22[k]=v;else {delete state.checklists22[k];delete state.checklists22Meta[k]}
+  if(v!==''&&state.ui.checklist22Who==='peer'){
+   const parts=k.split('|');state.checklists22Meta[k]={evaluator:String(state.ui.checklist22Evaluator||'').trim(),date:state.selectedDate,activity:selectedActivityForUP(state.selectedUP)||''};
+  }
   save();render();
  });
 document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{currentView=b.dataset.go;render()});document.querySelectorAll('.bottom-nav button').forEach(b=>b.onclick=()=>{currentView=b.dataset.view;render()});
@@ -1167,15 +1295,26 @@ document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{currentView=b.d
  document.querySelectorAll('[data-v4-mode]').forEach(b=>b.onclick=()=>{state.ui.evaluationView=b.dataset.v4Mode;save();render()});const pdfRub=document.getElementById('studentRubricPdfBtn');if(pdfRub)pdfRub.onclick=()=>generateStudentRubricPDF(state.selectedUP);const eas=document.getElementById('evalActivitySel');if(eas)eas.onchange=e=>{state.ui.selectedActivity=e.target.value;save();render()};const ess=document.getElementById('evalSessionSel');if(ess)ess.onchange=e=>{state.ui.selectedSession=Number(e.target.value);save();render()};
  if(currentView==='evaluar'){const evs=principalForUP(state.selectedUP),sel=document.getElementById('evSel'),meta=document.getElementById('evMeta'),box=document.getElementById('studentScores');if(sel&&Number.isInteger(state.ui.openEvidence)&&evs[state.ui.openEvidence]){sel.value=String(state.ui.openEvidence);delete state.ui.openEvidence;save()}const draw=()=>{const ev=evs[Number(sel.value)||0];if(!ev)return;meta.innerHTML=`<div class="row"><div><span class="pill main">● ${ev.c}</span> · ${esc(ev.proc)}<br><b>${esc(ev.desc)}</b></div><div class="counter">${scoredCount(group(),ev)}/${group().students.length} registrados</div></div>${state.ui.scoreMode==='levels'?rubricReferenceHTML(ev):''}`;box.innerHTML=scoreListHTML(ev);box.querySelectorAll('[data-score]').forEach(b=>b.onclick=()=>{state.scores[b.dataset.key]=Number(b.dataset.score);if(state.ui.scoreMode==='levels'&&b.dataset.level){state.rubricMarks[b.dataset.key]={label:b.dataset.level,score:Number(b.dataset.score),desc:b.dataset.desc,criterion:ev.c,up:ev.up,evidence:ev.desc}}else{delete state.rubricMarks[b.dataset.key]}save();draw()});box.querySelectorAll('[data-clear]').forEach(b=>b.onclick=()=>{delete state.scores[b.dataset.clear];delete state.rubricMarks[b.dataset.clear];save();draw()})};if(sel){sel.onchange=draw;draw()}}
  const ag=document.getElementById('addGroup');if(ag)ag.onclick=()=>{const name=document.getElementById('newGroup').value.trim();if(!name)return;const g={id:id(),name,students:[]};state.groups.push(g);state.selectedGroup=g.id;save();render();toast('Grupo creado')};
- document.querySelectorAll('[data-select-group]').forEach(b=>b.onclick=()=>{state.selectedGroup=b.dataset.selectGroup;state.ui.openEvaluateStudent=null;state.ui.openSummaryStudent=null;save();render();toast('Grupo seleccionado')});document.querySelectorAll('[data-delete-group]').forEach(b=>b.onclick=()=>{const gid=b.dataset.deleteGroup,g=state.groups.find(x=>x.id===gid);if(!g)return;const ok=confirm(`Vas a eliminar el grupo “${g.name}” y TODOS sus datos asociados: alumnado, notas, evidencias, asistencia, observaciones, instrumentos y fotos.\n\nEsta acción no se puede deshacer. ¿Eliminar grupo?`);if(ok){state.groups=state.groups.filter(x=>x.id!==gid);[state.scores,state.rubricMarks,state.selfScores,state.peerScores,state.selfRubricMarks,state.peerRubricMarks,state.upSelfAssessments,state.upPeerAssessments,state.qual,state.selfQual,state.peerQual,state.qualDates,state.continuousClosures,state.attendance,state.notes,state.teacherNotes,state.fitness,state.reflections,state.warmups,state.up3RPE,state.up3Tasks,state.up4Game,state.checklists22,state.photos].forEach(obj=>Object.keys(obj).filter(k=>k.startsWith(gid+'|')).forEach(k=>delete obj[k]));state.selectedGroup=state.groups[0]?.id||null;state.ui.openEvaluateStudent=null;state.ui.openSummaryStudent=null;savePhotos();save();render();toast('Grupo eliminado')}});
+ document.querySelectorAll('[data-select-group]').forEach(b=>b.onclick=()=>{state.selectedGroup=b.dataset.selectGroup;state.ui.openEvaluateStudent=null;state.ui.openSummaryStudent=null;save();render();toast('Grupo seleccionado')});document.querySelectorAll('[data-delete-group]').forEach(b=>b.onclick=()=>{const gid=b.dataset.deleteGroup,g=state.groups.find(x=>x.id===gid);if(!g)return;const ok=confirm(`Vas a eliminar el grupo “${g.name}” y TODOS sus datos asociados: alumnado, notas, evidencias, asistencia, observaciones, instrumentos y fotos.\n\nEsta acción no se puede deshacer. ¿Eliminar grupo?`);if(ok){state.groups=state.groups.filter(x=>x.id!==gid);[state.scores,state.rubricMarks,state.selfScores,state.peerScores,state.selfRubricMarks,state.peerRubricMarks,state.upSelfAssessments,state.upPeerAssessments,state.qual,state.selfQual,state.peerQual,state.qualDates,state.continuousClosures,state.attendance,state.notes,state.teacherNotes,state.fitness,state.reflections,state.warmups,state.up3RPE,state.up3Tasks,state.up4Game,state.checklists22,state.checklists22Meta,state.photos].forEach(obj=>Object.keys(obj).filter(k=>k.startsWith(gid+'|')).forEach(k=>delete obj[k]));state.selectedGroup=state.groups[0]?.id||null;state.ui.openEvaluateStudent=null;state.ui.openSummaryStudent=null;savePhotos();save();render();toast('Grupo eliminado')}});
  document.querySelectorAll('[data-add-students]').forEach(b=>b.onclick=()=>{const g=state.groups.find(x=>x.id===b.dataset.addStudents),ta=document.getElementById('bulk-'+g.id);ta.value.split(/\n+/).map(x=>x.trim()).filter(Boolean).forEach(name=>g.students.push({id:id(),name}));save();render();toast('Alumnado añadido')});
  document.querySelectorAll('[data-photo-upload]').forEach(inp=>inp.onchange=async()=>{const file=inp.files?.[0];if(!file)return;if(!file.type.startsWith('image/')){alert('Selecciona una imagen.');return}try{const data=await compressPhoto(file);state.photos[inp.dataset.photoUpload]=data;savePhotos();save();toast('Foto guardada');render()}catch{alert('No se pudo procesar la foto.')}});
  document.querySelectorAll('[data-remove-photo]').forEach(b=>b.onclick=()=>{if(confirm('¿Quitar únicamente la foto de este alumno?')){delete state.photos[b.dataset.removePhoto];savePhotos();save();render()}});
  document.querySelectorAll('[data-clear-evaluations]').forEach(b=>b.onclick=()=>{const [gid,sid]=b.dataset.clearEvaluations.split('|'),g=state.groups.find(x=>x.id===gid),st=g?.students.find(x=>x.id===sid);if(!g||!st)return;const ok=confirm(`Vas a borrar TODAS las evaluaciones de “${st.name}”: calificaciones ●, seguimientos ○, cierres CE3, instrumentos de evaluación y anotaciones del profesor.\n\nSe conservarán el alumno, su foto y la asistencia. Esta acción no se puede deshacer.
 
-Recomendado: exporta una copia JSON antes de continuar. ¿Borrar evaluaciones?`);if(!ok)return;const prefix=gid+'|'+sid;[state.scores,state.rubricMarks,state.selfScores,state.peerScores,state.selfRubricMarks,state.peerRubricMarks,state.upSelfAssessments,state.upPeerAssessments,state.qual,state.selfQual,state.peerQual,state.qualDates,state.continuousClosures,state.teacherNotes,state.fitness,state.reflections,state.warmups,state.up3RPE,state.up3Tasks,state.up4Game,state.checklists22].forEach(obj=>Object.keys(obj||{}).filter(k=>k===prefix||k.startsWith(prefix+'|')).forEach(k=>delete obj[k]));save();render();toast('Evaluaciones borradas')});
- document.querySelectorAll('[data-delete-student]').forEach(b=>b.onclick=()=>{const [gid,sid]=b.dataset.deleteStudent.split('|'),g=state.groups.find(x=>x.id===gid),st=g?.students.find(x=>x.id===sid);if(!g||!st)return;const ok=confirm(`Vas a eliminar a “${st.name}” y TODOS sus datos asociados: notas, evidencias, asistencia, observaciones, instrumentos y foto.\n\nEsta acción no se puede deshacer. ¿Eliminar alumno?`);if(!ok)return;g.students=g.students.filter(x=>x.id!==sid);const prefix=gid+'|'+sid;[state.scores,state.rubricMarks,state.selfScores,state.peerScores,state.selfRubricMarks,state.peerRubricMarks,state.upSelfAssessments,state.upPeerAssessments,state.qual,state.selfQual,state.peerQual,state.qualDates,state.continuousClosures,state.attendance,state.notes,state.teacherNotes,state.fitness,state.reflections,state.warmups,state.up3RPE,state.up3Tasks,state.up4Game,state.checklists22,state.photos].forEach(obj=>Object.keys(obj).filter(k=>k===prefix||k.startsWith(prefix+'|')).forEach(k=>delete obj[k]));if(state.ui.openEvaluateStudent===sid)state.ui.openEvaluateStudent=null;if(state.ui.openSummaryStudent===sid)state.ui.openSummaryStudent=null;if(state.ui.openWarmup===sid)state.ui.openWarmup=null;if(state.ui.openUp3RPE===sid)state.ui.openUp3RPE=null;if(state.ui.openUp3Task===sid)state.ui.openUp3Task=null;if(state.ui.openUp4Game===sid)state.ui.openUp4Game=null;savePhotos();save();render();toast('Alumno eliminado')});
- const ej=document.getElementById('exportJson');if(ej)ej.onclick=()=>{try{state.ui.lastBackupExport=new Date().toISOString();save();const json=JSON.stringify(state,null,2);download('cuaderno-ef-backup.json',json,'application/json;charset=utf-8');render();toast('Copia JSON preparada')}catch(err){console.error('Error al exportar JSON',err);alert('No se pudo exportar la copia JSON. Tus datos siguen guardados en este dispositivo.')}};const ij=document.getElementById('importJson');if(ij)ij.onchange=async e=>{const file=e.target.files?.[0];if(!file)return;try{const imported=migrate(JSON.parse(await file.text()));const ok=confirm('La importación sustituirá los datos actuales de este dispositivo.\n\nRecomendamos exportar primero una copia JSON del estado actual.\n\n¿Importar la copia seleccionada?');if(!ok){e.target.value='';toast('Importación cancelada');return}state=imported;savePhotos();save();render();toast('Copia importada')}catch{alert('Archivo no válido');e.target.value=''}};const ec=document.getElementById('exportCsv');if(ec)ec.onclick=exportCSV;
+Recomendado: exporta una copia JSON antes de continuar. ¿Borrar evaluaciones?`);if(!ok)return;const prefix=gid+'|'+sid;[state.scores,state.rubricMarks,state.selfScores,state.peerScores,state.selfRubricMarks,state.peerRubricMarks,state.upSelfAssessments,state.upPeerAssessments,state.qual,state.selfQual,state.peerQual,state.qualDates,state.continuousClosures,state.teacherNotes,state.fitness,state.reflections,state.warmups,state.up3RPE,state.up3Tasks,state.up4Game,state.checklists22,state.checklists22Meta].forEach(obj=>Object.keys(obj||{}).filter(k=>k===prefix||k.startsWith(prefix+'|')).forEach(k=>delete obj[k]));save();render();toast('Evaluaciones borradas')});
+ document.querySelectorAll('[data-delete-student]').forEach(b=>b.onclick=()=>{const [gid,sid]=b.dataset.deleteStudent.split('|'),g=state.groups.find(x=>x.id===gid),st=g?.students.find(x=>x.id===sid);if(!g||!st)return;const ok=confirm(`Vas a eliminar a “${st.name}” y TODOS sus datos asociados: notas, evidencias, asistencia, observaciones, instrumentos y foto.\n\nEsta acción no se puede deshacer. ¿Eliminar alumno?`);if(!ok)return;g.students=g.students.filter(x=>x.id!==sid);const prefix=gid+'|'+sid;[state.scores,state.rubricMarks,state.selfScores,state.peerScores,state.selfRubricMarks,state.peerRubricMarks,state.upSelfAssessments,state.upPeerAssessments,state.qual,state.selfQual,state.peerQual,state.qualDates,state.continuousClosures,state.attendance,state.notes,state.teacherNotes,state.fitness,state.reflections,state.warmups,state.up3RPE,state.up3Tasks,state.up4Game,state.checklists22,state.checklists22Meta,state.photos].forEach(obj=>Object.keys(obj).filter(k=>k===prefix||k.startsWith(prefix+'|')).forEach(k=>delete obj[k]));if(state.ui.openEvaluateStudent===sid)state.ui.openEvaluateStudent=null;if(state.ui.openSummaryStudent===sid)state.ui.openSummaryStudent=null;if(state.ui.openWarmup===sid)state.ui.openWarmup=null;if(state.ui.openUp3RPE===sid)state.ui.openUp3RPE=null;if(state.ui.openUp3Task===sid)state.ui.openUp3Task=null;if(state.ui.openUp4Game===sid)state.ui.openUp4Game=null;savePhotos();save();render();toast('Alumno eliminado')});
+ const ej=document.getElementById('exportJson');if(ej)ej.onclick=()=>{try{state.ui.lastBackupExport=new Date().toISOString();save();const json=JSON.stringify(state,null,2);download('cuaderno-ef-backup.json',json,'application/json;charset=utf-8');render();toast('Copia JSON preparada')}catch(err){console.error('Error al exportar JSON',err);alert('No se pudo exportar la copia JSON. Tus datos siguen guardados en este dispositivo.')}};const ij=document.getElementById('importJson');if(ij)ij.onchange=async e=>{const file=e.target.files?.[0];if(!file)return;try{const parsed=JSON.parse(await file.text());validateBackupShape(parsed);const imported=migrate(parsed);const ok=confirm('La importación sustituirá los datos actuales de este dispositivo.\n\nRecomendamos exportar primero una copia JSON del estado actual.\n\n¿Importar la copia seleccionada?');if(!ok){e.target.value='';toast('Importación cancelada');return}const oldState=state,oldFailure=loadFailureMessage;
+  const oldMain=localStorage.getItem(APP_KEY),oldPhotos=localStorage.getItem(PHOTO_KEY);
+  try{
+   const mainJSON=JSON.stringify({...imported,photos:{}}),photoJSON=JSON.stringify(imported.photos||{});
+   localStorage.setItem(PHOTO_KEY,photoJSON);
+   localStorage.setItem(APP_KEY,mainJSON);
+   if(localStorage.getItem(APP_KEY)!==mainJSON||localStorage.getItem(PHOTO_KEY)!==photoJSON)throw Error('No se pudo verificar la escritura');
+   state=imported;loadFailureMessage='';document.getElementById('dataLoadFailure')?.remove();render();toast('Copia importada y verificada');
+  }catch(err){
+   try{if(oldPhotos===null)localStorage.removeItem(PHOTO_KEY);else localStorage.setItem(PHOTO_KEY,oldPhotos);if(oldMain===null)localStorage.removeItem(APP_KEY);else localStorage.setItem(APP_KEY,oldMain)}catch(rollbackError){console.error('Error restaurando datos anteriores',rollbackError);storageWarning('ERROR CRÍTICO: la importación falló y no se pudo restaurar el almacenamiento. No cierres la aplicación; exporta los datos.')}
+   state=oldState;loadFailureMessage=oldFailure;showLoadFailure();throw err;
+  }}catch{alert('Archivo no válido');e.target.value=''}};const ec=document.getElementById('exportCsv');if(ec)ec.onclick=exportCSV;
 }
 function bindAttendanceOnly(){
   document.querySelectorAll('[data-att]').forEach(b=>{
