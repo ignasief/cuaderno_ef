@@ -15,7 +15,19 @@ const criterionShort={
  '4.1':'Cultura motriz y expresión','4.2':'Deporte, género e igualdad','4.3':'Expresión corporal y comunicación',
  '5.1':'Cuidado responsable del entorno','5.2':'Orientación, itinerario y preparación','5.3':'Prevención y seguridad en el medio natural'
 };
-function criterionLabel(c){return `${c} · ${criterionShort[c]||''}`}
+// Correspondencias DIDÁCTICAS orientativas, no una asignación normativa criterio-descriptor.
+// El currículo vincula los descriptores a competencias específicas.
+const criterionKeyDescriptor={
+ '1.1':['CPSAA','CPSAA2'],'1.2':['STEM','STEM5'],'1.3':['CPSAA','CPSAA2'],
+ '1.4':['CPSAA','CPSAA4'],'1.5':['CD','CD4'],'1.6':['STEM','STEM5'],
+ '2.1':['CPSAA','CPSAA5'],'2.2':['CPSAA','CPSAA4'],'2.3':['CPSAA','CPSAA5'],
+ '2.4':['CPSAA','CPSAA4'],
+ '3.1':['CPSAA','CPSAA1'],'3.2':['CPSAA','CPSAA3'],'3.3':['CC','CC3'],
+ '4.1':['CC','CC3'],'4.2':['CCEC','CCEC1'],'4.3':['CCEC','CCEC3'],
+ '5.1':['CC','CC4'],'5.2':['STEM','STEM5'],'5.3':['CE','CE3']
+};
+function criterionLabel(c){const kd=criterionKeyDescriptor[c];return `${c} · ${criterionShort[c]||''}${kd?' · '+kd[0]+' ('+kd[1]+')':''}`}
+
 
 const quickEvalContext={
  'UP1':{title:'Pasaporte de la condición física',what:'Qué observo: interpretación de los resultados y regulación responsable del esfuerzo.',focus:{'1.1':'Interpreta sus pruebas para valorar su condición física.','1.6':'Reconoce y regula su esfuerzo mediante sensaciones, RPE y ritmo.'}},
@@ -32,13 +44,29 @@ const quickEvalContext={
  'UP12':{title:'Baúl de los juegos del instituto · ApS',what:'Qué observo: cooperación, cultura motriz, igualdad y transmisión del patrimonio lúdico.',focus:{'3.2':'Coopera y asume responsabilidades en el proyecto ApS.','4.1':'Reconoce, practica y transmite manifestaciones de la cultura motriz.','4.2':'Participa con cualquier compañero/a respetando diferencias y evitando exclusiones.'}},
  'UP13':{title:'Senderismo y orientación',what:'Qué observo: responsabilidad, cooperación, cuidado del entorno, orientación y seguridad antes y durante la ruta.',focus:{'3.1':'Actúa responsablemente consigo mismo, con los demás y con el entorno en la preparación y la salida.','3.2':'Asume responsabilidades y coopera de forma eficaz durante la preparación y la ruta.','5.1':'Cuida el entorno y respeta las normas de conservación durante la práctica en el medio natural.','5.2':'Planifica y sigue el itinerario, se orienta y selecciona el material necesario de forma adecuada.','5.3':'Identifica riesgos, aplica medidas preventivas y utiliza de forma segura los recursos de orientación y meteorología.'}}
 };
+const duaByUP={
+ "UP1":{title:"Pasaporte CF",representation:"Mostrar demostraciones de las pruebas, pictogramas y ejemplos de RPE.",action:"Permitir registro en tabla, gráfico o audio breve y adaptar el modo de ejecución sin comparar marcas.",engagement:"Metas personales, elección del orden de pruebas y feedback de progreso individual."},
+ "UP2":{title:"Calentamiento",representation:"Modelo visual de fases, vídeo corto y decálogo con ejemplos.",action:"Diseño en esquema, dibujos o texto; dirigir en pareja o pequeño grupo con apoyos.",engagement:"Elegir ejercicios y roles; ensayo previo y retroalimentación entre iguales."},
+ "UP3":{title:"Condición física",representation:"Explicar capacidades con demostraciones, tarjetas y escala visual de esfuerzo.",action:"Opciones de intensidad, material y registro de sensaciones mediante texto, escala o gráfico.",engagement:"Retos personales graduados y seguimiento de mejora sin clasificación entre compañeros."},
+ "UP4":{title:"Bádminton",representation:"Demostraciones por partes, señalización de zonas y consignas breves.",action:"Volantes de distinta velocidad, distancias adaptadas y respuestas prácticas o explicadas.",engagement:"Parejas rotatorias de apoyo y retos cooperativos antes de la oposición."},
+ "UP5":{title:"Coordinación y equilibrio",representation:"Mostrar secuencias en imágenes y demostraciones a distintas velocidades.",action:"Circuitos con niveles, apoyos y recorridos alternativos; evidenciar progreso en vídeo o práctica.",engagement:"Elección de estación y nivel; refuerzo del avance personal."},
+ "UP6":{title:"Salud",representation:"Infografías accesibles, casos cercanos y vocabulario explicado con ejemplos.",action:"Mapa conceptual, exposición oral, esquema visual o presentación digital equivalente.",engagement:"Elección de hábitos a investigar y conexión con situaciones cotidianas."},
+ "UP7":{title:"Habilidades gimnásticas",representation:"Secuencias visuales, demostración por fases y normas de ayuda y seguridad.",action:"Figuras con distintos niveles, apoyos y roles de ejecución, ayuda o composición.",engagement:"Elección de retos, cooperación y reconocimiento de aportaciones diversas."},
+ "UP8":{title:"Combas",representation:"Ritmos modelados, secuencias en vídeo y claves visuales de entrada y salida.",action:"Combas de longitud diversa, ritmo ajustable y roles de salto, giro o coordinación.",engagement:"Metas grupales escalonadas y elección de música o secuencia."},
+ "UP9":{title:"Minibásquet",representation:"Pizarra táctica sencilla, demostración de 3×3 y reglas visuales.",action:"Balones, espacios y tiempos adaptados; demostrar decisiones en juego reducido.",engagement:"Roles rotatorios y retos cooperativos para garantizar participación."},
+ "UP10":{title:"Expresión corporal",representation:"Ejemplos de gestos, secuencias y referentes expresivos diversos.",action:"Comunicar mediante movimiento, gestos o composición con diferentes niveles de exposición.",engagement:"Elegir tema, música y rol; ambiente seguro sin actuaciones forzadas individuales."},
+ "UP11":{title:"Deportes alternativos",representation:"Explicar reglas con tarjetas, demostraciones y ensayos guiados.",action:"Adaptar móvil, espacio y reglas; evidenciar decisiones mediante juego o explicación breve.",engagement:"Elección de roles y equipos heterogéneos con objetivos cooperativos."},
+ "UP12":{title:"Juegos tradicionales",representation:"Presentar fichas ilustradas, testimonios y demostraciones de juegos.",action:"Explicar o enseñar juegos mediante fichas, práctica, audio o vídeo; adaptar normas.",engagement:"Elegir juegos y responsabilidades en el proyecto de servicio al centro."},
+ "UP13":{title:"Senderismo y orientación",representation:"Mapa legible, señales visuales, demostración de mochila y ejemplos de riesgos.",action:"Preparar mochila con lista visual; planificar ruta en mapa o esquema; ajustar ritmo y apoyos.",engagement:"Responsabilidades elegidas, anticipación del itinerario y pausas planificadas."},
+};
+function duaPanel(up){const d=duaByUP[up];if(!d)return "";return `<details class="card dua-panel"><summary><b>DUA · ${esc(up)} · ${esc(d.title)}</b> <small>Apoyos y opciones de acceso, expresión y participación</small></summary><div class="dua-content"><p><b>Representación:</b> ${esc(d.representation)}</p><p><b>Acción y expresión:</b> ${esc(d.action)}</p><p><b>Implicación:</b> ${esc(d.engagement)}</p><p class="muted"><small>Orientaciones didácticas propuestas. No modifican criterios, instrumentos ni calificaciones.</small></p></div></details>`;}
 function quickFocus(up,c,desc){return quickEvalContext[up]?.focus?.[c]||desc}
 const ups=[
  ['UP1','Valoración de la condición física'],['UP2','Calentamiento'],['UP3','Capacidades físicas básicas'],['UP4','Bádminton'],['UP5','Coordinación y equilibrio'],['UP6','Salud'],['UP7','Habilidades gimnásticas'],['UP8','Combas'],['UP9','Minibásquet'],['UP10','Expresión corporal'],['UP11','Juegos y deportes alternativos'],['UP12','Juegos y deportes tradicionales'],['UP13','Senderismo y orientación']
 ];
 const evidence={
 '1.1':[['UP1','Revisión de portfolio','Pasaporte de condición física'],['UP3','Revisión de portfolio','Seguimiento y regulación de CFB'],['UP6','Análisis de producción','Salud: concepto, hábitos y efectos sobre el bienestar']],
-'1.2':[['UP2','Presentación de producto','Diseño y dirección de calentamiento'],['UP3','Prueba de ejecución','Reto de regulación del esfuerzo']],
+'1.2':[['UP2','Presentación de producto','Diseño y dirección de calentamiento'],['UP2','Rúbrica del decálogo (10 pautas ilustradas)','Diseño y dirección de calentamiento'],['UP3','Prueba de ejecución','Reto de regulación del esfuerzo']],
 '1.3':[['UP6','Prueba objetiva','Aplicación de hábitos saludables']],
 '1.4':[['UP6','Prueba objetiva','Prevención y actuación ante situaciones de riesgo']],
 '1.5':[['UP2','Revisión de portfolio','Uso educativo de TIC en el aprendizaje del calentamiento'],['UP6','Uso educativo de TIC','Búsqueda, selección y uso responsable de información sobre salud']],
@@ -427,6 +455,15 @@ const contextualRubricAdditions={
 Object.assign(rubricOverrides,contextualRubricAdditions);
 
 const evidenceRubricOverrides={
+ 'UP2|1.2|2':[
+ {label:'No presentado',score:0,desc:'No presenta ni entrega el decálogo del calentamiento.'},
+ {label:'Muy insuficiente',score:2,desc:'Entrega un trabajo muy incompleto, con pocas pautas útiles, sin respetar los dibujos y textos breves, y fuera de plazo.'},
+ {label:'Insuficiente',score:4,desc:'Incluye pautas insuficientes o poco adecuadas; faltan varios dibujos, utiliza demasiado texto o incumple las condiciones de entrega.'},
+ {label:'Básico',score:6,desc:'Presenta diez pautas comprensibles y generalmente adecuadas; algunas requieren corrección o los dibujos, textos breves y presentación son irregulares.'},
+ {label:'Notable',score:8,desc:'Entrega en plazo diez pautas correctas, organizadas y útiles para el calentamiento, con dibujos claros y pocas palabras; presenta detalles menores mejorables.'},
+ {label:'Excelente',score:10,desc:'Entrega en plazo diez pautas correctas y aplicables al calentamiento; cada pauta se expresa con un dibujo claro y pocas palabras, en una presentación ordenada, cuidada y fácil de entender.'}
+ ],
+
  'UP13|5.1|1':[
   {label:'Muy inicial',score:2,desc:'No logra elaborar una planificación utilizable de la ruta o necesita una guía constante para identificar los elementos básicos del itinerario.'},
   {label:'Inicio',score:4,desc:'Sitúa algunos elementos de la ruta, pero necesita ayuda frecuente para calcular distancia y tiempo, localizar referencias o prever paradas.'},
@@ -780,7 +817,7 @@ function backupDateText(){const raw=state.ui?.lastBackupExport;if(!raw)return 'T
 function viewInicio(){const g=group(),n=g?g.students.length:0,pending=g?pendingStudentsForUP(g,state.selectedUP):0,period=state.ui.evaluationPeriod||'eval1',pendingClosures=pendingClosuresForPeriod(g,period);return `<div class="card"><h2>Panel del curso</h2><div class="grid"><div class="metric"><span>Grupo</span><strong>${g?esc(g.name):'—'}</strong></div><div class="metric"><span>Alumnado</span><strong>${n}</strong></div><div class="metric"><span>UP actual</span><strong>${state.selectedUP}</strong></div><div class="metric"><span>Hoy</span><strong>${state.selectedDate.slice(8,10)}/${state.selectedDate.slice(5,7)}</strong></div><div class="metric"><span>Pendientes · ${state.selectedUP}</span><strong>${g?pending:'—'}</strong></div><div class="metric"><span>Cierres CE3 pendientes</span><strong>${g?pendingClosures:'—'}</strong></div></div></div>
 <div class="card"><h3>Acción rápida</h3>${g?`<div class="toolbar"><button class="btn" data-go="sesion">Abrir sesión de hoy</button><button class="btn secondary" data-go="evaluar">Evaluar ●</button><button class="btn secondary" data-go="resumen">Ver progreso</button></div>`:`<div class="empty">Crea tu primer grupo en Ajustes para empezar.</div>`}</div>
 <div class="card"><h3>Regla del cuaderno</h3><p>No acumula “notas de tareas”: acumula <b>evidencias sobre criterios</b>. La asistencia y las observaciones de sesión se registran, pero <b>no entran automáticamente en la calificación</b>.</p></div>`}
-function viewSesion(){const g=group();if(!g)return `<div class="card empty">Primero crea un grupo en Ajustes.</div>`;const evs=principalForUP(state.selectedUP),comps=compsForUP(state.selectedUP),st=attendanceStats(g);return `${groupSelectors()}<div class="card session-summary-card"><div class="session-head"><div><label>Fecha de sesión</label><input class="session-date" type="date" id="dateSel" value="${state.selectedDate}"></div><div><h2>Sesión · ${state.selectedUP}</h2><div class="muted">${esc(upName(state.selectedUP))}</div></div></div></div>
+function viewSesion(){const g=group();if(!g)return `<div class="card empty">Primero crea un grupo en Ajustes.</div>`;const evs=principalForUP(state.selectedUP),comps=compsForUP(state.selectedUP),st=attendanceStats(g);return `${groupSelectors()}${duaPanel(state.selectedUP)}<div class="card session-summary-card"><div class="session-head"><div><label>Fecha de sesión</label><input class="session-date" type="date" id="dateSel" value="${state.selectedDate}"></div><div><h2>Sesión · ${state.selectedUP}</h2><div class="muted">${esc(upName(state.selectedUP))}</div></div></div></div>
 <div class="card attendance-card"><div class="attendance-head"><div><h3>Asistencia y observación rápida</h3><p class="muted">P = presente · A = ausente · J = ausencia justificada. Este registro no genera nota.</p></div><div class="attendance-tools"><div class="session-counter"><b id="attDone">${st.done}/${st.total}</b><span>registrados</span></div><button class="btn small secondary" id="allPresentBtn">Todos presentes</button></div></div><div id="attendanceList">${attendanceHTML(g)}</div></div>
 <div class="card"><h3>Evidencias principales ●</h3>${evs.length?evs.map((e,i)=>`<div class="evidence-card"><div><span class="pill main">● ${e.c}</span> <b>${esc(e.desc)}</b><div class="tiny">${esc(e.proc)} · ${scoredCount(g,e)}/${g.students.length} registrados</div></div><button class="btn small" data-open-evidence="${i}">Evaluar</button></div>`).join(''):`<div class="empty">No hay evidencias principales previstas en esta UP.</div>`}</div>
 <div class="card"><h3>Evaluación continua ○</h3>${comps.length?`<p class="muted">Los criterios de seguimiento continuo de esta UP se registran directamente en <b>Evaluar</b> con la escala 2 · 4 · 6 · 8 · 10.</p><button class="btn secondary" data-go="evaluar">Abrir Evaluación continua</button>`:`<div class="empty">No hay criterios de evaluación continua previstos en esta UP.</div>`}</div><div id="sessionOverlay"></div>`}
@@ -916,9 +953,9 @@ function quickEvaluationHTML(evs){
  const shownEvs=evs.filter(ev=>ev.c!=='2.2'||!checklist22[state.selectedUP]);const scored=shownEvs.filter(ev=>{const v=state.scores[scoreKey(g.id,sid,ev.c,ev.seq)];return v!==undefined&&v!==null&&v!==''}).length;
  const levels=[0,2,4,6,8,10],ctx=quickEvalContext[state.selectedUP],assignedPeriod=upPeriod(state.selectedUP),criterionMeans=[...new Set(evs.map(e=>e.c))].map(c=>({c,v:criterionValueForPeriod(g.id,sid,c,assignedPeriod)}));
  const rows=evs.filter(ev=>ev.c!=='2.2'||!checklist22[state.selectedUP]).map((ev,i)=>{const k=scoreKey(g.id,sid,ev.c,ev.seq),v=state.scores[k],done=v!==undefined&&v!==null&&v!=='',rubric=rubricFor(ev),mark=state.rubricMarks[k],focus=quickFocus(ev.up,ev.c,ev.desc);
-  const ceClass=`ce-block-${ev.c.split('.')[0]}`;
+  const ceClass=`ce-block-${ev.c.split('.')[0]}`;const warmupDecalogue=ev.up==='UP2'&&ev.c==='1.2'&&ev.proc.startsWith('Rúbrica del decálogo');
   return `<div class="quick-eval-row ${ceClass} ${done?'done':''}">
-   <div class="quick-eval-head"><div><span class="pill main ce-pill ${ceClass}">${criterionLabel(ev.c)}</span><b class="quick-focus">${esc(focus)}</b></div><span class="quick-status">${done?`✓ ${mark?.label?esc(mark.label)+' · ':''}${v}`:'Pendiente'}</span></div>
+   <div class="quick-eval-head"><div><span class="pill main ce-pill ${ceClass}">${criterionLabel(ev.c)}</span><b class="quick-focus">${warmupDecalogue?'Decálogo del calentamiento · 10 pautas con dibujos y poco texto':esc(focus)}</b></div><span class="quick-status">${done?`✓ ${mark?.label?esc(mark.label)+' · ':''}${v}`:'Pendiente'}</span></div>
    <div class="quick-evidence-label"><b>Actividad/evidencia:</b> ${esc(ev.desc)} · <b>Instrumento:</b> ${esc(ev.proc)}</div>${knowledgeFor(ev.up,ev.c)?`<div class="quick-evidence-label"><b>Saber básico:</b> ${esc(knowledgeFor(ev.up,ev.c))}</div>`:''}
    <div class="quick-score-buttons">${levels.map(n=>{const r=rubric.find(x=>Number(x.score)===n);return `<button type="button" data-quick-score="${n}" data-quick-key="${k}" data-quick-c="${ev.c}" data-quick-seq="${ev.seq}" data-quick-up="${ev.up}" data-quick-desc="${esc(ev.desc)}" data-quick-level="${esc(r?.label||'')}" data-quick-rubric-desc="${esc(r?.desc||'')}" class="${Number(v)===n?'selected':''}"><strong>${n}</strong><small>${esc(r?.label||'')}</small></button>`}).join('')}</div>
    <details class="quick-native-details"><summary>Ver qué significa cada nivel</summary><div class="quick-rubric-grid">${rubric.map(r=>`<div><b>${r.score} · ${esc(r.label)}</b><span>${esc(r.desc)}</span></div>`).join('')}</div></details>
@@ -1146,7 +1183,7 @@ function checklist22HTML(g){
 }
 function viewEvaluar(){
  const g=fullGroup();if(!g)return `<div class="card empty">Primero crea un grupo en Ajustes.</div>`;
- if(!g.students.length)return `${groupSelectors()}<div class="card empty">Añade alumnado al grupo para poder evaluar.</div>`;
+ if(!g.students.length)return `${groupSelectors()}${duaPanel(state.selectedUP)}<div class="card empty">Añade alumnado al grupo para poder evaluar.</div>`;
  const sid=activeEvalSid(),evs=filteredPrincipalForEvaluation(state.selectedUP),comps=filteredContinuousForEvaluation(state.selectedUP);
  if((state.ui.evaluationView==='session'||selectedActivityForUP(state.selectedUP)!==GLOBAL_ASSESSMENT_ACTIVITY)&&!comps.some(x=>x.c==='3.3'))comps.push({c:'3.3',up:state.selectedUP});
  // CE3.3: valor 6 registrado automáticamente la primera vez que se abre
