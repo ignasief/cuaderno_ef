@@ -7,7 +7,7 @@ const criteria=[
  ['4.1','CE4',1],['4.2','CE4',1],['4.3','CE4',1],
  ['5.1','CE5',1],['5.2','CE5',1],['5.3','CE5',1]
 ];
-const ceWeights={CE1:20,CE2:30,CE3:30,CE4:10,CE5:10};
+const ceWeights={CE1:25,CE2:25,CE3:20,CE4:15,CE5:15};
 const criterionShort={
  '1.1':'Actividad física y salud','1.2':'Preparación de la práctica física','1.3':'Hábitos saludables y bienestar','1.4':'Prevención y seguridad corporal','1.5':'Uso educativo de TIC','1.6':'Responsabilidad y hábitos de práctica',
  '2.1':'Valoración y ajuste del desempeño motor','2.2':'Decisiones en situaciones motrices','2.3':'Resolución eficaz de problemas motores','2.4':'Reglas, fundamentos y estrategias',
@@ -34,56 +34,56 @@ const quickEvalContext={
  'UP2':{title:'Diseño y dirección de calentamiento',what:'Qué observo: preparación adecuada, progresiva y segura de la práctica física.',focus:{'1.2':'Diseña y dirige un calentamiento adecuado, progresivo y seguro.'}},
  'UP3':{title:'Capacidades físicas básicas',what:'Qué observo: comprensión de las CFB, selección de tareas y autorregulación del esfuerzo.',focus:{'1.1':'Relaciona las tareas de CFB con sus efectos sobre condición física y salud.','1.2':'Selecciona y organiza tareas adecuadas, progresivas y seguras.','1.6':'Anticipa, contrasta y ajusta el esfuerzo previsto y real.'}},
  'UP4':{title:'Juego real/modificado · Bádminton',what:'Qué observo: decisiones, resolución técnico-táctica, reglas, deportividad y convivencia. No se evalúa el resultado del partido.',focus:{'2.2':'Se coloca, anticipa y elige respuestas adecuadas durante el juego.','2.3':'Resuelve situaciones técnico-tácticas con eficacia y continuidad; como evidencia técnica puede comprobarse si realiza 10 golpeos consecutivos sin caída, con condiciones de prueba definidas.','2.4':'Aplica reglas y principios del juego y valora su propia actuación.','3.1':'Participa activamente, se autorregula y mantiene deportividad.','3.3':'Respeta al oponente, a los compañeros y las normas de convivencia.'}},
- 'UP5':{title:'Circuito/reto coordinativo',what:'Qué observo: resolución eficaz de retos de coordinación y equilibrio.',focus:{'2.3':'Ajusta y combina sus acciones para resolver el reto coordinativo con eficacia.'}},
- 'UP6':{title:'Hábitos saludables',what:'Qué observo: comprensión de la salud, aplicación de hábitos saludables, prevención, uso educativo de TIC y cuidado personal.',focus:{'1.1':'Comprende el concepto de salud, distingue factores beneficiosos y perjudiciales y relaciona los malos hábitos con sus efectos.','1.3':'Aplica hábitos saludables relacionados con postura, core, respiración, bienestar y alimentación.','1.4':'Reconoce riesgos y aplica medidas de prevención, PAS/112 y actuación básica ante accidentes.','1.5':'Busca, selecciona y utiliza de forma responsable información sobre salud mediante TIC.','1.6':'Utiliza ropa y calzado adecuados y mantiene hábitos de aseo vinculados a la práctica.'}},
- 'UP7':{title:'Composición gimnástica',what:'Qué observo: resolución motriz, cooperación y respeto durante la composición.',focus:{'2.3':'Resuelve con eficacia los elementos y enlaces de la composición.','3.2':'Coopera, asume responsabilidades y contribuye al resultado grupal.','3.3':'Respeta, ayuda y favorece un clima seguro durante la práctica.'}},
- 'UP8':{title:'Secuencia cooperativa de combas',what:'Qué observo: resolución eficaz y coordinada de una secuencia colectiva.',focus:{'2.3':'Resuelve y enlaza acciones de comba con eficacia dentro de la secuencia cooperativa.'}},
+ 'UP7':{title:'Circuito/reto coordinativo',what:'Qué observo: resolución eficaz de retos de coordinación y equilibrio.',focus:{'2.3':'Ajusta y combina sus acciones para resolver el reto coordinativo con eficacia.'}},
+ 'UP5':{title:'Hábitos saludables',what:'Qué observo: comprensión de la salud, aplicación de hábitos saludables, prevención, uso educativo de TIC y cuidado personal.',focus:{'1.1':'Comprende el concepto de salud, distingue factores beneficiosos y perjudiciales y relaciona los malos hábitos con sus efectos.','1.3':'Aplica hábitos saludables relacionados con postura, core, respiración, bienestar y alimentación.','1.4':'Reconoce riesgos y aplica medidas de prevención, PAS/112 y actuación básica ante accidentes.','1.5':'Busca, selecciona y utiliza de forma responsable información sobre salud mediante TIC.','1.6':'Utiliza ropa y calzado adecuados y mantiene hábitos de aseo vinculados a la práctica.'}},
+ 'UP6':{title:'Composición gimnástica',what:'Qué observo: resolución motriz, cooperación y respeto durante la composición.',focus:{'2.3':'Resuelve con eficacia los elementos y enlaces de la composición.','3.2':'Coopera, asume responsabilidades y contribuye al resultado grupal.','3.3':'Respeta, ayuda y favorece un clima seguro durante la práctica.'}},
+ 'UP_ARCHIVE_COMBAS':{title:'Secuencia cooperativa de combas',what:'Qué observo: resolución eficaz y coordinada de una secuencia colectiva.',focus:{'2.3':'Resuelve y enlaza acciones de comba con eficacia dentro de la secuencia cooperativa.'}},
  'UP9':{title:'Juego reducido 3×3 · Minibásquet',what:'Qué observo: decisiones, resolución técnico-táctica, reglas, participación, deportividad e igualdad.',focus:{'2.2':'Lee la situación de juego y toma decisiones adecuadas.','2.3':'Resuelve con eficacia las acciones técnico-tácticas del 3×3.','2.4':'Aplica reglas y principios y revisa su propia actuación.','3.1':'Participa, se autorregula y mantiene deportividad.','3.3':'Respeta a compañeros, oponentes y decisiones durante el juego.','4.2':'Reconoce y cuestiona estereotipos, valorando referentes diversos en baloncesto.'}},
- 'UP10':{title:'Creación y representación colectiva',what:'Qué observo: resolución motriz, cooperación, cultura motriz y comunicación corporal.',focus:{'2.3':'Resuelve con eficacia las demandas motrices de la creación.','3.2':'Coopera y asume responsabilidades dentro del proceso creativo.','3.3':'Respeta aportaciones y favorece la convivencia en el grupo.','4.1':'Integra recursos de la cultura motriz en la representación.','4.3':'Utiliza el cuerpo de forma expresiva y comunicativa.'}},
- 'UP11':{title:'Juegos y deportes alternativos',what:'Qué observo: planificación, participación, cooperación y convivencia en situaciones motrices nuevas.',focus:{'2.1':'Valora su desempeño y utiliza autoevaluación/coevaluación para identificar ajustes de mejora.','2.2':'Toma decisiones adecuadas ante situaciones cambiantes de juego.','3.1':'Participa con autonomía y deportividad.','3.2':'Coopera y asume responsabilidades en el juego.','3.3':'Respeta normas, compañeros y adversarios.'}},
- 'UP12':{title:'Baúl de los juegos del instituto · ApS',what:'Qué observo: cooperación, cultura motriz, igualdad y transmisión del patrimonio lúdico.',focus:{'3.2':'Coopera y asume responsabilidades en el proyecto ApS.','4.1':'Reconoce, practica y transmite manifestaciones de la cultura motriz.','4.2':'Participa con cualquier compañero/a respetando diferencias y evitando exclusiones.'}},
- 'UP13':{title:'Senderismo y orientación',what:'Qué observo: responsabilidad, cooperación, cuidado del entorno, orientación y seguridad antes y durante la ruta.',focus:{'3.1':'Actúa responsablemente consigo mismo, con los demás y con el entorno en la preparación y la salida.','3.2':'Asume responsabilidades y coopera de forma eficaz durante la preparación y la ruta.','5.1':'Cuida el entorno y respeta las normas de conservación durante la práctica en el medio natural.','5.2':'Planifica y sigue el itinerario, se orienta y selecciona el material necesario de forma adecuada.','5.3':'Identifica riesgos, aplica medidas preventivas y utiliza de forma segura los recursos de orientación y meteorología.'}}
+ 'UP8':{title:'Creación y representación colectiva',what:'Qué observo: resolución motriz, cooperación, cultura motriz y comunicación corporal.',focus:{'2.3':'Resuelve con eficacia las demandas motrices de la creación.','3.2':'Coopera y asume responsabilidades dentro del proceso creativo.','3.3':'Respeta aportaciones y favorece la convivencia en el grupo.','4.1':'Integra recursos de la cultura motriz en la representación.','4.3':'Utiliza el cuerpo de forma expresiva y comunicativa.'}},
+ 'UP10':{title:'Juegos y deportes alternativos',what:'Qué observo: planificación, participación, cooperación y convivencia en situaciones motrices nuevas.',focus:{'2.1':'Valora su desempeño y utiliza autoevaluación/coevaluación para identificar ajustes de mejora.','2.2':'Toma decisiones adecuadas ante situaciones cambiantes de juego.','3.1':'Participa con autonomía y deportividad.','3.2':'Coopera y asume responsabilidades en el juego.','3.3':'Respeta normas, compañeros y adversarios.'}},
+ 'UP11':{title:'Baúl de los juegos del instituto · ApS',what:'Qué observo: cooperación, cultura motriz, igualdad y transmisión del patrimonio lúdico.',focus:{'3.2':'Coopera y asume responsabilidades en el proyecto ApS.','4.1':'Reconoce, practica y transmite manifestaciones de la cultura motriz.','4.2':'Participa con cualquier compañero/a respetando diferencias y evitando exclusiones.'}},
+ 'UP12':{title:'Senderismo y orientación',what:'Qué observo: responsabilidad, cooperación, cuidado del entorno, orientación y seguridad antes y durante la ruta.',focus:{'3.1':'Actúa responsablemente consigo mismo, con los demás y con el entorno en la preparación y la salida.','3.2':'Asume responsabilidades y coopera de forma eficaz durante la preparación y la ruta.','5.1':'Cuida el entorno y respeta las normas de conservación durante la práctica en el medio natural.','5.2':'Planifica y sigue el itinerario, se orienta y selecciona el material necesario de forma adecuada.','5.3':'Identifica riesgos, aplica medidas preventivas y utiliza de forma segura los recursos de orientación y meteorología.'}}
 };
 const duaByUP={
  "UP1":{title:"Pasaporte CF",representation:"Mostrar demostraciones de las pruebas, pictogramas y ejemplos de RPE.",action:"Permitir registro en tabla, gráfico o audio breve y adaptar el modo de ejecución sin comparar marcas.",engagement:"Metas personales, elección del orden de pruebas y feedback de progreso individual."},
  "UP2":{title:"Calentamiento",representation:"Modelo visual de fases, vídeo corto y decálogo con ejemplos.",action:"Diseño en esquema, dibujos o texto; dirigir en pareja o pequeño grupo con apoyos.",engagement:"Elegir ejercicios y roles; ensayo previo y retroalimentación entre iguales."},
  "UP3":{title:"Condición física",representation:"Explicar capacidades con demostraciones, tarjetas y escala visual de esfuerzo.",action:"Opciones de intensidad, material y registro de sensaciones mediante texto, escala o gráfico.",engagement:"Retos personales graduados y seguimiento de mejora sin clasificación entre compañeros."},
  "UP4":{title:"Bádminton",representation:"Demostraciones por partes, señalización de zonas y consignas breves.",action:"Volantes de distinta velocidad, distancias adaptadas y respuestas prácticas o explicadas.",engagement:"Parejas rotatorias de apoyo y retos cooperativos antes de la oposición."},
- "UP5":{title:"Coordinación y equilibrio",representation:"Mostrar secuencias en imágenes y demostraciones a distintas velocidades.",action:"Circuitos con niveles, apoyos y recorridos alternativos; evidenciar progreso en vídeo o práctica.",engagement:"Elección de estación y nivel; refuerzo del avance personal."},
- "UP6":{title:"Salud",representation:"Infografías accesibles, casos cercanos y vocabulario explicado con ejemplos.",action:"Mapa conceptual, exposición oral, esquema visual o presentación digital equivalente.",engagement:"Elección de hábitos a investigar y conexión con situaciones cotidianas."},
- "UP7":{title:"Habilidades gimnásticas",representation:"Secuencias visuales, demostración por fases y normas de ayuda y seguridad.",action:"Figuras con distintos niveles, apoyos y roles de ejecución, ayuda o composición.",engagement:"Elección de retos, cooperación y reconocimiento de aportaciones diversas."},
- "UP8":{title:"Combas",representation:"Ritmos modelados, secuencias en vídeo y claves visuales de entrada y salida.",action:"Combas de longitud diversa, ritmo ajustable y roles de salto, giro o coordinación.",engagement:"Metas grupales escalonadas y elección de música o secuencia."},
+ "UP7":{title:"Coordinación y equilibrio",representation:"Mostrar secuencias en imágenes y demostraciones a distintas velocidades.",action:"Circuitos con niveles, apoyos y recorridos alternativos; evidenciar progreso en vídeo o práctica.",engagement:"Elección de estación y nivel; refuerzo del avance personal."},
+ "UP5":{title:"Salud",representation:"Infografías accesibles, casos cercanos y vocabulario explicado con ejemplos.",action:"Mapa conceptual, exposición oral, esquema visual o presentación digital equivalente.",engagement:"Elección de hábitos a investigar y conexión con situaciones cotidianas."},
+ "UP6":{title:"Habilidades gimnásticas",representation:"Secuencias visuales, demostración por fases y normas de ayuda y seguridad.",action:"Figuras con distintos niveles, apoyos y roles de ejecución, ayuda o composición.",engagement:"Elección de retos, cooperación y reconocimiento de aportaciones diversas."},
+ "UP_ARCHIVE_COMBAS":{title:"Combas",representation:"Ritmos modelados, secuencias en vídeo y claves visuales de entrada y salida.",action:"Combas de longitud diversa, ritmo ajustable y roles de salto, giro o coordinación.",engagement:"Metas grupales escalonadas y elección de música o secuencia."},
  "UP9":{title:"Minibásquet",representation:"Pizarra táctica sencilla, demostración de 3×3 y reglas visuales.",action:"Balones, espacios y tiempos adaptados; demostrar decisiones en juego reducido.",engagement:"Roles rotatorios y retos cooperativos para garantizar participación."},
- "UP10":{title:"Expresión corporal",representation:"Ejemplos de gestos, secuencias y referentes expresivos diversos.",action:"Comunicar mediante movimiento, gestos o composición con diferentes niveles de exposición.",engagement:"Elegir tema, música y rol; ambiente seguro sin actuaciones forzadas individuales."},
- "UP11":{title:"Deportes alternativos",representation:"Explicar reglas con tarjetas, demostraciones y ensayos guiados.",action:"Adaptar móvil, espacio y reglas; evidenciar decisiones mediante juego o explicación breve.",engagement:"Elección de roles y equipos heterogéneos con objetivos cooperativos."},
- "UP12":{title:"Juegos tradicionales",representation:"Presentar fichas ilustradas, testimonios y demostraciones de juegos.",action:"Explicar o enseñar juegos mediante fichas, práctica, audio o vídeo; adaptar normas.",engagement:"Elegir juegos y responsabilidades en el proyecto de servicio al centro."},
- "UP13":{title:"Senderismo y orientación",representation:"Mapa legible, señales visuales, demostración de mochila y ejemplos de riesgos.",action:"Preparar mochila con lista visual; planificar ruta en mapa o esquema; ajustar ritmo y apoyos.",engagement:"Responsabilidades elegidas, anticipación del itinerario y pausas planificadas."},
+ "UP8":{title:"Expresión corporal",representation:"Ejemplos de gestos, secuencias y referentes expresivos diversos.",action:"Comunicar mediante movimiento, gestos o composición con diferentes niveles de exposición.",engagement:"Elegir tema, música y rol; ambiente seguro sin actuaciones forzadas individuales."},
+ "UP10":{title:"Deportes alternativos",representation:"Explicar reglas con tarjetas, demostraciones y ensayos guiados.",action:"Adaptar móvil, espacio y reglas; evidenciar decisiones mediante juego o explicación breve.",engagement:"Elección de roles y equipos heterogéneos con objetivos cooperativos."},
+ "UP11":{title:"Juegos tradicionales",representation:"Presentar fichas ilustradas, testimonios y demostraciones de juegos.",action:"Explicar o enseñar juegos mediante fichas, práctica, audio o vídeo; adaptar normas.",engagement:"Elegir juegos y responsabilidades en el proyecto de servicio al centro."},
+ "UP12":{title:"Senderismo y orientación",representation:"Mapa legible, señales visuales, demostración de mochila y ejemplos de riesgos.",action:"Preparar mochila con lista visual; planificar ruta en mapa o esquema; ajustar ritmo y apoyos.",engagement:"Responsabilidades elegidas, anticipación del itinerario y pausas planificadas."},
 };
-function duaPanel(up){const d=duaByUP[up];if(!d)return "";return `<details class="card dua-panel"><summary><b>DUA · ${esc(up)} · ${esc(d.title)}</b> <small>Apoyos y opciones de acceso, expresión y participación</small></summary><div class="dua-content"><p><b>Representación:</b> ${esc(d.representation)}</p><p><b>Acción y expresión:</b> ${esc(d.action)}</p><p><b>Implicación:</b> ${esc(d.engagement)}</p><p class="muted"><small>Orientaciones didácticas propuestas. No modifican criterios, instrumentos ni calificaciones.</small></p></div></details>`;}
+function duaPanel(up){const d=duaByUP[up];if(!d)return "";return methodologyPanel4511(up)+`<details class="card dua-panel"><summary><b>DUA · ${esc(up)} · ${esc(d.title)}</b> <small>Apoyos y opciones de acceso, expresión y participación</small></summary><div class="dua-content"><p><b>Representación:</b> ${esc(d.representation)}</p><p><b>Acción y expresión:</b> ${esc(d.action)}</p><p><b>Implicación:</b> ${esc(d.engagement)}</p><p class="muted"><small>Orientaciones didácticas propuestas. No modifican criterios, instrumentos ni calificaciones.</small></p></div></details>`;}
 function quickFocus(up,c,desc){return quickEvalContext[up]?.focus?.[c]||desc}
 const ups=[
- ['UP1','Valoración de la condición física'],['UP2','Calentamiento'],['UP3','Capacidades físicas básicas'],['UP4','Bádminton'],['UP5','Coordinación y equilibrio'],['UP6','Salud'],['UP7','Habilidades gimnásticas'],['UP8','Combas'],['UP9','Minibásquet'],['UP10','Expresión corporal'],['UP11','Juegos y deportes alternativos'],['UP12','Juegos y deportes tradicionales'],['UP13','Senderismo y orientación']
+ ['UP1','Valoración de la condición física'],['UP2','Calentamiento'],['UP3','Capacidades físicas básicas'],['UP4','Bádminton'],['UP5','Salud'],['UP6','Habilidades gimnásticas'],['UP7','Coordinación y equilibrio'],['UP8','Expresión corporal'],['UP9','Minibásquet'],['UP10','Juegos y deportes alternativos'],['UP11','Juegos y deportes tradicionales'],['UP12','Senderismo y orientación']
 ];
 const evidence={
-'1.1':[['UP1','Revisión de portfolio','Pasaporte de condición física'],['UP3','Revisión de portfolio','Seguimiento y regulación de CFB'],['UP6','Análisis de producción','Salud: concepto, hábitos y efectos sobre el bienestar']],
-'1.2':[['UP2','Presentación de producto','Diseño y dirección de calentamiento'],['UP2','Rúbrica del decálogo (10 pautas ilustradas)','Diseño y dirección de calentamiento'],['UP3','Prueba de ejecución','Reto de regulación del esfuerzo']],
-'1.3':[['UP6','Prueba objetiva','Aplicación de hábitos saludables']],
-'1.4':[['UP6','Prueba objetiva','Prevención y actuación ante situaciones de riesgo']],
-'1.5':[['UP2','Revisión de portfolio','Uso educativo de TIC en el aprendizaje del calentamiento'],['UP6','Uso educativo de TIC','Búsqueda, selección y uso responsable de información sobre salud']],
-'1.6':[['UP1','Observación sistemática','Participación responsable y regulación del esfuerzo'],['UP2','Revisión de portfolio','Diseño y dirección de calentamiento'],['UP3','Observación sistemática','Participación responsable y autorregulación'],['UP6','Observación sistemática','Ropa, calzado y aseo adecuados para la práctica']],
-'2.1':[['UP4','Autoevaluación/coevaluación','Valoración técnico-táctica del juego de bádminton'],['UP11','Autoevaluación/coevaluación','Valoración del desempeño en juegos y deportes alternativos']],
-'2.2':[['UP4','Prueba de ejecución','Juego real/modificado de bádminton'],['UP9','Prueba de ejecución','Juego reducido 3×3 de minibásquet'],['UP11','Prueba de ejecución','Toma de decisiones en juegos y deportes alternativos']],
-'2.3':[['UP4','Prueba de ejecución','Juego real/modificado de bádminton'],['UP5','Prueba de ejecución','Circuito/reto coordinativo'],['UP7','Prueba de ejecución','Composición gimnástica'],['UP8','Presentación de producto','Secuencia cooperativa de combas'],['UP9','Prueba de ejecución','Juego reducido 3×3 de minibásquet'],['UP10','Presentación de producto','Creación y representación colectiva']],
+'1.1':[['UP1','Rúbrica de ejecución y registro','Realización de test de condición física y RPE'],['UP_ARCHIVE_CFB','Archivo histórico','Seguimiento y regulación de CFB (anterior)'],['UP5','Análisis de producción','Salud: concepto, hábitos y efectos sobre el bienestar']],
+'1.2':[['UP2','Presentación de producto','Diseño y dirección de calentamiento'],['UP2','Rúbrica del decálogo (10 pautas ilustradas)','Diseño y dirección de calentamiento'],['UP3','Rúbrica de seguimiento','Seguimiento y regulación de CFB']],
+'1.3':[['UP5','Prueba objetiva','Aplicación de hábitos saludables']],
+'1.4':[['UP5','Prueba objetiva','Prevención y actuación ante situaciones de riesgo']],
+'1.5':[['UP2','Revisión de portfolio','Uso educativo de TIC en el aprendizaje del calentamiento'],['UP5','Uso educativo de TIC','Búsqueda, selección y uso responsable de información sobre salud']],
+'1.6':[['UP1','Observación sistemática','Participación responsable y autorregulación'],['UP2','Revisión de portfolio','Diseño y dirección de calentamiento'],['UP3','Observación sistemática','Participación responsable y autorregulación'],['UP5','Observación sistemática','Ropa, calzado y aseo adecuados para la práctica'],['UP1','Lista de cotejo (0 o 10)','Entrega la ficha a tiempo'],['UP3','Lista de cotejo (0 o 10)','Entrega la ficha a tiempo']],
+'2.1':[['UP4','Autoevaluación/coevaluación','Valoración técnico-táctica del juego de bádminton'],['UP10','Autoevaluación/coevaluación','Valoración del desempeño en juegos y deportes alternativos']],
+'2.2':[['UP4','Prueba de ejecución','Juego real/modificado de bádminton'],['UP9','Prueba de ejecución','Juego reducido 3×3 de minibásquet'],['UP10','Prueba de ejecución','Toma de decisiones en juegos y deportes alternativos']],
+'2.3':[['UP4','Prueba de ejecución','Juego real/modificado de bádminton'],['UP7','Prueba de ejecución','Circuito/reto coordinativo'],['UP6','Prueba de ejecución','Composición gimnástica'],['UP7','Presentación de producto','Secuencia coordinativa con comba individual y sincronización colectiva'],['UP9','Prueba de ejecución','Juego reducido 3×3 de minibásquet'],['UP8','Presentación de producto','Creación y representación colectiva']],
 '2.4':[['UP4','Prueba de ejecución','Aplicación de principios y reglas en bádminton'],['UP9','Prueba de ejecución','Aplicación de principios y reglas en minibásquet']],
 '3.1':[],
 '3.2':[],
 '3.3':[],
-'4.1':[['UP8','Presentación de producto','Cultura motriz presente en la secuencia cooperativa de combas'],['UP10','Presentación de producto','Representación expresiva colectiva'],['UP12','Revisión de portfolio','Baúl de los juegos del instituto']],
-'4.2':[['UP9','Diálogo/debate','Baloncesto, igualdad y referentes'],['UP12','Observación sistemática','Participación inclusiva en juegos tradicionales']],
-'4.3':[['UP10','Presentación de producto','Uso expresivo y comunicativo del cuerpo']],
-'5.1':[['UP13','Análisis de producción y diálogo','Planificación de la ruta'],['UP13','Análisis del registro personal','Cuaderno «Mi progreso»'],['UP13','Observación en contexto real','Realización de la ruta']],
-'5.2':[['UP13','Análisis de producción y diálogo','Planificación de la ruta'],['UP13','Resolución de problemas','Preparación razonada de la mochila'],['UP13','Observación en contexto real','Realización de la ruta']],
-'5.3':[['UP13','Análisis de producción y diálogo','Planificación de la ruta'],['UP13','Resolución de problemas','Preparación razonada de la mochila'],['UP13','Observación sistemática','Regulación, cooperación y seguridad'],['UP13','Observación en contexto real','Realización de la ruta']]
+'4.1':[['UP8','Presentación de producto','Representación expresiva colectiva'],['UP11','Revisión de portfolio','Baúl de los juegos del instituto']],
+'4.2':[['UP9','Diálogo/debate','Baloncesto, igualdad y referentes'],['UP11','Observación sistemática','Participación inclusiva en juegos tradicionales']],
+'4.3':[['UP8','Presentación de producto','Uso expresivo y comunicativo del cuerpo']],
+'5.1':[['UP12','Análisis de producción y diálogo','Planificación de la ruta'],['UP12','Análisis del registro personal','Cuaderno «Mi progreso»'],['UP12','Observación en contexto real','Realización de la ruta']],
+'5.2':[['UP12','Análisis de producción y diálogo','Planificación de la ruta'],['UP12','Resolución de problemas','Preparación razonada de la mochila'],['UP12','Observación en contexto real','Realización de la ruta']],
+'5.3':[['UP12','Análisis de producción y diálogo','Planificación de la ruta'],['UP12','Resolución de problemas','Preparación razonada de la mochila'],['UP12','Observación sistemática','Regulación, cooperación y seguridad'],['UP12','Observación en contexto real','Realización de la ruta']]
 };
 
 const basicKnowledge={
@@ -91,15 +91,15 @@ const basicKnowledge={
  'UP2':{'1.2':'SB 1.2-1 · Calentamiento: concepto, fases, efectos y pautas de elaboración','1.5':'SB 1.5-1 · Uso de TIC en el proceso de aprendizaje','1.6':'SB 1.6-4 · Realización de tareas y responsabilidad','3.2':'SB 3.2-2 · Esfuerzo, participación y búsqueda de mejora personal','3.3':'SB 3.3-1 · Conductas prosociales'},
  'UP3':{'1.1':'SB 1.1-4 y 1.1-5 · Desarrollo desde el nivel inicial, valoración y compromiso de mejora','1.2':'SB 1.2-2, 1.2-3 y 1.2-4 · Capacidades físicas, regulación del esfuerzo e indicadores de intensidad','1.6':'SB 1.6-1 · Perseverancia y autoexigencia','3.1':'SB 3.1-1 · Autorregulación emocional y superación','3.2':'SB 3.2-2 · Mejora respecto al nivel inicial','3.3':'SB 3.3-2 · Respeto a diferentes niveles de habilidad'},
  'UP4':{'2.1':'SB 2.1-2 · Autoevaluación/coevaluación del nivel técnico y táctico','2.2':'SB 2.2-2 y 2.2-3 · Lectura del adversario y adaptación de movimientos','2.3':'SB 2.3-1 · Ejecución y consolidación de habilidades técnicas específicas','2.4':'SB 2.4-1 · Reglas, fundamentos técnicos y estrategias básicas','3.1':'SB 3.1-2 · Comportamiento responsable y respeto a reglas','3.2':'SB 3.2-2 · Esfuerzo y mejora personal','3.3':'SB 3.3-2 · Respeto a diferencias de competencia motriz'},
- 'UP5':{'2.3':'SB 2.3-2 · Utilización consciente del cuerpo según tarea, espacio y contexto','3.1':'SB 3.1-1 · Autorregulación, gestión del fracaso y superación'},
- 'UP6':{'1.1':'SB 1.1-1 y 1.1-2 · Concepto de salud, factores beneficiosos/perjudiciales y efectos de malos hábitos','1.3':'SB 1.3-1 a 1.3-5 · Postura, core, respiración, bienestar y alimentación saludable','1.4':'SB 1.4-1 a 1.4-4 · Prevención, PAS/112, accidentes comunes y botiquín','1.5':'SB 1.5-1 · Uso educativo de TIC','1.6':'SB 1.6-5 · Ropa, calzado y aseo adecuados'},
- 'UP7':{'2.3':'SB 2.3-1 y 2.3-2 · Habilidades específicas y utilización consciente del cuerpo','3.1':'SB 3.1-1 · Superación y gestión emocional','3.2':'SB 3.2-1 y 3.2-2 · Responsabilidad grupal y esfuerzo','3.3':'SB 3.3-2 · Respeto de diferencias de habilidad'},
- 'UP8':{'2.3':'SB 2.3-1 y 2.3-4 · Habilidades específicas y creatividad motriz','3.1':'SB 3.1-1 · Perseverancia y superación','4.1':'SB 4.1-1 · Juego motor, lúdico y recreativo'},
+ 'UP7':{'2.3':'SB 2.3-2 · Utilización consciente del cuerpo según tarea, espacio y contexto','3.1':'SB 3.1-1 · Autorregulación, gestión del fracaso y superación'},
+ 'UP5':{'1.1':'SB 1.1-1 y 1.1-2 · Concepto de salud, factores beneficiosos/perjudiciales y efectos de malos hábitos','1.3':'SB 1.3-1 a 1.3-5 · Postura, core, respiración, bienestar y alimentación saludable','1.4':'SB 1.4-1 a 1.4-4 · Prevención, PAS/112, accidentes comunes y botiquín','1.5':'SB 1.5-1 · Uso educativo de TIC','1.6':'SB 1.6-5 · Ropa, calzado y aseo adecuados'},
+ 'UP6':{'2.3':'SB 2.3-1 y 2.3-2 · Habilidades específicas y utilización consciente del cuerpo','3.1':'SB 3.1-1 · Superación y gestión emocional','3.2':'SB 3.2-1 y 3.2-2 · Responsabilidad grupal y esfuerzo','3.3':'SB 3.3-2 · Respeto de diferencias de habilidad'},
+ 'UP_ARCHIVE_COMBAS':{'2.3':'SB 2.3-1 y 2.3-4 · Habilidades específicas y creatividad motriz','3.1':'SB 3.1-1 · Perseverancia y superación','4.1':'SB 4.1-1 · Juego motor, lúdico y recreativo'},
  'UP9':{'2.2':'SB 2.2-4 · Táctica individual ofensiva y defensiva','2.3':'SB 2.3-1 · Habilidades técnicas específicas','2.4':'SB 2.4-1 y 2.4-2 · Reglas, fundamentos, lógica interna y principios estratégicos','3.1':'SB 3.1-2 · Respeto a reglas, compañeros y actividad','3.3':'SB 3.3-1 y 3.3-2 · Conductas prosociales y aceptación de diferencias','4.2':'SB 4.2-3/4 · Rechazo de estereotipos y práctica con cualquier compañero/a'},
- 'UP10':{'2.3':'SB 2.3-4 · Creatividad motriz','3.2':'SB 3.2-1 · Responsabilidad en trabajo grupal','3.3':'SB 3.3-2 · Inclusión y respeto','4.1':'SB 4.1-4 · Danza como manifestación expresiva y patrimonio cultural','4.3':'SB 4.3-3, 4.3-4 y 4.3-5 · Comunicación corporal, actividades rítmico-musicales y cuerpo como instrumento expresivo'},
- 'UP11':{'2.1':'SB 2.1-2 · Autoevaluación y coevaluación','2.2':'SB 2.2-1 · Toma de decisiones y adaptación motriz','3.1':'SB 3.1-2 · Comportamiento responsable','3.2':'SB 3.2-1/2 · Responsabilidad, participación y esfuerzo','3.3':'SB 3.3-1/2 · Conductas prosociales y aceptación de diferencias'},
- 'UP12':{'3.2':'SB 3.2-1 · Responsabilidades en el trabajo grupal','4.1':'SB 4.1-2, 4.1-3 y 4.1-5 · Herencia cultural, juegos tradicionales e investigación de su origen','4.2':'SB 4.2-4 · Predisposición a practicar con cualquier compañero/a respetando diferencias'},
- 'UP13':{'3.1':'SB 3.1-2 · Comportamiento responsable con uno mismo, los demás y el entorno','3.2':'SB 3.2-1 · Asunción de responsabilidades','5.1':'SB 5.1-1 y 5.1-4 · Cuidado del entorno y respeto de normas de conservación','5.2':'SB 5.2-2, 5.2-3 y 5.2-5 · Orientación, itinerario y senderismo/material','5.3':'SB 5.3-3 y 5.3-7 · Seguridad y prevención, medios digitales de orientación/meteorología'}
+ 'UP8':{'2.3':'SB 2.3-4 · Creatividad motriz','3.2':'SB 3.2-1 · Responsabilidad en trabajo grupal','3.3':'SB 3.3-2 · Inclusión y respeto','4.1':'SB 4.1-4 · Danza como manifestación expresiva y patrimonio cultural','4.3':'SB 4.3-3, 4.3-4 y 4.3-5 · Comunicación corporal, actividades rítmico-musicales y cuerpo como instrumento expresivo'},
+ 'UP10':{'2.1':'SB 2.1-2 · Autoevaluación y coevaluación','2.2':'SB 2.2-1 · Toma de decisiones y adaptación motriz','3.1':'SB 3.1-2 · Comportamiento responsable','3.2':'SB 3.2-1/2 · Responsabilidad, participación y esfuerzo','3.3':'SB 3.3-1/2 · Conductas prosociales y aceptación de diferencias'},
+ 'UP11':{'3.2':'SB 3.2-1 · Responsabilidades en el trabajo grupal','4.1':'SB 4.1-2, 4.1-3 y 4.1-5 · Herencia cultural, juegos tradicionales e investigación de su origen','4.2':'SB 4.2-4 · Predisposición a practicar con cualquier compañero/a respetando diferencias'},
+ 'UP12':{'3.1':'SB 3.1-2 · Comportamiento responsable con uno mismo, los demás y el entorno','3.2':'SB 3.2-1 · Asunción de responsabilidades','5.1':'SB 5.1-1 y 5.1-4 · Cuidado del entorno y respeto de normas de conservación','5.2':'SB 5.2-2, 5.2-3 y 5.2-5 · Orientación, itinerario y senderismo/material','5.3':'SB 5.3-3 y 5.3-7 · Seguridad y prevención, medios digitales de orientación/meteorología'}
 };
 function knowledgeFor(up,c){return basicKnowledge[up]?.[c]||''}
 
@@ -113,29 +113,29 @@ const continuousRubrics={
  'UP4|3.1':['Incumple reglas o muestra conductas antideportivas','Necesita recordatorios frecuentes para autorregularse y respetar reglas','Participa respetando reglas y mantiene una actitud correcta','Se autorregula, acepta decisiones y mantiene deportividad incluso en situaciones competitivas','Es referente de juego limpio y contribuye activamente a una práctica responsable'],
  'UP4|3.2':['Se desentiende de la práctica o del compañero','Participa irregularmente y necesita estímulo para mejorar','Se esfuerza y mantiene participación suficiente','Busca mejorar y mantiene esfuerzo constante durante el juego','Analiza su actuación, persevera y ayuda a elevar la calidad de la práctica'],
  'UP4|3.3':['Muestra faltas de respeto o rechazo por diferencias de nivel','Necesita recordatorios para respetar a oponentes y compañeros','Respeta a compañeros, oponentes y diferencias de habilidad','Adapta su conducta, ayuda y favorece un clima respetuoso','Promueve activamente inclusión, respeto y convivencia durante el juego'],
- 'UP5|3.1':['Abandona o reacciona inadecuadamente ante el error','Necesita apoyo frecuente para tolerar el fallo','Acepta el error y continúa intentando resolver el reto','Gestiona la frustración y persevera con autonomía','Utiliza el error para reajustar su actuación y superarse de forma autónoma'],
- 'UP7|3.1':['Abandona ante la dificultad o el miedo','Necesita apoyo frecuente para afrontar los elementos','Gestiona dificultades habituales y continúa','Afronta los retos con seguridad, perseverancia y autocontrol','Se supera con autonomía y toma decisiones prudentes ante la dificultad'],
- 'UP7|3.2':['No asume su función dentro del grupo','Necesita recordatorios frecuentes para cumplir su responsabilidad','Cumple su función y coopera de forma suficiente','Asume responsabilidades y contribuye activamente a la composición','Organiza, coopera y ayuda al grupo a mejorar sin sustituir a los demás'],
- 'UP7|3.3':['Genera situaciones inseguras o no respeta diferencias','Necesita recordatorios para ayudar y respetar','Respeta y ayuda de forma básica','Favorece un clima seguro, respetuoso e inclusivo','Anticipa necesidades, ayuda responsablemente y promueve seguridad e inclusión'],
- 'UP8|3.1':['Abandona o se desregula ante errores en la secuencia','Necesita apoyo frecuente para perseverar','Mantiene el intento y gestiona errores habituales','Persevera y se reajusta con autonomía dentro de la secuencia','Mantiene autocontrol, persevera y ayuda a recuperar la coordinación colectiva'],
+ 'UP7|3.1':['Abandona o reacciona inadecuadamente ante el error','Necesita apoyo frecuente para tolerar el fallo','Acepta el error y continúa intentando resolver el reto','Gestiona la frustración y persevera con autonomía','Utiliza el error para reajustar su actuación y superarse de forma autónoma'],
+ 'UP6|3.1':['Abandona ante la dificultad o el miedo','Necesita apoyo frecuente para afrontar los elementos','Gestiona dificultades habituales y continúa','Afronta los retos con seguridad, perseverancia y autocontrol','Se supera con autonomía y toma decisiones prudentes ante la dificultad'],
+ 'UP6|3.2':['No asume su función dentro del grupo','Necesita recordatorios frecuentes para cumplir su responsabilidad','Cumple su función y coopera de forma suficiente','Asume responsabilidades y contribuye activamente a la composición','Organiza, coopera y ayuda al grupo a mejorar sin sustituir a los demás'],
+ 'UP6|3.3':['Genera situaciones inseguras o no respeta diferencias','Necesita recordatorios para ayudar y respetar','Respeta y ayuda de forma básica','Favorece un clima seguro, respetuoso e inclusivo','Anticipa necesidades, ayuda responsablemente y promueve seguridad e inclusión'],
+ 'UP_ARCHIVE_COMBAS|3.1':['Abandona o se desregula ante errores en la secuencia','Necesita apoyo frecuente para perseverar','Mantiene el intento y gestiona errores habituales','Persevera y se reajusta con autonomía dentro de la secuencia','Mantiene autocontrol, persevera y ayuda a recuperar la coordinación colectiva'],
  'UP9|3.1':['Incumple reglas o mantiene conductas antideportivas','Necesita recordatorios frecuentes para autorregularse','Participa respetando reglas y decisiones','Se autorregula y mantiene deportividad en situaciones competitivas','Promueve activamente juego limpio y responsabilidad colectiva'],
  'UP9|3.3':['Excluye, menosprecia o no respeta a otros jugadores','Necesita recordatorios para respetar diferencias y decisiones','Respeta a compañeros, rivales y diferencias de nivel','Facilita la participación de todos y mantiene comunicación respetuosa','Promueve activamente inclusión, ayuda y convivencia en el 3×3'],
- 'UP10|3.2':['No asume tareas del proceso creativo','Necesita recordatorios frecuentes para cumplir su función','Cumple las responsabilidades asignadas','Se implica, coopera y contribuye activamente al producto grupal','Asume responsabilidades con autonomía y facilita que el grupo organice y mejore su creación'],
- 'UP10|3.3':['Rechaza aportaciones o dificulta la participación','Necesita recordatorios para respetar ideas y diferencias','Respeta las aportaciones y participa sin excluir','Integra aportaciones diversas y favorece la participación','Promueve activamente un proceso creativo inclusivo y respetuoso'],
- 'UP11|3.1':['Incumple normas o actúa de forma irresponsable','Necesita recordatorios frecuentes para mantener deportividad','Participa con autonomía básica y respeto a las normas','Se autorregula y mantiene deportividad de forma constante','Promueve juego limpio y responsabilidad incluso en situaciones nuevas o competitivas'],
- 'UP11|3.2':['No asume responsabilidades en el juego','Participa irregularmente y necesita recordatorios','Cumple su función y coopera','Asume responsabilidades y coopera activamente','Organiza, ayuda y favorece que el grupo funcione de forma autónoma'],
- 'UP11|3.3':['No respeta normas, compañeros o adversarios','Necesita recordatorios frecuentes de convivencia','Mantiene respeto básico durante el juego','Respeta, ayuda e incluye de forma constante','Promueve activamente convivencia, inclusión y respeto en situaciones motrices nuevas'],
- 'UP12|3.2':['No asume las tareas del proyecto ApS','Necesita seguimiento frecuente para cumplir su responsabilidad','Cumple las tareas asignadas y coopera','Asume responsabilidades y contribuye activamente al proyecto','Trabaja con autonomía, coordina responsabilidades y favorece la calidad del servicio al grupo destinatario'],
- 'UP13|3.1|s3':['Actúa de forma irresponsable durante la preparación para caminar','Necesita recordatorios frecuentes sobre conducta y autorregulación','Mantiene una conducta generalmente responsable durante la preparación','Se autorregula, cumple pautas y actúa responsablemente con personas y entorno','Anticipa necesidades, actúa con autonomía y favorece que el grupo mantenga una conducta responsable'],
- 'UP13|3.1|s4':['Durante la salida incumple pautas básicas de conducta responsable','Necesita supervisión frecuente para regular su actuación en la ruta','Actúa de forma generalmente responsable consigo mismo, el grupo y el entorno','Se autorregula con autonomía y mantiene una conducta responsable durante toda la ruta','Anticipa situaciones, toma decisiones prudentes y contribuye activamente al comportamiento responsable del grupo'],
- 'UP13|3.2|s3':['No asume el rol o responsabilidad asignada en la preparación','Necesita recordatorios frecuentes para cumplir su función','Asume una responsabilidad básica y coopera','Cumple su función con autonomía y contribuye a organizar la preparación','Asume responsabilidades con iniciativa y ayuda a que el grupo se organice eficazmente'],
- 'UP13|3.2|s4':['No asume responsabilidades durante la salida','Necesita recordatorios frecuentes para cumplir su función','Cumple las responsabilidades asignadas durante la ruta','Asume responsabilidades con autonomía y coopera eficazmente','Se anticipa a las necesidades del grupo, coopera y ejerce su responsabilidad sin invadir funciones ajenas']
+ 'UP8|3.2':['No asume tareas del proceso creativo','Necesita recordatorios frecuentes para cumplir su función','Cumple las responsabilidades asignadas','Se implica, coopera y contribuye activamente al producto grupal','Asume responsabilidades con autonomía y facilita que el grupo organice y mejore su creación'],
+ 'UP8|3.3':['Rechaza aportaciones o dificulta la participación','Necesita recordatorios para respetar ideas y diferencias','Respeta las aportaciones y participa sin excluir','Integra aportaciones diversas y favorece la participación','Promueve activamente un proceso creativo inclusivo y respetuoso'],
+ 'UP10|3.1':['Incumple normas o actúa de forma irresponsable','Necesita recordatorios frecuentes para mantener deportividad','Participa con autonomía básica y respeto a las normas','Se autorregula y mantiene deportividad de forma constante','Promueve juego limpio y responsabilidad incluso en situaciones nuevas o competitivas'],
+ 'UP10|3.2':['No asume responsabilidades en el juego','Participa irregularmente y necesita recordatorios','Cumple su función y coopera','Asume responsabilidades y coopera activamente','Organiza, ayuda y favorece que el grupo funcione de forma autónoma'],
+ 'UP10|3.3':['No respeta normas, compañeros o adversarios','Necesita recordatorios frecuentes de convivencia','Mantiene respeto básico durante el juego','Respeta, ayuda e incluye de forma constante','Promueve activamente convivencia, inclusión y respeto en situaciones motrices nuevas'],
+ 'UP11|3.2':['No asume las tareas del proyecto ApS','Necesita seguimiento frecuente para cumplir su responsabilidad','Cumple las tareas asignadas y coopera','Asume responsabilidades y contribuye activamente al proyecto','Trabaja con autonomía, coordina responsabilidades y favorece la calidad del servicio al grupo destinatario'],
+ 'UP12|3.1|s3':['Actúa de forma irresponsable durante la preparación para caminar','Necesita recordatorios frecuentes sobre conducta y autorregulación','Mantiene una conducta generalmente responsable durante la preparación','Se autorregula, cumple pautas y actúa responsablemente con personas y entorno','Anticipa necesidades, actúa con autonomía y favorece que el grupo mantenga una conducta responsable'],
+ 'UP12|3.1|s4':['Durante la salida incumple pautas básicas de conducta responsable','Necesita supervisión frecuente para regular su actuación en la ruta','Actúa de forma generalmente responsable consigo mismo, el grupo y el entorno','Se autorregula con autonomía y mantiene una conducta responsable durante toda la ruta','Anticipa situaciones, toma decisiones prudentes y contribuye activamente al comportamiento responsable del grupo'],
+ 'UP12|3.2|s3':['No asume el rol o responsabilidad asignada en la preparación','Necesita recordatorios frecuentes para cumplir su función','Asume una responsabilidad básica y coopera','Cumple su función con autonomía y contribuye a organizar la preparación','Asume responsabilidades con iniciativa y ayuda a que el grupo se organice eficazmente'],
+ 'UP12|3.2|s4':['No asume responsabilidades durante la salida','Necesita recordatorios frecuentes para cumplir su función','Cumple las responsabilidades asignadas durante la ruta','Asume responsabilidades con autonomía y coopera eficazmente','Se anticipa a las necesidades del grupo, coopera y ejerce su responsabilidad sin invadir funciones ajenas']
 };
-function continuousContextId(up){if(up!=='UP13')return 'base';const mode=state.ui.evaluationView||'activity';if(mode==='session')return `s${Number(state.ui.selectedSession)||1}`;if(mode==='activity'){const a=state.ui.selectedActivity||'';if(a==='Regulación, cooperación y seguridad')return 's3';if(a==='Realización de la ruta')return 's4';}return 'base'}
+function continuousContextId(up){if(up!=='UP12')return 'base';const mode=state.ui.evaluationView||'activity';if(mode==='session')return `s${Number(state.ui.selectedSession)||1}`;if(mode==='activity'){const a=state.ui.selectedActivity||'';if(a==='Regulación, cooperación y seguridad')return 's3';if(a==='Realización de la ruta')return 's4';}return 'base'}
 function contextualQualKey(gid,sid,c,up){
  if(c==='3.3'){
   const mode=state.ui.evaluationView||'activity';
-  if(up==='UP13'&&mode==='session')return `${gid}|${sid}|${c}|${up}|s${Number(state.ui.selectedSession)||1}`;
+  if(up==='UP12'&&mode==='session')return `${gid}|${sid}|${c}|${up}|s${Number(state.ui.selectedSession)||1}`;
   const activity=selectedActivityForUP(up);
   const activities=activityNamesForUP(up).filter(a=>a!==GLOBAL_ASSESSMENT_ACTIVITY);
   const index=activities.indexOf(activity);
@@ -290,21 +290,21 @@ function makeRubric(proc,focus){
 // V4.2.0 · Rúbricas específicas para todas las evidencias principales activas.
 // Se derivan del saber básico seleccionado y de la actividad/evidencia ya definida en la app.
 const contextualRubricAdditions={
- 'UP6|1.1':[
+ 'UP5|1.1':[
   {label:'Muy inicial',score:2,desc:'No distingue con claridad qué es la salud ni reconoce factores básicos que la favorecen o perjudican.'},
   {label:'Inicio',score:4,desc:'Reconoce algunos hábitos beneficiosos o perjudiciales, pero necesita ayuda para explicar sus efectos sobre la salud.'},
   {label:'Básico',score:6,desc:'Explica de forma suficiente el concepto de salud, diferencia hábitos beneficiosos y perjudiciales y relaciona algunos con sus efectos.'},
   {label:'Adecuado',score:8,desc:'Analiza con autonomía distintos hábitos y explica de forma coherente cómo influyen positiva o negativamente en la salud.'},
   {label:'Avanzado',score:10,desc:'Relaciona con precisión factores y hábitos con sus efectos y argumenta decisiones realistas orientadas a una vida activa y saludable.'}
  ],
- 'UP6|1.3':[
+ 'UP5|1.3':[
   {label:'Muy inicial',score:2,desc:'No identifica pautas básicas de postura, respiración, bienestar o alimentación saludable trabajadas en la unidad.'},
   {label:'Inicio',score:4,desc:'Reconoce algunas pautas saludables, pero las aplica o justifica de forma incompleta.'},
   {label:'Básico',score:6,desc:'Aplica las pautas fundamentales de postura, core, respiración, bienestar y alimentación en situaciones sencillas.'},
   {label:'Adecuado',score:8,desc:'Selecciona y aplica con autonomía hábitos adecuados y explica su relación con el bienestar y la práctica física.'},
   {label:'Avanzado',score:10,desc:'Integra y justifica de forma precisa diferentes hábitos saludables y propone ajustes realistas para mejorar su bienestar cotidiano.'}
  ],
- 'UP6|1.4':[
+ 'UP5|1.4':[
   {label:'Muy inicial',score:2,desc:'No reconoce riesgos básicos ni sabe ordenar una actuación elemental ante un accidente.'},
   {label:'Inicio',score:4,desc:'Identifica algún riesgo o paso de actuación, pero necesita ayuda frecuente para aplicar PAS, 112 o el uso básico del botiquín.'},
   {label:'Básico',score:6,desc:'Reconoce riesgos habituales y aplica de forma suficiente PAS, aviso al 112 y pautas básicas ante accidentes comunes.'},
@@ -318,7 +318,7 @@ const contextualRubricAdditions={
   {label:'Adecuado',score:8,desc:'Selecciona con autonomía información digital pertinente y la integra correctamente en su aprendizaje y elaboración del calentamiento.'},
   {label:'Avanzado',score:10,desc:'Contrasta y utiliza de forma responsable recursos digitales, selecciona información relevante y justifica cómo mejora su aprendizaje.'}
  ],
- 'UP6|1.5':[
+ 'UP5|1.5':[
   {label:'Muy inicial',score:2,desc:'No localiza información útil sobre salud o utiliza recursos digitales sin criterio.'},
   {label:'Inicio',score:4,desc:'Encuentra información básica con ayuda, pero presenta dificultades para seleccionar su relevancia o fiabilidad.'},
   {label:'Básico',score:6,desc:'Busca y selecciona información suficiente sobre salud utilizando de forma adecuada los recursos digitales propuestos.'},
@@ -332,7 +332,7 @@ const contextualRubricAdditions={
   {label:'Adecuado',score:8,desc:'Cumple con autonomía las tareas, revisa su trabajo y mantiene una actitud responsable y constante.'},
   {label:'Avanzado',score:10,desc:'Trabaja con constancia y autonomía, mejora sus producciones por iniciativa propia y contribuye a una práctica responsable.'}
  ],
- 'UP6|1.6':[
+ 'UP5|1.6':[
   {label:'Muy inicial',score:2,desc:'Acude de forma reiterada sin ropa, calzado o condiciones de aseo adecuadas para realizar la práctica con seguridad.'},
   {label:'Inicio',score:4,desc:'Cumple solo parte de las pautas de equipamiento y aseo y necesita recordatorios frecuentes.'},
   {label:'Básico',score:6,desc:'Utiliza habitualmente ropa y calzado adecuados y mantiene las pautas básicas de aseo vinculadas a la práctica.'},
@@ -346,7 +346,7 @@ const contextualRubricAdditions={
   {label:'Adecuado',score:8,desc:'Autoevalúa y coevalúa con criterios claros su desempeño técnico-táctico y utiliza la información para ajustar su juego.'},
   {label:'Avanzado',score:10,desc:'Analiza con precisión su desempeño y el de sus iguales, aporta feedback respetuoso y transforma la valoración en ajustes eficaces.'}
  ],
- 'UP11|2.1':[
+ 'UP10|2.1':[
   {label:'Muy inicial',score:2,desc:'No identifica cómo está resolviendo las situaciones motrices ni utiliza la valoración propia o de iguales para mejorar.'},
   {label:'Inicio',score:4,desc:'Reconoce algún aspecto de su desempeño con ayuda, pero propone ajustes poco relacionados con la situación de juego.'},
   {label:'Básico',score:6,desc:'Valora de forma suficiente su actuación y propone algún ajuste adecuado para resolver situaciones motrices nuevas.'},
@@ -360,28 +360,28 @@ const contextualRubricAdditions={
   {label:'Adecuado',score:8,desc:'Lee con autonomía la situación del 3×3 y adapta sus decisiones ofensivas y defensivas con eficacia.'},
   {label:'Avanzado',score:10,desc:'Anticipa situaciones, selecciona opciones eficaces y reajusta rápidamente sus decisiones en función del juego.'}
  ],
- 'UP11|2.2':[
+ 'UP10|2.2':[
   {label:'Muy inicial',score:2,desc:'Actúa sin adaptar sus decisiones a las reglas, compañeros, adversarios o cambios de la situación.'},
   {label:'Inicio',score:4,desc:'Toma algunas decisiones adecuadas, pero necesita ayuda frecuente para responder a situaciones cambiantes.'},
   {label:'Básico',score:6,desc:'Adapta sus decisiones de forma suficiente en situaciones habituales de los juegos alternativos.'},
   {label:'Adecuado',score:8,desc:'Interpreta la situación y toma decisiones eficaces y autónomas ante cambios de espacio, roles o oposición.'},
   {label:'Avanzado',score:10,desc:'Anticipa alternativas, reajusta con rapidez su actuación y selecciona soluciones eficaces en situaciones nuevas.'}
  ],
- 'UP5|2.3':[
+ 'UP7|2.3':[
   {label:'Muy inicial',score:2,desc:'No ajusta su cuerpo a las demandas básicas del reto de coordinación o equilibrio.'},
   {label:'Inicio',score:4,desc:'Resuelve partes del reto, pero pierde con frecuencia control, equilibrio o coordinación y necesita ayuda.'},
   {label:'Básico',score:6,desc:'Ajusta suficientemente sus acciones al espacio y a la tarea y resuelve los retos fundamentales.'},
   {label:'Adecuado',score:8,desc:'Controla y combina sus acciones con eficacia, adaptando el cuerpo a diferentes retos, espacios y condiciones.'},
   {label:'Avanzado',score:10,desc:'Resuelve con precisión y fluidez, anticipa ajustes corporales y transfiere soluciones a retos coordinativos nuevos.'}
  ],
- 'UP7|2.3':[
+ 'UP6|2.3':[
   {label:'Muy inicial',score:2,desc:'No ejecuta con seguridad los elementos básicos de la composición ni ajusta el cuerpo a la tarea.'},
   {label:'Inicio',score:4,desc:'Ejecuta algunos elementos con ayuda, pero presenta errores frecuentes de control, enlace o seguridad.'},
   {label:'Básico',score:6,desc:'Ejecuta los elementos fundamentales y los enlaza de forma suficiente dentro de la composición.'},
   {label:'Adecuado',score:8,desc:'Ejecuta y enlaza con control, seguridad y autonomía las habilidades específicas de la composición.'},
   {label:'Avanzado',score:10,desc:'Ejecuta con precisión y fluidez, adapta conscientemente su cuerpo y mejora la calidad de enlaces y transiciones.'}
  ],
- 'UP8|2.3':[
+ 'UP_ARCHIVE_COMBAS|2.3':[
   {label:'Muy inicial',score:2,desc:'No mantiene los saltos o enlaces básicos necesarios para participar en la secuencia de combas.'},
   {label:'Inicio',score:4,desc:'Realiza algunas acciones, pero pierde con frecuencia ritmo o coordinación y necesita ayuda para enlazarlas.'},
   {label:'Básico',score:6,desc:'Ejecuta y enlaza las acciones fundamentales manteniendo una coordinación suficiente con la secuencia.'},
@@ -395,7 +395,7 @@ const contextualRubricAdditions={
   {label:'Adecuado',score:8,desc:'Ejecuta y aplica con eficacia las habilidades técnicas en diferentes situaciones ofensivas y defensivas.'},
   {label:'Avanzado',score:10,desc:'Ejecuta con precisión, control y autonomía, adaptando eficazmente las habilidades a la situación de juego.'}
  ],
- 'UP10|2.3':[
+ 'UP8|2.3':[
   {label:'Muy inicial',score:2,desc:'No aporta ni ejecuta recursos motrices suficientes para construir la creación colectiva.'},
   {label:'Inicio',score:4,desc:'Reproduce acciones sencillas, pero necesita ayuda frecuente para variarlas, enlazarlas o adaptarlas a la creación.'},
   {label:'Básico',score:6,desc:'Propone y ejecuta recursos motrices suficientes y los integra de forma coherente en la creación colectiva.'},
@@ -409,21 +409,21 @@ const contextualRubricAdditions={
   {label:'Adecuado',score:8,desc:'Aplica con autonomía reglas, lógica interna y principios estratégicos y ajusta su actuación al juego.'},
   {label:'Avanzado',score:10,desc:'Interpreta y aplica con precisión reglas y principios, justifica decisiones y ayuda a que el juego se desarrolle correctamente.'}
  ],
- 'UP8|4.1':[
+ 'UP_ARCHIVE_COMBAS|4.1':[
   {label:'Muy inicial',score:2,desc:'Participa de forma muy limitada y no reconoce el valor lúdico y recreativo de la práctica con combas.'},
   {label:'Inicio',score:4,desc:'Participa con ayuda y reconoce de forma básica la comba como práctica lúdica, pero sin relacionarla con otras formas de juego motor.'},
   {label:'Básico',score:6,desc:'Participa y reconoce la comba como manifestación lúdica y recreativa de la cultura motriz.'},
   {label:'Adecuado',score:8,desc:'Valora y utiliza de forma autónoma diferentes posibilidades lúdicas de la comba dentro de la secuencia colectiva.'},
   {label:'Avanzado',score:10,desc:'Enriquece la práctica con propuestas lúdicas variadas y explica su valor como forma de juego motor y recreación compartida.'}
  ],
- 'UP10|4.1':[
+ 'UP8|4.1':[
   {label:'Muy inicial',score:2,desc:'No identifica ni incorpora recursos básicos de danza o manifestaciones expresivas en la representación.'},
   {label:'Inicio',score:4,desc:'Reconoce o reproduce algún recurso expresivo con ayuda, pero lo integra de forma poco coherente.'},
   {label:'Básico',score:6,desc:'Integra recursos básicos de danza y reconoce su valor como manifestación expresiva y cultural.'},
   {label:'Adecuado',score:8,desc:'Selecciona e integra con autonomía recursos de danza coherentes con la representación y explica su dimensión cultural.'},
   {label:'Avanzado',score:10,desc:'Combina y contextualiza recursos de danza con intención, mostrando comprensión de su valor expresivo y como patrimonio cultural.'}
  ],
- 'UP12|4.1':[
+ 'UP11|4.1':[
   {label:'Muy inicial',score:2,desc:'No identifica el juego tradicional trabajado ni aporta información suficiente sobre su práctica u origen.'},
   {label:'Inicio',score:4,desc:'Reconoce algunos elementos del juego, pero necesita ayuda para explicar su origen, reglas o valor cultural.'},
   {label:'Básico',score:6,desc:'Describe y practica el juego tradicional, recoge información básica sobre su origen y reconoce su valor como herencia cultural.'},
@@ -437,14 +437,14 @@ const contextualRubricAdditions={
   {label:'Adecuado',score:8,desc:'Cuestiona estereotipos, valora referentes diversos y mantiene una participación inclusiva en la práctica.'},
   {label:'Avanzado',score:10,desc:'Argumenta de forma crítica frente a estereotipos y contribuye activamente a una práctica igualitaria e inclusiva.'}
  ],
- 'UP12|4.2':[
+ 'UP11|4.2':[
   {label:'Muy inicial',score:2,desc:'Evita participar con determinados compañeros o muestra conductas de exclusión durante los juegos tradicionales.'},
   {label:'Inicio',score:4,desc:'Participa con distintos compañeros cuando se le indica, pero necesita recordatorios para aceptar diferencias.'},
   {label:'Básico',score:6,desc:'Participa con cualquier compañero o compañera y respeta las diferencias durante los juegos.'},
   {label:'Adecuado',score:8,desc:'Muestra predisposición constante a participar con todos, adapta su interacción y favorece una práctica inclusiva.'},
   {label:'Avanzado',score:10,desc:'Promueve activamente agrupamientos inclusivos, evita exclusiones y ayuda a que todos puedan participar respetando sus diferencias.'}
  ],
- 'UP10|4.3':[
+ 'UP8|4.3':[
   {label:'Muy inicial',score:2,desc:'No utiliza el cuerpo de forma intencional para comunicar dentro de la representación.'},
   {label:'Inicio',score:4,desc:'Utiliza gestos o movimientos expresivos aislados, pero necesita ayuda para darles intención comunicativa.'},
   {label:'Básico',score:6,desc:'Utiliza de forma suficiente gesto, movimiento y ritmo para comunicar una intención reconocible.'},
@@ -454,7 +454,68 @@ const contextualRubricAdditions={
 };
 Object.assign(rubricOverrides,contextualRubricAdditions);
 
+const assessmentContexts4511={
+ 'UP1':{sessions:6,model:'Aprendizaje basado en retos',secondary:'Aprendizaje cooperativo',task:'Pentágono: cinco pruebas, registro, interpretación y meta individual',check:['Registra los resultados de cada prueba del Pentágono sin compararse con otros','Interpreta sus resultados iniciales y formula una meta personal concreta','Contrasta registros y ofrece feedback respetuoso a su pareja']},
+ 'UP2':{sessions:4,model:'Aprendizaje cooperativo',secondary:'Aprendizaje basado en retos',task:'Diseño y dirección del calentamiento y Decálogo',check:['Diseña con su equipo un calentamiento con fases justificadas','Dirige la parte asignada y explica su utilidad','Elabora diez pautas ilustradas del Decálogo y revisa el funcionamiento del equipo']},
+ 'UP3':{sessions:7,model:'Aprendizaje basado en retos',secondary:'Aprendizaje cooperativo',task:'Retos de fuerza, resistencia, velocidad y agilidad',check:['Completa los retos ajustando la intensidad a su nivel inicial','Registra resultados y compara su evolución con la meta personal','Aporta feedback concreto sobre la ejecución a sus compañeros']},
+ 'UP4':{sessions:6,model:'Enseñanza comprensiva del deporte (TGfU)',secondary:'Elementos de Educación Deportiva',task:'Bádminton 1×1: envío a espacio libre y decisión táctica',check:['Identifica un espacio libre antes de golpear','Elige y ejecuta el golpeo para dificultar la devolución','Asume el rol asignado y respeta reglas y rival']},
+ 'UP5':{sessions:2,model:'Aprendizaje basado en retos',secondary:'Aprendizaje cooperativo',task:'Caso del marinero fatigado: mapa conceptual de hábitos saludables',check:['Identifica factores de sueño, alimentación y fatiga del caso','Justifica recomendaciones de salud con información pertinente','Aporta su investigación al mapa conceptual común']},
+ 'UP6':{sessions:4,model:'Aprendizaje cooperativo',secondary:'Aprendizaje basado en retos',task:'Secuencia gimnástica enlazada con roles rotatorios y seguridad',check:['Enlaza habilidades gimnásticas adecuadas a su nivel','Realiza las ayudas y medidas de seguridad previstas','Rota entre ejecución, ayuda, observación y seguridad']},
+ 'UP7':{sessions:6,model:'Aprendizaje basado en retos',secondary:'Aprendizaje cooperativo',task:'Equilibrio, manipulación, comba individual y secuencia sincronizada',check:['Supera retos graduados de equilibrio y coordinación','Controla el ritmo y el salto con comba individual','Participa en una secuencia grupal sincronizada con responsabilidad']},
+ 'UP8':{sessions:5,model:'Aprendizaje cooperativo',secondary:'Aprendizaje basado en retos',task:'Representación corporal de una escena de la travesía',check:['Aporta una propuesta de movimiento a la escena','Emplea cuerpo, espacio, tiempo y energía para comunicar','Ajusta la representación según el feedback de observadores']},
+ 'UP9':{sessions:6,model:'Enseñanza comprensiva del deporte (TGfU)',secondary:'Elementos de Educación Deportiva',task:'Minibásquet 3×3: tres intervenciones antes del lanzamiento',check:['Facilita que intervengan los tres jugadores antes de lanzar','Busca espacios y líneas de pase durante el 3×3','Asume roles y respeta las decisiones del juego']},
+ 'UP10':{sessions:6,model:'Enseñanza comprensiva del deporte (TGfU)',secondary:'Aprendizaje cooperativo',task:'Juego alternativo modificado: amplitud, desmarque y participación',check:['Identifica el problema táctico de amplitud o desmarque','Prueba una solución y comprueba su efecto al volver a jugar','Favorece una participación equilibrada de su equipo']},
+ 'UP11':{sessions:5,model:'Aprendizaje-servicio (ApS)',secondary:'Aprendizaje cooperativo',task:'Baúl de los juegos del instituto: investigación, adaptación y servicio',check:['Investiga un juego con una persona de otra generación','Contrasta y adapta reglas para una práctica inclusiva','Elabora una ficha utilizable y la incorpora al Baúl para otros grupos']},
+ 'UP12':{sessions:4,model:'Aprendizaje basado en retos',secondary:'Principios de Educación Aventura',task:'Planificación y realización de ruta con mapa, mochila y seguridad',check:['Interpreta el mapa y justifica el itinerario','Prepara material y medidas de seguridad para la ruta','Resuelve incidencias simuladas y asume responsabilidades durante la salida']}
+};
+function activitySpecificRubric4511(ev){
+ const ctx=assessmentContexts4511[ev.up];if(!ctx)return null;
+ // Each level describes a concrete observable action from the task, rather than a generic label.
+ const c=String(ev.c),d=String(ev.desc||'').toLowerCase();
+ const byUnit={
+ UP1:['registra las cinco pruebas del Pentágono','interpreta los resultados y fija una meta individual','contrasta los registros con su pareja sin comparar clasificaciones'],
+ UP2:d.includes('decálogo')?['escribe diez pautas correctas','acompaña cada pauta con un dibujo claro','emplea poco texto y entrega en plazo']:['diseña un calentamiento con fases justificadas','dirige la parte asignada al equipo','explica la finalidad de los ejercicios y revisa el trabajo grupal'],
+ UP3:['realiza el reto de fuerza, resistencia, velocidad o agilidad','registra el resultado y regula la intensidad','contrasta su progreso con la meta personal'],
+ UP4:['identifica espacios libres en el 1×1','dirige el volante hacia un espacio libre','reajusta su posición y respeta el rol asignado'],
+ UP5:['identifica hábitos del marinero relacionados con sueño, alimentación y fatiga','justifica recomendaciones para mejorar esos hábitos','integra las aportaciones en el mapa conceptual del equipo'],
+ UP6:['enlaza habilidades gimnásticas en la secuencia','realiza las ayudas y medidas de seguridad previstas','rota por los roles de ejecutante, ayuda, observación y seguridad'],
+ UP7:['resuelve retos graduados de equilibrio y coordinación','salta a la comba individual manteniendo el ritmo','sincroniza su intervención en la secuencia colectiva'],
+ UP8:['propone movimientos para representar la travesía','utiliza cuerpo, espacio, tiempo y energía para comunicar la escena','revisa la representación según la comprensión de los observadores'],
+ UP9:['busca líneas de pase y ocupa espacios libres','facilita que los tres jugadores intervengan antes de lanzar','decide pasar, avanzar o lanzar según la defensa'],
+ UP10:['identifica el problema de amplitud y desmarque','propone y aplica una solución durante el juego modificado','comprueba si mejora la participación equilibrada del equipo'],
+ UP11:['investiga un juego tradicional con otra generación','contrasta y adapta sus reglas para que pueda participar el grupo','redacta la ficha y la incorpora al Baúl para otros estudiantes'],
+ UP12:['interpreta el mapa y planifica el itinerario','selecciona mochila, material y medidas de seguridad','resuelve incidencias simuladas y asume responsabilidades durante la ruta']
+ };
+ const items=byUnit[ev.up]||[];
+ // If the task is a different specific product, avoid asserting that these general UP indicators are its full rubric.
+ const title=String(ev.desc||ctx.task);
+ const stages=[
+ ['No realizado',0,'No presenta ni realiza la actividad.'],
+ ['Inicial',2,`No consigue ${items[0]} y precisa ayuda continua.`],
+ ['En proceso',4,`Consigue parcialmente ${items[0]}, pero no evidencia ${items[1]}.`],
+ ['Básico',6,`Consigue ${items[0]} y muestra parcialmente ${items[1]}.`],
+ ['Adecuado',8,`Consigue ${items[0]} y ${items[1]} de forma autónoma.`],
+ ['Excelente',10,`Consigue ${items[0]}, ${items[1]} y ${items[2]}, justificando sus decisiones.`]
+ ];
+ return stages.map(([label,score,desc])=>({label,score,desc:`${title}: ${desc}`}));
+}
 const evidenceRubricOverrides={
+ 'UP1|1.1|1':[
+ {label:'No realizado',score:0,desc:'No realiza los test ni registra los datos y el RPE, disponiendo de las adaptaciones necesarias.'},
+ {label:'Muy inicial',score:2,desc:'Realiza una parte mínima de las pruebas; los registros o el RPE faltan o son poco interpretables.'},
+ {label:'Inicial',score:4,desc:'Realiza algunas pruebas del Pentágono y registra parcialmente resultados y percepción del esfuerzo.'},
+ {label:'Básico',score:6,desc:'Completa las pruebas adaptadas a sus posibilidades, registra resultados y RPE de forma comprensible.'},
+ {label:'Adecuado',score:8,desc:'Completa y registra los test del Pentágono y su RPE con precisión; reconoce diferencias entre esfuerzo percibido y resultados.'},
+ {label:'Avanzado',score:10,desc:'Completa y registra los test y el RPE de forma rigurosa; interpreta su perfil inicial y plantea una meta personal razonada, sin compararse con compañeros.'}],
+ 'UP3|1.2|3':[
+ {label:'No realizado',score:0,desc:'No participa ni aporta registros de seguimiento o regulación de las capacidades físicas básicas.'},
+ {label:'Muy inicial',score:2,desc:'Registra de manera muy incompleta la actividad y apenas identifica su esfuerzo.'},
+ {label:'Inicial',score:4,desc:'Realiza parte de los retos de fuerza, resistencia, velocidad o agilidad, pero registra o regula irregularmente el esfuerzo.'},
+ {label:'Básico',score:6,desc:'Realiza retos progresivos, registra esfuerzo o RPE y ajusta la intensidad con indicaciones.'},
+ {label:'Adecuado',score:8,desc:'Registra y compara sus retos de CFB y ajusta la intensidad a la tarea y a sus sensaciones con autonomía.'},
+ {label:'Avanzado',score:10,desc:'Registra sistemáticamente la evolución de las CFB, interpreta RPE y otros indicadores y justifica ajustes de intensidad y recuperación.'}],
+ 'UP1|1.6|5':[{label:'No entregada en plazo',score:0,desc:'No entrega la ficha dentro del plazo establecido.'},{label:'Entregada en plazo',score:10,desc:'Entrega la ficha correspondiente a UP1 dentro del plazo establecido.'}],
+ 'UP3|1.6|6':[{label:'No entregada en plazo',score:0,desc:'No entrega la ficha dentro del plazo establecido.'},{label:'Entregada en plazo',score:10,desc:'Entrega la ficha correspondiente a UP3 dentro del plazo establecido.'}],
  'UP2|1.2|2':[
  {label:'No presentado',score:0,desc:'No presenta ni entrega el decálogo del calentamiento.'},
  {label:'Muy insuficiente',score:2,desc:'Entrega un trabajo muy incompleto, con pocas pautas útiles, sin respetar los dibujos y textos breves, y fuera de plazo.'},
@@ -464,77 +525,77 @@ const evidenceRubricOverrides={
  {label:'Excelente',score:10,desc:'Entrega en plazo diez pautas correctas y aplicables al calentamiento; cada pauta se expresa con un dibujo claro y pocas palabras, en una presentación ordenada, cuidada y fácil de entender.'}
  ],
 
- 'UP13|5.1|1':[
+ 'UP12|5.1|1':[
   {label:'Muy inicial',score:2,desc:'No logra elaborar una planificación utilizable de la ruta o necesita una guía constante para identificar los elementos básicos del itinerario.'},
   {label:'Inicio',score:4,desc:'Sitúa algunos elementos de la ruta, pero necesita ayuda frecuente para calcular distancia y tiempo, localizar referencias o prever paradas.'},
   {label:'Básico',score:6,desc:'Planifica una ruta sencilla con distancia, tiempo y referencias básicas, aunque presenta alguna imprecisión o necesita orientación puntual.'},
   {label:'Adecuado',score:8,desc:'Planifica la ruta con autonomía: establece itinerario, distancia, duración, referencias y paradas de forma coherente y viable.'},
   {label:'Avanzado',score:10,desc:'Planifica con gran autonomía, contrasta alternativas y ajusta recorrido, tiempos, paradas y referencias anticipando necesidades y justificando sus decisiones.'}
  ],
- 'UP13|5.1|2':[
+ 'UP12|5.1|2':[
   {label:'Muy inicial',score:2,desc:'No mantiene un registro suficiente de su preparación o los datos aportados no permiten valorar el proceso realizado.'},
   {label:'Inicio',score:4,desc:'Registra de forma irregular sus paseos y necesita ayuda para anotar datos relevantes o interpretar cómo se ha preparado.'},
   {label:'Básico',score:6,desc:'Registra de forma suficiente distancia o tiempo, RPE y sensaciones, aunque la reflexión sobre su preparación es todavía sencilla.'},
   {label:'Adecuado',score:8,desc:'Mantiene un registro veraz y completo de su preparación, interpreta esfuerzo y sensaciones y explica cómo ha progresado antes de la ruta.'},
   {label:'Avanzado',score:10,desc:'Registra de forma sistemática y precisa, relaciona distancia, tiempo, RPE y sensaciones, identifica tendencias y propone ajustes razonados para mejorar su preparación.'}
  ],
- 'UP13|5.1|3':[
+ 'UP12|5.1|3':[
   {label:'Muy inicial',score:2,desc:'No consigue realizar la ruta aplicando las pautas básicas de participación autónoma, pese a disponer de las condiciones para hacerlo.'},
   {label:'Inicio',score:4,desc:'Realiza la ruta con supervisión frecuente y necesita recordatorios para gestionar ritmo, paradas, hidratación o seguimiento del itinerario.'},
   {label:'Básico',score:6,desc:'Realiza la ruta y aplica pautas básicas de ritmo, hidratación y seguimiento, aunque requiere alguna indicación puntual.'},
   {label:'Adecuado',score:8,desc:'Realiza la ruta con autonomía adecuada, regula ritmo y esfuerzo y aplica de forma consistente las pautas trabajadas.'},
   {label:'Avanzado',score:10,desc:'Realiza la ruta con plena autonomía, anticipa necesidades, ajusta su actuación al contexto y transfiere lo aprendido para resolver situaciones nuevas.'}
  ],
- 'UP13|5.1|4':[
+ 'UP12|5.1|4':[
   {label:'Muy inicial',score:2,desc:'Durante la salida incumple las normas básicas de conservación o realiza acciones que generan un impacto evitable sobre el entorno.'},
   {label:'Inicio',score:4,desc:'Conoce algunas pautas de cuidado, pero necesita recordatorios frecuentes para respetar el recorrido, gestionar residuos o evitar impactos innecesarios.'},
   {label:'Básico',score:6,desc:'Respeta las normas básicas de conservación, mantiene el entorno limpio y evita conductas claramente perjudiciales, aunque puede necesitar alguna indicación puntual.'},
   {label:'Adecuado',score:8,desc:'Actúa de forma autónoma y responsable durante toda la ruta, respeta las normas de conservación y toma decisiones coherentes con el cuidado del entorno.'},
   {label:'Avanzado',score:10,desc:'Mantiene una conducta ejemplar, anticipa impactos evitables y contribuye activamente a que el grupo respete y conserve el entorno durante la ruta.'}
  ],
- 'UP13|5.2|1':[
+ 'UP12|5.2|1':[
   {label:'Muy inicial',score:2,desc:'No consigue identificar un itinerario utilizable ni interpretar las referencias básicas necesarias para planificar la ruta.'},
   {label:'Inicio',score:4,desc:'Reconoce algunos elementos del itinerario, pero necesita ayuda frecuente para localizar referencias, estimar distancia o tiempo y organizar el recorrido.'},
   {label:'Básico',score:6,desc:'Planifica un itinerario sencillo con referencias, distancia y tiempo aproximados, aunque presenta alguna imprecisión o necesita orientación puntual.'},
   {label:'Adecuado',score:8,desc:'Planifica con autonomía un itinerario viable, interpreta las referencias necesarias y relaciona recorrido, distancia, duración y paradas.'},
   {label:'Avanzado',score:10,desc:'Planifica con precisión, contrasta alternativas de itinerario y justifica referencias, recorrido, tiempos y paradas adaptándolos a las condiciones previstas.'}
  ],
- 'UP13|5.2|2':[
+ 'UP12|5.2|2':[
   {label:'Muy inicial',score:2,desc:'No selecciona el material básico necesario para la ruta o incluye elementos que no responden a las necesidades previstas.'},
   {label:'Inicio',score:4,desc:'Reconoce parte del material necesario, pero necesita ayuda frecuente para decidir qué llevar según recorrido, duración y meteorología.'},
   {label:'Básico',score:6,desc:'Prepara una mochila con el material básico suficiente y relaciona de forma sencilla algunos elementos con las necesidades de la ruta.'},
   {label:'Adecuado',score:8,desc:'Selecciona y organiza con autonomía una mochila adecuada al itinerario, duración y meteorología, justificando las elecciones principales.'},
   {label:'Avanzado',score:10,desc:'Optimiza con criterio el material y su organización, anticipa necesidades del itinerario y la meteorología y justifica con precisión cada elección relevante.'}
  ],
- 'UP13|5.2|3':[
+ 'UP12|5.2|3':[
   {label:'Muy inicial',score:2,desc:'Durante la salida no consigue seguir el itinerario ni utilizar las referencias trabajadas sin intervención constante.'},
   {label:'Inicio',score:4,desc:'Sigue parcialmente el itinerario, pero necesita ayuda frecuente para reconocer referencias o tomar decisiones de orientación.'},
   {label:'Básico',score:6,desc:'Sigue el itinerario y reconoce las referencias principales, aunque requiere alguna indicación puntual para orientarse o confirmar decisiones.'},
   {label:'Adecuado',score:8,desc:'Se orienta con autonomía durante la ruta, interpreta referencias y toma decisiones coherentes para mantener el itinerario previsto.'},
   {label:'Avanzado',score:10,desc:'Se orienta con precisión y autonomía, contrasta referencias y recursos disponibles y ajusta decisiones ante cambios sin perder la seguridad ni el itinerario.'}
  ],
- 'UP13|5.3|1':[
+ 'UP12|5.3|1':[
   {label:'Muy inicial',score:2,desc:'No identifica los riesgos básicos del itinerario ni incorpora medidas de seguridad a la planificación.'},
   {label:'Inicio',score:4,desc:'Reconoce algún riesgo evidente, pero necesita ayuda frecuente para relacionarlo con medidas preventivas concretas.'},
   {label:'Básico',score:6,desc:'Identifica riesgos habituales de la ruta y propone medidas básicas de prevención, aunque de forma poco detallada.'},
   {label:'Adecuado',score:8,desc:'Anticipa riesgos relevantes, considera meteorología y características del itinerario y planifica medidas preventivas adecuadas.'},
   {label:'Avanzado',score:10,desc:'Analiza de forma completa los riesgos, prioriza medidas preventivas y justifica decisiones que mejoran la seguridad individual y colectiva.'}
  ],
- 'UP13|5.3|2':[
+ 'UP12|5.3|2':[
   {label:'Muy inicial',score:2,desc:'No relaciona el material o las pautas de actuación con la prevención de riesgos habituales de la ruta.'},
   {label:'Inicio',score:4,desc:'Reconoce algunos riesgos o materiales preventivos, pero necesita ayuda frecuente para decidir qué hacer ante torceduras, ampollas, caídas, heridas o deshidratación.'},
   {label:'Básico',score:6,desc:'Relaciona los riesgos habituales con material y pautas básicas de prevención y sabe que debe detenerse, proteger y avisar.'},
   {label:'Adecuado',score:8,desc:'Selecciona y justifica material preventivo adecuado y resuelve correctamente situaciones habituales aplicando la pauta detenerse, proteger, avisar y seguir indicaciones.'},
   {label:'Avanzado',score:10,desc:'Anticipa necesidades preventivas, prioriza actuaciones seguras y justifica con claridad cómo reducir riesgos sin asumir intervenciones que no le corresponden.'}
  ],
- 'UP13|5.3|3':[
+ 'UP12|5.3|3':[
   {label:'Muy inicial',score:2,desc:'Durante la preparación práctica incumple pautas de seguridad o no reconoce señales y riesgos básicos, generando situaciones que requieren intervención docente.'},
   {label:'Inicio',score:4,desc:'Reconoce algunas señales o riesgos, pero necesita recordatorios frecuentes para mantener una conducta segura y cumplir su función.'},
   {label:'Básico',score:6,desc:'Identifica los riesgos habituales y aplica las normas y señales básicas de seguridad, aunque requiere alguna indicación puntual.'},
   {label:'Adecuado',score:8,desc:'Aplica de forma autónoma las pautas de seguridad, comunica riesgos o incidencias y cumple responsablemente el rol asignado.'},
   {label:'Avanzado',score:10,desc:'Anticipa riesgos durante la práctica, comunica con claridad, ajusta su actuación y contribuye activamente a que el grupo mantenga condiciones seguras.'}
  ],
- 'UP13|5.3|4':[
+ 'UP12|5.3|4':[
   {label:'Muy inicial',score:2,desc:'Durante la salida incumple normas esenciales de seguridad o actúa de forma que genera riesgo para sí mismo o para el grupo.'},
   {label:'Inicio',score:4,desc:'Reconoce normas y riesgos, pero necesita supervisión frecuente para aplicarlos o comunicar incidencias.'},
   {label:'Básico',score:6,desc:'Identifica riesgos habituales, cumple normas y comunica incidencias básicas, aunque puede necesitar alguna indicación puntual.'},
@@ -542,19 +603,91 @@ const evidenceRubricOverrides={
   {label:'Avanzado',score:10,desc:'Anticipa riesgos, toma decisiones prudentes dentro de su responsabilidad, comunica eficazmente y contribuye de forma activa a la seguridad colectiva.'}
  ]
 };
-function rubricFor(ev){const base=evidenceRubricOverrides[`${ev.up}|${ev.c}|${ev.seq}`]||rubricOverrides[`${ev.up}|${ev.c}`]||makeRubric(ev.proc,ev.desc);return base.some(x=>Number(x.score)===0)?base:[{label:'No entregado',score:0,desc:'No entrega o no realiza la evidencia prevista. Este 0 sí computa; una valoración vacía significa que todavía no ha sido evaluada.'},...base]}
+function rubricFor(ev){const base=evidenceRubricOverrides[`${ev.up}|${ev.c}|${ev.seq}`]||rubricOverrides[`${ev.up}|${ev.c}`]||makeRubric(ev.proc,ev.desc);const contextual=base.map(x=>({...x,desc:x.desc.includes(ev.desc)?x.desc:`Actividad «${ev.desc}»: ${x.desc}`}));return contextual.some(x=>Number(x.score)===0)?contextual:[{label:'No entregado',score:0,desc:`No entrega o no realiza «${ev.desc}». Este 0 computa; una valoración vacía significa que todavía no ha sido evaluada.`},...contextual]}
 function rubricReferenceHTML(ev){
  const r=rubricFor(ev);
  return `<details class="rubric-ref"><summary><span class="rubric-summary-label">Ver rúbrica</span><span class="rubric-summary-title">${esc(ev.desc)}</span></summary><div class="rubric-grid">${r.map(x=>`<div class="rubric-level"><div class="rubric-level-head"><b>${x.label}</b><span>${x.score}</span></div><p>${esc(x.desc)}</p></div>`).join('')}</div><p class="tiny rubric-note">Seleccionar un nivel registra su valor numérico como evidencia principal del criterio. El descriptor queda asociado a la valoración en el historial.</p></details>`;
 }
 
-const compMatrix={'3.1':['UP3','UP4','UP5','UP7','UP8','UP9','UP11','UP13'],'3.2':['UP2','UP3','UP4','UP7','UP10','UP11','UP12','UP13'],'3.3':ups.map(([up])=>up)};
+const compMatrix={'3.1':['UP3','UP4','UP7','UP6','UP9','UP10','UP12'],'3.2':['UP2','UP3','UP4','UP6','UP8','UP10','UP11','UP12'],'3.3':ups.map(([up])=>up)};
 let deferredPrompt=null;
 let currentView='inicio';
 function todayISO(){const d=new Date();return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10)}
-function defaultUpPeriods(){const out={};ups.forEach(([u],i)=>out[u]=i<4?'eval1':i<10?'eval2':'eval3');out.UP13='eval1';return out}
-function defaultState(){return {groups:[],scores:{},rubricMarks:{},selfScores:{},peerScores:{},selfRubricMarks:{},peerRubricMarks:{},upSelfAssessments:{},upPeerAssessments:{},qual:{},selfQual:{},peerQual:{},qualDates:{},continuousClosures:{},attendance:{},notes:{},teacherNotes:{},fitness:{},reflections:{},fitnessPentagon:{},fitnessPentagonReflections:{},warmups:{},up3RPE:{},up3Tasks:{},up4Game:{},checklists22:{},checklists22Meta:{},photos:{},selectedGroup:null,selectedUP:'UP1',selectedDate:todayISO(),evalConfig:{upPeriods:defaultUpPeriods()},ui:{scoreMode:'levels',evaluationPeriod:'eval1',openWarmup:null,openUp3RPE:null,openUp3Task:null,openUp4Game:null,openSummaryStudent:null,openEvaluateStudent:null,lastBackupExport:null,evaluationView:'activity',selectedSession:4}}}
-function migrate(raw){const d=defaultState(),preV4=!(raw?.ui&&Object.prototype.hasOwnProperty.call(raw.ui,'evaluationView')),s=Object.assign(d,raw||{});s.attendance=s.attendance||{};s.notes=s.notes||{};s.teacherNotes=s.teacherNotes||{};s.rubricMarks=s.rubricMarks||{};s.selfScores=s.selfScores||{};s.peerScores=s.peerScores||{};s.selfRubricMarks=s.selfRubricMarks||{};s.peerRubricMarks=s.peerRubricMarks||{};s.upSelfAssessments=s.upSelfAssessments||{};s.upPeerAssessments=s.upPeerAssessments||{};/* V4.2.3: consolidación Auto/Co por competencia específica. Conserva las claves antiguas y crea una única clave UP+CE con la media de los criterios previos cuando exista. */['upSelfAssessments','upPeerAssessments'].forEach(storeName=>{const store=s[storeName]||{},buckets={};Object.entries(store).forEach(([k,v])=>{if(!hasValue(v))return;const parts=k.split('|');if(parts.length!==4)return;const [gid,sid,up,last]=parts;if(/^CE[1-5]$/.test(last))return;const ce=criteria.find(x=>x[0]===last)?.[1];if(!ce)return;const nk=`${gid}|${sid}|${up}|${ce}`;(buckets[nk]||(buckets[nk]=[])).push(Number(v))});Object.entries(buckets).forEach(([k,vals])=>{if(!hasValue(store[k])&&vals.length)store[k]=vals.reduce((a,b)=>a+b,0)/vals.length});s[storeName]=store});s.selfQual=s.selfQual||{};s.peerQual=s.peerQual||{};s.fitness=s.fitness||{};s.reflections=s.reflections||{};s.fitnessPentagon=s.fitnessPentagon||{};s.fitnessPentagonReflections=s.fitnessPentagonReflections||{};s.warmups=s.warmups||{};s.up3RPE=s.up3RPE||{};s.up3Tasks=s.up3Tasks||{};s.up4Game=s.up4Game||{};s.checklists22=s.checklists22||{};s.checklists22Meta=s.checklists22Meta||{};s.photos=s.photos||{};s.qual=s.qual||{};s.qualDates=s.qualDates||{};s.continuousClosures=s.continuousClosures||{};/* V4.2.2: las copias antiguas se conservan sin mover ni reinterpretar claves históricas de 5.1/5.2/5.3. */Object.keys(s.qual).forEach(k=>{const v=s.qual[k];if(v==='En proceso')s.qual[k]=4;else if(v==='Adecuado')s.qual[k]=8;else if(v==='Consolidado')s.qual[k]=10});s.selectedDate=s.selectedDate||todayISO();const old=s.evalConfig||{},periods=Object.assign({},defaultUpPeriods(),old.upPeriods||{});if(!old.upPeriods&&(old.firstCut||old.secondCut)){const a=upIndex(old.firstCut||'UP4'),b=upIndex(old.secondCut||'UP10');ups.forEach(([u],i)=>periods[u]=i<=a?'eval1':i<=b?'eval2':'eval3')}s.evalConfig={upPeriods:periods};s.ui=Object.assign({scoreMode:'levels',evaluationPeriod:'eval1',openWarmup:null,openUp3RPE:null,openUp3Task:null,openUp4Game:null,openSummaryStudent:null,openEvaluateStudent:null,lastBackupExport:null,evaluationView:'activity',selectedSession:4},s.ui||{});return s}
+function defaultUpPeriods(){const out={};ups.forEach(([u],i)=>out[u]=i<4?'eval1':i<10?'eval2':'eval3');return out}
+function defaultState(){return {groups:[],scores:{},rubricMarks:{},selfScores:{},peerScores:{},selfRubricMarks:{},peerRubricMarks:{},upSelfAssessments:{},upPeerAssessments:{},qual:{},selfQual:{},peerQual:{},qualDates:{},continuousClosures:{},attendance:{},notes:{},teacherNotes:{},fitness:{},reflections:{},fitnessPentagon:{},fitnessPentagonReflections:{},warmups:{},up3RPE:{},up3Tasks:{},up4Game:{},checklists22:{},checklists22Meta:{},observation4516:{},photos:{},selectedGroup:null,selectedUP:'UP1',selectedDate:todayISO(),evalConfig:{upPeriods:defaultUpPeriods()},ui:{scoreMode:'levels',evaluationPeriod:'eval1',openWarmup:null,openUp3RPE:null,openUp3Task:null,openUp4Game:null,openSummaryStudent:null,openEvaluateStudent:null,lastBackupExport:null,evaluationView:'activity',selectedSession:4}}}
+
+// V4.5.14: migration of positional evidence IDs from the 13-UP release.
+// Old 2.3 seq 4 and old 4.1 seq 1 belong to the removed Combas UP;
+// preserve these entries separately without assigning their marks to another task.
+function migrateEvidence4514(s){
+ // V4.5.16: la evidencia 2.3/4 era Combas y queda archivada;
+ // las antiguas 2.3/5 (minibásquet) y 2.3/6 (expresión) mantienen su número.
+ if(s.migrationEvidence4516===true)return s;
+ const names=['scores','rubricMarks','selfScores','peerScores','selfRubricMarks','peerRubricMarks'];
+ s.archivedCombasEvidence=s.archivedCombasEvidence||{};
+ const previouslyShifted=s.migrationEvidence4515===true;
+ for(const name of names){
+  const src=s[name]||{},next={},archive={};
+  for(const [key,value] of Object.entries(src)){
+   const parts=key.split('|');
+   if(parts.length!==4)throw Error('Clave de evidencia no reconocida: '+name+' / '+key);
+   const c=parts[2],seq=Number(parts[3]);
+   if(!Number.isInteger(seq)||seq<1)throw Error('Índice de evidencia inválido: '+key);
+   if(!previouslyShifted&&((c==='2.3'&&seq===4)||(c==='4.1'&&seq===1))){archive[key]=value;continue}
+   let mapped=seq;
+   if(c==='2.3'&&previouslyShifted&&seq>=4)mapped=seq+1;
+   if(c==='4.1'&&!previouslyShifted&&seq>=2)mapped=seq-1;
+   const newKey=[parts[0],parts[1],c,String(mapped)].join('|');
+   if(Object.prototype.hasOwnProperty.call(next,newKey))throw Error('Colisión de evidencias: '+name+' / '+newKey);
+   next[newKey]=value;
+  }
+  s[name]=next;
+  if(Object.keys(archive).length){
+   const previous=s.archivedCombasEvidence[name]||{};
+   for(const k of Object.keys(archive))if(Object.prototype.hasOwnProperty.call(previous,k)&&JSON.stringify(previous[k])!==JSON.stringify(archive[k]))throw Error('Colisión en archivo histórico: '+name+' / '+k);
+   s.archivedCombasEvidence[name]=Object.assign({},previous,archive);
+  }
+ }
+ s.migrationEvidence4515=true;
+ s.migrationEvidence4516=true;
+ return s;
+}
+// V4.5.17: never reinterpret old assessment marks as new Pentagono/RPE or CFB tasks.
+function migrateEvidence4517(s){
+ if(s.migrationEvidence4517===true)return s;
+ const names=['scores','rubricMarks','selfScores','peerScores','selfRubricMarks','peerRubricMarks'];
+ s.archivedRevisedCFBEvidence=s.archivedRevisedCFBEvidence||{};
+ for(const name of names){
+  const store=s[name]||{},archive=s.archivedRevisedCFBEvidence[name]||{};
+  for(const [key,value] of Object.entries(store)){
+   const parts=key.split('|');
+   if(parts.length!==4)continue;
+   const c=parts[2],seq=Number(parts[3]);
+   // UP1 1.1/1 formerly Pasaporte; UP3 1.2/3 formerly Reto de regulacion.
+   // UP3 1.1/2 was Seguimiento CFB and remains in place as historical evidence.
+   if((c==='1.1'&&(seq===1||seq===2))||(c==='1.2'&&seq===3)){
+    if(Object.prototype.hasOwnProperty.call(archive,key)&&JSON.stringify(archive[key])!==JSON.stringify(value))throw Error('Colisión de archivo de CFB: '+key);
+    archive[key]=value;delete store[key];
+   }
+  }
+  s.archivedRevisedCFBEvidence[name]=archive;
+ }
+ s.migrationEvidence4517=true;return s;
+}
+// V4.5.11: migrate legacy UP identifiers once; preserve original backup in localStorage.
+function migrateUP4511(s){
+ migrateEvidence4514(s);
+ if(s.migration4511===true)return s;
+ const map={'UP5':'UP7','UP6':'UP5','UP7':'UP6','UP8':'UP_ARCHIVE_COMBAS','UP10':'UP8','UP11':'UP10','UP12':'UP11','UP13':'UP12'};
+ const remap=u=>map[u]||u;
+ const stores=['qual','selfQual','peerQual','qualDates','continuousClosures','upSelfAssessments','upPeerAssessments','checklists22','checklists22Meta','teacherNotes'];
+ for(const name of stores){const src=s[name]||{},dst={};for(const [k,v] of Object.entries(src)){const nk=k.split('|').map(remap).join('|');if(Object.prototype.hasOwnProperty.call(dst,nk))throw Error('Colisión de claves en migración: '+name+' / '+nk);dst[nk]=v;}s[name]=dst;}
+ if(s.evalConfig?.upPeriods){const old=s.evalConfig.upPeriods,next={};for(const [k,v] of Object.entries(old))next[remap(k)]=v;delete next.UP_ARCHIVE_COMBAS;s.evalConfig.upPeriods=Object.assign(defaultUpPeriods(),next);}
+ s.selectedUP=remap(s.selectedUP||'UP1');if(s.selectedUP==='UP_ARCHIVE_COMBAS')s.selectedUP='UP7';
+ s.migration4511=true;return s;
+}
+
+function migrate(raw){const d=defaultState(),preV4=!(raw?.ui&&Object.prototype.hasOwnProperty.call(raw.ui,'evaluationView')),s=Object.assign(d,raw||{});s.attendance=s.attendance||{};s.notes=s.notes||{};s.teacherNotes=s.teacherNotes||{};s.rubricMarks=s.rubricMarks||{};s.selfScores=s.selfScores||{};s.peerScores=s.peerScores||{};s.selfRubricMarks=s.selfRubricMarks||{};s.peerRubricMarks=s.peerRubricMarks||{};s.upSelfAssessments=s.upSelfAssessments||{};s.upPeerAssessments=s.upPeerAssessments||{};/* V4.2.3: consolidación Auto/Co por competencia específica. Conserva las claves antiguas y crea una única clave UP+CE con la media de los criterios previos cuando exista. */['upSelfAssessments','upPeerAssessments'].forEach(storeName=>{const store=s[storeName]||{},buckets={};Object.entries(store).forEach(([k,v])=>{if(!hasValue(v))return;const parts=k.split('|');if(parts.length!==4)return;const [gid,sid,up,last]=parts;if(/^CE[1-5]$/.test(last))return;const ce=criteria.find(x=>x[0]===last)?.[1];if(!ce)return;const nk=`${gid}|${sid}|${up}|${ce}`;(buckets[nk]||(buckets[nk]=[])).push(Number(v))});Object.entries(buckets).forEach(([k,vals])=>{if(!hasValue(store[k])&&vals.length)store[k]=vals.reduce((a,b)=>a+b,0)/vals.length});s[storeName]=store});s.selfQual=s.selfQual||{};s.peerQual=s.peerQual||{};s.fitness=s.fitness||{};s.reflections=s.reflections||{};s.fitnessPentagon=s.fitnessPentagon||{};s.fitnessPentagonReflections=s.fitnessPentagonReflections||{};s.warmups=s.warmups||{};s.up3RPE=s.up3RPE||{};s.up3Tasks=s.up3Tasks||{};s.up4Game=s.up4Game||{};s.checklists22=s.checklists22||{};s.checklists22Meta=s.checklists22Meta||{};s.observation4516=s.observation4516||{};s.photos=s.photos||{};s.qual=s.qual||{};s.qualDates=s.qualDates||{};s.continuousClosures=s.continuousClosures||{};/* V4.2.2: las copias antiguas se conservan sin mover ni reinterpretar claves históricas de 5.1/5.2/5.3. */Object.keys(s.qual).forEach(k=>{const v=s.qual[k];if(v==='En proceso')s.qual[k]=4;else if(v==='Adecuado')s.qual[k]=8;else if(v==='Consolidado')s.qual[k]=10});s.selectedDate=s.selectedDate||todayISO();const old=s.evalConfig||{},periods=Object.assign({},defaultUpPeriods(),old.upPeriods||{});if(!old.upPeriods&&(old.firstCut||old.secondCut)){const a=upIndex(old.firstCut||'UP4'),b=upIndex(old.secondCut||'UP8');ups.forEach(([u],i)=>periods[u]=i<=a?'eval1':i<=b?'eval2':'eval3')}s.evalConfig={upPeriods:periods};s.ui=Object.assign({scoreMode:'levels',evaluationPeriod:'eval1',openWarmup:null,openUp3RPE:null,openUp3Task:null,openUp4Game:null,openSummaryStudent:null,openEvaluateStudent:null,lastBackupExport:null,evaluationView:'activity',selectedSession:4},s.ui||{});return migrateEvidence4517(migrateUP4511(s))}
 const DATA_LOAD_FAILURE='cuaderno-ef-load-failure';
 let loadFailureMessage='';
 function showLoadFailure(){
@@ -572,7 +705,10 @@ function load(){
  }
  let split={};
  try{const photosRaw=localStorage.getItem(PHOTO_KEY);split=photosRaw?JSON.parse(photosRaw):{};if(!isPlainRecord(split))throw Error('Fotos inválidas')}catch(err){loadFailureMessage='ERROR: el almacenamiento de fotos está dañado. No se sobrescribirá hasta resolver el problema.';console.error(err);return defaultState()}
- const s=migrate(parsed);
+ if(raw!==null&&parsed.migrationEvidence4517!==true){try{if(!localStorage.getItem('cuadernoEF_backup_pre4517'))localStorage.setItem('cuadernoEF_backup_pre4517',raw)}catch(e){loadFailureMessage='ERROR: no se puede guardar copia de seguridad previa a la migración. No se cargarán ni guardarán cambios.';console.error(e);return defaultState()}}
+ // Migration maps existing positional evidence keys, while archiving removed Combas evidence.
+ // The original JSON remains backed up in cuadernoEF_backup_pre4515.
+ let s;try{s=migrate(parsed)}catch(err){loadFailureMessage='ERROR DE MIGRACIÓN: no se han modificado los datos originales. '+err.message;console.error(err);return defaultState()}
  if(Object.keys(s.photos||{}).length&&!Object.keys(split).length){split=s.photos;try{localStorage.setItem(PHOTO_KEY,JSON.stringify(split))}catch(err){console.warn('No se pudieron separar las fotos',err)}}
  s.photos=Object.assign({},split,s.photos||{});
  return s;
@@ -636,7 +772,7 @@ function hasValue(v){return v!==undefined&&v!==null&&v!==''}
 function blendedAssessment(teacher,self,peer){if(!hasValue(teacher))return null;if(Number(teacher)===0)return 0;const vals=[[teacher,.8],[self,.1],[peer,.1]].filter(([v])=>hasValue(v));const den=vals.reduce((a,[,w])=>a+w,0);return vals.reduce((a,[v,w])=>a+Number(v)*w,0)/den}
 function criterionCE(c){return criteria.find(x=>x[0]===c)?.[1]||''}
 function upAssessmentKey(gid,sid,up,ce){return `${gid}|${sid}|${up}|${ce}`}
-function upAssessmentValue(kind,gid,sid,up,c){const store=kind==='self'?state.upSelfAssessments:state.upPeerAssessments,ce=String(c||'').startsWith('CE')?c:criterionCE(c);const v=store?.[upAssessmentKey(gid,sid,up,ce)];if(hasValue(v))return Number(v);/* Compatibilidad V4.2.1/4.2.2: lectura no destructiva de la antigua clave por criterio. */const legacy=store?.[`${gid}|${sid}|${up}|${c}`];return hasValue(legacy)?Number(legacy):null}
+function upAssessmentValue(kind,gid,sid,up,c){const store=kind==='self'?state.upSelfAssessments:state.upPeerAssessments,ce=String(c||'').startsWith('CE')?c:criterionCE(c);const specific=store?.[`${gid}|${sid}|${up}|${c}`];if((up==='UP1'&&c==='1.1')||(up==='UP3'&&c==='1.2')){if(hasValue(specific))return Number(specific)}const v=store?.[upAssessmentKey(gid,sid,up,ce)];if(hasValue(v))return Number(v);/* Compatibilidad V4.2.1/4.2.2: lectura no destructiva de la antigua clave por criterio. */const legacy=store?.[`${gid}|${sid}|${up}|${c}`];return hasValue(legacy)?Number(legacy):null}
 function evidenceValue(gid,sid,c,seq){const k=scoreKey(gid,sid,c,seq);const v=state.scores[k];return hasValue(v)?Number(v):null}
 function criterionUpValue(gid,sid,c,up){const vals=[];(evidence[c]||[]).forEach((e,i)=>{if(e[0]!==up)return;const v=evidenceValue(gid,sid,c,i+1);if(v!==null)vals.push(Number(v))});if(!vals.length)return null;const teacher=vals.reduce((a,b)=>a+b,0)/vals.length;return blendedAssessment(teacher,upAssessmentValue('self',gid,sid,up,c),upAssessmentValue('peer',gid,sid,up,c))}
 function criterionAcrossUps(gid,sid,c,allowedUps){const vals=[];allowedUps.forEach(up=>{const v=criterionUpValue(gid,sid,c,up);if(v!==null)vals.push(v)});return vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:null}
@@ -957,7 +1093,7 @@ function quickEvaluationHTML(evs){
   return `<div class="quick-eval-row ${ceClass} ${done?'done':''}">
    <div class="quick-eval-head"><div><span class="pill main ce-pill ${ceClass}">${criterionLabel(ev.c)}</span><b class="quick-focus">${warmupDecalogue?'Decálogo del calentamiento · 10 pautas con dibujos y poco texto':warmupResponsible?'Seguimiento de la práctica responsable · criterio 1.6':esc(focus)}</b></div><span class="quick-status">${done?`✓ ${mark?.label?esc(mark.label)+' · ':''}${v}`:'Pendiente'}</span></div>
    <div class="quick-evidence-label"><b>Actividad/evidencia:</b> ${esc(ev.desc)} · <b>Instrumento:</b> ${esc(ev.proc)}</div>${knowledgeFor(ev.up,ev.c)?`<div class="quick-evidence-label"><b>Saber básico:</b> ${esc(knowledgeFor(ev.up,ev.c))}</div>`:''}
-   <div class="quick-score-buttons">${levels.map(n=>{const r=rubric.find(x=>Number(x.score)===n);return `<button type="button" data-quick-score="${n}" data-quick-key="${k}" data-quick-c="${ev.c}" data-quick-seq="${ev.seq}" data-quick-up="${ev.up}" data-quick-desc="${esc(ev.desc)}" data-quick-level="${esc(r?.label||'')}" data-quick-rubric-desc="${esc(r?.desc||'')}" class="${Number(v)===n?'selected':''}"><strong>${n}</strong><small>${esc(r?.label||'')}</small></button>`}).join('')}</div>
+   <div class="quick-score-buttons">${(rubric.length===2&&rubric.some(x=>x.score===0)&&rubric.some(x=>x.score===10)?[0,10]:levels).map(n=>{const r=rubric.find(x=>Number(x.score)===n);return `<button type="button" data-quick-score="${n}" data-quick-key="${k}" data-quick-c="${ev.c}" data-quick-seq="${ev.seq}" data-quick-up="${ev.up}" data-quick-desc="${esc(ev.desc)}" data-quick-level="${esc(r?.label||'')}" data-quick-rubric-desc="${esc(r?.desc||'')}" class="${Number(v)===n?'selected':''}"><strong>${n}</strong><small>${esc(r?.label||'')}</small></button>`}).join('')}</div>
    <details class="quick-native-details"><summary>Ver qué significa cada nivel</summary><div class="quick-rubric-grid">${rubric.map(r=>`<div><b>${r.score} · ${esc(r.label)}</b><span>${esc(r.desc)}</span></div>`).join('')}</div></details>
    ${done?`<button type="button" class="quick-clear" data-quick-clear="${k}">Borrar</button>`:''}
   </div>`}).join('');
@@ -971,7 +1107,7 @@ function continuousEvaluationHTML(comps){
  const rows=comps.map(ev=>{const k=contextualQualKey(g.id,sid,ev.c,ev.up),v=state.qual[k],done=v!==undefined&&v!==null&&v!=='',rubric=continuousRubricFor(ev.up,ev.c),ctxId=continuousContextId(ev.up);
   return `<div class="quick-eval-row continuous-row ce-block-3 ${done?'done':''}">
    <div class="quick-eval-head"><div><span class="pill continuous ce-pill ce-block-3">○ ${criterionLabel(ev.c)}</span><b class="quick-focus">${esc(quickFocus(ev.up,ev.c,criterionShort[ev.c]||''))}</b></div><span class="quick-status continuous-status">${done?`✓ ${esc(rubric.find(r=>Number(r.score)===Number(v))?.label||'')} · ${v}`:'Pendiente'}</span></div>
-   <div class="quick-evidence-label continuous-label">Observación contextual · ${esc(ev.up)}${ev.c==='3.3'?` · ${esc((state.ui.evaluationView==='session'&&ev.up==='UP13')?'Sesión '+(Number(state.ui.selectedSession)||1):selectedActivityForUP(ev.up))}`:ctxId!=='base'?` · ${esc(ctxId.toUpperCase())}`:''}</div>
+   <div class="quick-evidence-label continuous-label">Observación contextual · ${esc(ev.up)}${ev.c==='3.3'?` · ${esc((state.ui.evaluationView==='session'&&ev.up==='UP12')?'Sesión '+(Number(state.ui.selectedSession)||1):selectedActivityForUP(ev.up))}`:ctxId!=='base'?` · ${esc(ctxId.toUpperCase())}`:''}</div>
    ${knowledgeFor(ev.up,ev.c)?`<div class="quick-evidence-label"><b>Saber básico:</b> ${esc(knowledgeFor(ev.up,ev.c))}</div>`:''}
    <div class="quick-score-buttons continuous-score-buttons">${rubric.map(r=>`<button type="button" data-cont-score="${r.score}" data-cont-key="${k}" class="${done&&Number(v)===Number(r.score)?'selected':''}"><strong>${r.score}</strong><small>${esc(r.label)}</small></button>`).join('')}</div>
    <details class="quick-native-details"><summary>Ver qué observo en este contexto</summary><div class="quick-rubric-grid">${rubric.map(r=>`<div><b>${r.score} · ${esc(r.label)}</b><span>${esc(r.desc)}</span></div>`).join('')}</div></details>
@@ -1011,28 +1147,28 @@ const up13ActivityContinuous={
  'Regulación, cooperación y seguridad':['3.1','3.2'],
  'Realización de la ruta':['3.1','3.2']
 };
-// Para UP1-UP12 no se inventan sesiones que no estén definidas en la app.
+// Para UP1-UP11 no se inventan sesiones que no estén definidas en la app.
 // La contextualización se realiza por la actividad/evidencia curricular ya existente.
 const continuousActivityByUP={
  'UP1':'Participación responsable y regulación del esfuerzo',
  'UP2':'Diseño y dirección de calentamiento',
  'UP3':'Participación responsable y autorregulación',
  'UP4':'Juego real/modificado de bádminton',
- 'UP5':'Circuito/reto coordinativo',
- 'UP7':'Composición gimnástica',
- 'UP8':'Secuencia cooperativa de combas',
+ 'UP7':'Circuito/reto coordinativo',
+ 'UP6':'Composición gimnástica',
+ 'UP_ARCHIVE_COMBAS':'Secuencia cooperativa de combas',
  'UP9':'Juego reducido 3×3 de minibásquet',
- 'UP10':'Creación y representación colectiva',
- 'UP11':'Toma de decisiones en juegos y deportes alternativos',
- 'UP12':'Baúl de los juegos del instituto'
+ 'UP8':'Creación y representación colectiva',
+ 'UP10':'Toma de decisiones en juegos y deportes alternativos',
+ 'UP11':'Baúl de los juegos del instituto'
 };
-function isLegacyUP13Evidence(ev){return ev?.up==='UP13'&&ev?.c==='5.1'&&Number(ev?.seq)<=3}
+function isLegacyUP13Evidence(ev){return ev?.up==='UP12'&&ev?.c==='5.1'&&Number(ev?.seq)<=3}
 const GLOBAL_ASSESSMENT_ACTIVITY='Autoevaluación / Coevaluación de la UP';
 function activityNamesForUP(up){const names=[...new Set(principalForUP(up).filter(e=>!isLegacyUP13Evidence(e)).map(e=>e.desc))];return [...names,GLOBAL_ASSESSMENT_ACTIVITY]}
 function selectedActivityForUP(up){const acts=activityNamesForUP(up);const chosen=state.ui.selectedActivity&&acts.includes(state.ui.selectedActivity)?state.ui.selectedActivity:acts[0];state.ui.selectedActivity=chosen;return chosen}
 function filteredPrincipalForEvaluation(up){
  const all=principalForUP(up).filter(e=>!isLegacyUP13Evidence(e)),mode=state.ui.evaluationView||'activity';
- if(mode==='session'&&up==='UP13'){
+ if(mode==='session'&&up==='UP12'){
   const sn=Number(state.ui.selectedSession)||1,acts=up13Sessions[sn]?.activities||[];
   return all.filter(e=>acts.includes(e.desc));
  }
@@ -1042,7 +1178,7 @@ function filteredPrincipalForEvaluation(up){
 }
 function filteredContinuousForEvaluation(up){
  const all=compsForUP(up),mode=state.ui.evaluationView||'activity';
- if(up==='UP13'){
+ if(up==='UP12'){
   if(mode==='session'){
    const sn=Number(state.ui.selectedSession)||1,allowed=up13Sessions[sn]?.continuous||[];
    return all.filter(e=>allowed.includes(e.c)||e.c==='3.3');
@@ -1081,28 +1217,28 @@ const studentGlobalRubrics={
 'UP4|CE3':{
  auto:['Me cuesta respetar las reglas, controlar mis reacciones o aceptar las diferencias durante el juego.','Participo, pero necesito recordatorios frecuentes para esforzarme, respetar y mantener una actitud deportiva.','Juego respetando las reglas y a los demás y mantengo un esfuerzo suficiente.','Me autorregulo, acepto las decisiones, busco mejorar y respeto las diferencias de nivel con autonomía.','Soy constante en el esfuerzo y el juego limpio y favorezco activamente un clima respetuoso e inclusivo.'],
  peer:['Le cuesta respetar las reglas, controlar sus reacciones o aceptar las diferencias durante el juego.','Participa, pero necesita recordatorios frecuentes para esforzarse, respetar y mantener una actitud deportiva.','Juega respetando las reglas y a los demás y mantiene un esfuerzo suficiente.','Se autorregula, acepta las decisiones, busca mejorar y respeta las diferencias de nivel con autonomía.','Es constante en el esfuerzo y el juego limpio y favorece activamente un clima respetuoso e inclusivo.']},
-'UP5|CE2':{
+'UP7|CE2':{
  auto:['Tengo muchas dificultades para controlar mi cuerpo en las tareas de coordinación y equilibrio y necesito ayuda constante.','Consigo realizar algunas tareas sencillas, pero pierdo el control o el equilibrio con frecuencia y necesito bastante ayuda.','Controlo mi cuerpo en las tareas habituales de coordinación y equilibrio, aunque algunas situaciones todavía me cuestan.','Controlo y adapto bien mi cuerpo a diferentes tareas, espacios y situaciones de coordinación y equilibrio, con autonomía.','Controlo mi cuerpo con precisión y autonomía y adapto eficazmente mis movimientos incluso cuando las tareas de coordinación y equilibrio son más difíciles.'],
  peer:['Tiene muchas dificultades para controlar su cuerpo en las tareas de coordinación y equilibrio y necesita ayuda constante.','Consigue realizar algunas tareas sencillas, pero pierde el control o el equilibrio con frecuencia y necesita bastante ayuda.','Controla su cuerpo en las tareas habituales de coordinación y equilibrio, aunque algunas situaciones todavía le cuestan.','Controla y adapta bien su cuerpo a diferentes tareas, espacios y situaciones de coordinación y equilibrio, con autonomía.','Controla su cuerpo con precisión y autonomía y adapta eficazmente sus movimientos incluso en las tareas más difíciles.']},
-'UP5|CE3':{
+'UP7|CE3':{
  auto:['Cuando una tarea no me sale, me cuesta mucho continuar y necesito ayuda constante para volver a intentarlo.','Intento continuar cuando algo me cuesta, pero me desanimo con facilidad y necesito ayuda frecuente.','Normalmente sigo intentándolo ante las dificultades y voy aprendiendo a controlar mi frustración.','Afronto las dificultades, controlo mis emociones y persevero para mejorar de forma autónoma.','Gestiono muy bien las dificultades, persevero ante los errores y busco de forma autónoma nuevas maneras de superarme y mejorar.'],
  peer:['Cuando una tarea no le sale, le cuesta mucho continuar y necesita ayuda constante para volver a intentarlo.','Intenta continuar cuando algo le cuesta, pero se desanima con facilidad y necesita ayuda frecuente.','Normalmente sigue intentándolo ante las dificultades y va aprendiendo a controlar su frustración.','Afronta las dificultades, controla sus emociones y persevera para mejorar de forma autónoma.','Gestiona muy bien las dificultades, persevera ante los errores y busca de forma autónoma nuevas maneras de superarse y mejorar.']},
-'UP6|CE1':{
+'UP5|CE1':{
  auto:['Tengo muchas dificultades para reconocer hábitos saludables, prevenir riesgos y aplicar cuidados básicos relacionados con la actividad física.','Reconozco algunas pautas de salud y seguridad, pero necesito ayuda frecuente para aplicarlas en situaciones concretas.','Identifico hábitos saludables y perjudiciales y aplico de forma suficiente pautas básicas de postura, alimentación, higiene, prevención y actuación ante accidentes.','Aplico con autonomía hábitos saludables y medidas de prevención, utilizo adecuadamente la información y sé cómo actuar ante situaciones básicas de emergencia.','Analizo y justifico mis decisiones sobre salud y seguridad, aplico hábitos de forma autónoma y adapto correctamente la prevención y la actuación a cada situación.'],
  peer:['Tiene muchas dificultades para reconocer hábitos saludables, prevenir riesgos y aplicar cuidados básicos relacionados con la actividad física.','Reconoce algunas pautas de salud y seguridad, pero necesita ayuda frecuente para aplicarlas en situaciones concretas.','Identifica hábitos saludables y perjudiciales y aplica de forma suficiente pautas básicas de postura, alimentación, higiene, prevención y actuación ante accidentes.','Aplica con autonomía hábitos saludables y medidas de prevención, utiliza adecuadamente la información y sabe cómo actuar ante situaciones básicas de emergencia.','Analiza y justifica sus decisiones sobre salud y seguridad, aplica hábitos de forma autónoma y adapta correctamente la prevención y la actuación a cada situación.']},
-'UP7|CE2':{
+'UP6|CE2':{
  auto:['Tengo muchas dificultades para realizar las habilidades gimnásticas y controlar mi cuerpo con seguridad.','Realizo algunos elementos sencillos, pero necesito bastante ayuda para controlar mi cuerpo y enlazarlos.','Realizo las habilidades básicas con un control suficiente y participo en una composición sencilla.','Ejecuto y enlazo las habilidades con buen control corporal, adaptándome al espacio y a la composición con autonomía.','Ejecuto con precisión y seguridad, adapto conscientemente mi cuerpo y contribuyo a mejorar la calidad de la composición.'],
  peer:['Tiene muchas dificultades para realizar las habilidades gimnásticas y controlar su cuerpo con seguridad.','Realiza algunos elementos sencillos, pero necesita bastante ayuda para controlar su cuerpo y enlazarlos.','Realiza las habilidades básicas con un control suficiente y participa en una composición sencilla.','Ejecuta y enlaza las habilidades con buen control corporal, adaptándose al espacio y a la composición con autonomía.','Ejecuta con precisión y seguridad, adapta conscientemente su cuerpo y contribuye a mejorar la calidad de la composición.']},
-'UP7|CE3':{
+'UP6|CE3':{
  auto:['Me cuesta afrontar las dificultades, asumir mi función o respetar las diferencias dentro del grupo.','Participo, pero necesito ayuda frecuente para perseverar, cumplir mi responsabilidad y colaborar de forma segura.','Afronto las dificultades habituales, cumplo mi función y respeto y ayudo a los demás de forma suficiente.','Persevero, asumo responsabilidades y colaboro para que la composición sea segura, respetuosa e inclusiva.','Me supero con autonomía, ayudo responsablemente y contribuyo activamente a organizar un grupo seguro, cooperativo e inclusivo.'],
  peer:['Le cuesta afrontar las dificultades, asumir su función o respetar las diferencias dentro del grupo.','Participa, pero necesita ayuda frecuente para perseverar, cumplir su responsabilidad y colaborar de forma segura.','Afronta las dificultades habituales, cumple su función y respeta y ayuda a los demás de forma suficiente.','Persevera, asume responsabilidades y colabora para que la composición sea segura, respetuosa e inclusiva.','Se supera con autonomía, ayuda responsablemente y contribuye activamente a organizar un grupo seguro, cooperativo e inclusivo.']},
-'UP8|CE2':{
+'UP_ARCHIVE_COMBAS|CE2':{
  auto:['Tengo muchas dificultades para realizar los saltos y movimientos con comba o aportar ideas a la secuencia.','Realizo algunos movimientos básicos, pero necesito bastante ayuda para coordinarlos y crear una secuencia.','Realizo las habilidades básicas y aporto alguna idea para construir una secuencia sencilla.','Ejecuto con control diferentes habilidades y aporto soluciones creativas para mejorar la secuencia con autonomía.','Combino habilidades con precisión y fluidez y propongo soluciones originales que enriquecen la secuencia colectiva.'],
  peer:['Tiene muchas dificultades para realizar los saltos y movimientos con comba o aportar ideas a la secuencia.','Realiza algunos movimientos básicos, pero necesita bastante ayuda para coordinarlos y crear una secuencia.','Realiza las habilidades básicas y aporta alguna idea para construir una secuencia sencilla.','Ejecuta con control diferentes habilidades y aporta soluciones creativas para mejorar la secuencia con autonomía.','Combina habilidades con precisión y fluidez y propone soluciones originales que enriquecen la secuencia colectiva.']},
-'UP8|CE3':{
+'UP_ARCHIVE_COMBAS|CE3':{
  auto:['Cuando fallo en la secuencia me cuesta continuar y necesito ayuda constante.','Intento continuar, pero necesito apoyo frecuente para controlar la frustración y volver a coordinarme.','Mantengo el intento y gestiono de forma suficiente los errores habituales.','Persevero, controlo mis reacciones y me reajusto con autonomía para continuar la secuencia.','Mantengo el autocontrol ante los errores, persevero y además ayudo al grupo a recuperar la coordinación.'],
  peer:['Cuando falla en la secuencia le cuesta continuar y necesita ayuda constante.','Intenta continuar, pero necesita apoyo frecuente para controlar la frustración y volver a coordinarse.','Mantiene el intento y gestiona de forma suficiente los errores habituales.','Persevera, controla sus reacciones y se reajusta con autonomía para continuar la secuencia.','Mantiene el autocontrol ante los errores, persevera y además ayuda al grupo a recuperar la coordinación.']},
-'UP8|CE4':{
+'UP_ARCHIVE_COMBAS|CE4':{
  auto:['Me cuesta participar y comprender el carácter lúdico y recreativo de las actividades con comba.','Participo de forma irregular y necesito ayuda para implicarme en las propuestas lúdicas.','Participo adecuadamente y disfruto de la comba como actividad motriz y recreativa.','Participo con iniciativa y contribuyo a crear propuestas lúdicas variadas y atractivas.','Valoro y utilizo de forma creativa la comba como recurso lúdico, favoreciendo que el grupo participe y disfrute.'],
  peer:['Le cuesta participar y comprender el carácter lúdico y recreativo de las actividades con comba.','Participa de forma irregular y necesita ayuda para implicarse en las propuestas lúdicas.','Participa adecuadamente y disfruta de la comba como actividad motriz y recreativa.','Participa con iniciativa y contribuye a crear propuestas lúdicas variadas y atractivas.','Valora y utiliza de forma creativa la comba como recurso lúdico, favoreciendo que el grupo participe y disfrute.']},
 'UP9|CE2':{
@@ -1114,31 +1250,31 @@ const studentGlobalRubrics={
 'UP9|CE4':{
  auto:['Me cuesta jugar con cualquier compañero/a y puedo mostrar preferencias, exclusiones o estereotipos.','Juego con diferentes compañeros, aunque a veces necesito recordatorios para evitar preferencias o exclusiones.','Juego con cualquier compañero/a y generalmente evito conductas discriminatorias o estereotipos.','Me relaciono y juego con todos con naturalidad, rechazando comportamientos discriminatorios o estereotipos.','Además de jugar con todos, favorezco activamente la igualdad, la inclusión y la participación de cualquier compañero/a.'],
  peer:['Tiene dificultades para jugar con cualquier compañero/a y muestra algunas conductas de exclusión o estereotipos.','Participa con diferentes compañeros, aunque en algunas situaciones necesita recordatorios para evitar preferencias o exclusiones.','Juega con cualquier compañero/a y generalmente evita conductas discriminatorias o estereotipos.','Se relaciona y juega con todos con naturalidad, rechazando comportamientos discriminatorios o estereotipos.','Además de jugar con todos, favorece activamente la igualdad, la inclusión y la participación de cualquier compañero/a.']},
-'UP10|CE2':{
+'UP8|CE2':{
  auto:['Me cuesta utilizar mi cuerpo para crear movimientos o aportar ideas expresivas.','Realizo algunas propuestas sencillas, pero necesito bastante ayuda para variar movimientos y crear.','Utilizo mi cuerpo para crear y combinar movimientos sencillos adecuados a la propuesta.','Aporto movimientos variados y creativos y los adapto con autonomía a la composición.','Exploro y combino recursos corporales de forma original, ajustándolos con precisión para enriquecer la creación colectiva.'],
  peer:['Le cuesta utilizar su cuerpo para crear movimientos o aportar ideas expresivas.','Realiza algunas propuestas sencillas, pero necesita bastante ayuda para variar movimientos y crear.','Utiliza su cuerpo para crear y combinar movimientos sencillos adecuados a la propuesta.','Aporta movimientos variados y creativos y los adapta con autonomía a la composición.','Explora y combina recursos corporales de forma original, ajustándolos con precisión para enriquecer la creación colectiva.']},
-'UP10|CE3':{
+'UP8|CE3':{
  auto:['Me cuesta asumir tareas, escuchar aportaciones o facilitar que otros participen en la creación.','Participo, pero necesito recordatorios frecuentes para cumplir mi función y respetar ideas diferentes.','Cumplo mis responsabilidades y respeto las aportaciones y la participación de los demás.','Me implico, coopero e integro aportaciones diversas, favoreciendo que todos participen.','Asumo responsabilidades con autonomía y contribuyo activamente a organizar un proceso creativo inclusivo y respetuoso.'],
  peer:['Le cuesta asumir tareas, escuchar aportaciones o facilitar que otros participen en la creación.','Participa, pero necesita recordatorios frecuentes para cumplir su función y respetar ideas diferentes.','Cumple sus responsabilidades y respeta las aportaciones y la participación de los demás.','Se implica, coopera e integra aportaciones diversas, favoreciendo que todos participen.','Asume responsabilidades con autonomía y contribuye activamente a organizar un proceso creativo inclusivo y respetuoso.']},
-'UP10|CE4':{
+'UP8|CE4':{
  auto:['Tengo muchas dificultades para comunicar mediante el cuerpo o participar en propuestas rítmicas y expresivas.','Expreso algunas ideas o sigo ritmos sencillos, pero necesito bastante ayuda y seguridad.','Utilizo el cuerpo para comunicar y participo de forma suficiente en propuestas rítmicas, musicales o de danza.','Me comunico corporalmente con claridad y utilizo ritmo, movimiento y danza con autonomía y sentido expresivo.','Utilizo de forma creativa y consciente el cuerpo, el ritmo y la danza para comunicar, interpretar y enriquecer la representación.'],
  peer:['Tiene muchas dificultades para comunicar mediante el cuerpo o participar en propuestas rítmicas y expresivas.','Expresa algunas ideas o sigue ritmos sencillos, pero necesita bastante ayuda y seguridad.','Utiliza el cuerpo para comunicar y participa de forma suficiente en propuestas rítmicas, musicales o de danza.','Se comunica corporalmente con claridad y utiliza ritmo, movimiento y danza con autonomía y sentido expresivo.','Utiliza de forma creativa y consciente el cuerpo, el ritmo y la danza para comunicar, interpretar y enriquecer la representación.']},
-'UP11|CE2':{
+'UP10|CE2':{
  auto:['Tengo muchas dificultades para valorar cómo juego y tomar decisiones adecuadas en situaciones nuevas.','Reconozco algunos aspectos de mi juego y tomo alguna decisión adecuada, pero necesito ayuda frecuente para adaptarme.','Valoro de forma básica mi actuación y tomo decisiones adecuadas en situaciones sencillas de juego.','Analizo mi desempeño y adapto mis decisiones con autonomía a situaciones cambiantes.','Utilizo la autoevaluación y la coevaluación para mejorar y adapto con rapidez y criterio mis decisiones a situaciones nuevas.'],
  peer:['Tiene muchas dificultades para valorar cómo juega y tomar decisiones adecuadas en situaciones nuevas.','Reconoce algunos aspectos de su juego y toma alguna decisión adecuada, pero necesita ayuda frecuente para adaptarse.','Valora de forma básica su actuación y toma decisiones adecuadas en situaciones sencillas de juego.','Analiza su desempeño y adapta sus decisiones con autonomía a situaciones cambiantes.','Utiliza la autoevaluación y la coevaluación para mejorar y adapta con rapidez y criterio sus decisiones a situaciones nuevas.']},
-'UP11|CE3':{
+'UP10|CE3':{
  auto:['Me cuesta respetar las normas, asumir responsabilidades o colaborar durante los juegos.','Participo, pero necesito recordatorios frecuentes para mantener una actitud responsable y respetuosa.','Respeto las normas, cumplo mi función y coopero de forma suficiente.','Me autorregulo, asumo responsabilidades y ayudo a que todos participen con respeto.','Promuevo activamente el juego limpio, la cooperación y la inclusión, ayudando al grupo a funcionar de forma autónoma.'],
  peer:['Le cuesta respetar las normas, asumir responsabilidades o colaborar durante los juegos.','Participa, pero necesita recordatorios frecuentes para mantener una actitud responsable y respetuosa.','Respeta las normas, cumple su función y coopera de forma suficiente.','Se autorregula, asume responsabilidades y ayuda a que todos participen con respeto.','Promueve activamente el juego limpio, la cooperación y la inclusión, ayudando al grupo a funcionar de forma autónoma.']},
-'UP12|CE3':{
+'UP11|CE3':{
  auto:['Me cuesta asumir las tareas que me corresponden dentro del proyecto y necesito ayuda constante.','Participo, pero necesito seguimiento frecuente para cumplir mi responsabilidad y colaborar.','Cumplo las tareas asignadas y coopero de forma suficiente con el grupo.','Asumo mis responsabilidades con autonomía y contribuyo activamente al trabajo del grupo y al servicio que preparamos.','Trabajo con gran autonomía, coordino responsabilidades y ayudo a que el grupo mejore la calidad del proyecto sin sustituir a los demás.'],
  peer:['Le cuesta asumir las tareas que le corresponden dentro del proyecto y necesita ayuda constante.','Participa, pero necesita seguimiento frecuente para cumplir su responsabilidad y colaborar.','Cumple las tareas asignadas y coopera de forma suficiente con el grupo.','Asume sus responsabilidades con autonomía y contribuye activamente al trabajo del grupo y al servicio que preparamos.','Trabaja con gran autonomía, coordina responsabilidades y ayuda a que el grupo mejore la calidad del proyecto sin sustituir a los demás.']},
-'UP12|CE4':{
+'UP11|CE4':{
  auto:['Me cuesta reconocer el valor de los juegos tradicionales o participar con compañeros diferentes.','Reconozco algún juego tradicional y participo, pero necesito ayuda para comprender su origen o relacionarme sin preferencias.','Conozco y practico juegos tradicionales básicos, reconozco su valor cultural y participo con diferentes compañeros.','Investigo y explico aspectos de su origen o tradición y participo con cualquier compañero respetando las diferencias.','Valoro, investigo y transmito los juegos tradicionales como patrimonio cultural y favorezco activamente una participación inclusiva.'],
  peer:['Le cuesta reconocer el valor de los juegos tradicionales o participar con compañeros diferentes.','Reconoce algún juego tradicional y participa, pero necesita ayuda para comprender su origen o relacionarse sin preferencias.','Conoce y practica juegos tradicionales básicos, reconoce su valor cultural y participa con diferentes compañeros.','Investiga y explica aspectos de su origen o tradición y participa con cualquier compañero respetando las diferencias.','Valora, investiga y transmite los juegos tradicionales como patrimonio cultural y favorece activamente una participación inclusiva.']},
-'UP13|CE3':{
+'UP12|CE3':{
  auto:['Tengo grandes dificultades para actuar responsablemente y asumir mis responsabilidades durante la preparación y la ruta. Necesito ayuda constante.','A veces actúo responsablemente y cumplo mis responsabilidades, pero necesito ayuda frecuente.','Actúo de forma suficientemente responsable y cumplo mis responsabilidades, aunque todavía necesito alguna indicación.','Actúo responsablemente conmigo mismo, con los demás y con el entorno, asumo mis responsabilidades y coopero con autonomía.','Actúo responsablemente de forma constante, asumo mis responsabilidades con autonomía y contribuyo activamente al buen funcionamiento del grupo.'],
  peer:['Tiene grandes dificultades para actuar responsablemente y asumir sus responsabilidades durante la preparación y la ruta. Necesita ayuda constante.','A veces actúa responsablemente y cumple sus responsabilidades, pero necesita ayuda frecuente.','Actúa de forma suficientemente responsable y cumple sus responsabilidades, aunque todavía necesita alguna indicación.','Actúa responsablemente consigo mismo, con los demás y con el entorno, asume sus responsabilidades y coopera con autonomía.','Actúa responsablemente de forma constante, asume sus responsabilidades con autonomía y contribuye activamente al buen funcionamiento del grupo.']},
-'UP13|CE5':{
+'UP12|CE5':{
  auto:['Tengo grandes dificultades para cuidar el entorno, orientarme, preparar el material y actuar con seguridad. Necesito ayuda constante.','Realizo parcialmente estos aprendizajes, pero necesito ayuda frecuente para orientarme, preparar la ruta y el material, cuidar el entorno o actuar con seguridad.','Cuido el entorno, me oriento y preparo el material y la ruta de forma suficiente, aplicando las medidas básicas de seguridad, aunque necesito alguna indicación.','Cuido el entorno, respeto sus normas, me oriento, sigo el itinerario, selecciono adecuadamente el material e identifico y prevengo los riesgos con autonomía.','Realizo todo lo anterior con autonomía y constancia y, además, justifico mis decisiones y adapto mi actuación a la ruta, al entorno y a las condiciones de seguridad.'],
  peer:['Tiene grandes dificultades para cuidar el entorno, orientarse, preparar el material y actuar con seguridad. Necesita ayuda constante.','Realiza parcialmente estos aprendizajes, pero necesita ayuda frecuente para orientarse, preparar la ruta y el material, cuidar el entorno o actuar con seguridad.','Cuida el entorno, se orienta y prepara el material y la ruta de forma suficiente, aplicando las medidas básicas de seguridad, aunque necesita alguna indicación.','Cuida el entorno, respeta sus normas, se orienta, sigue el itinerario, selecciona adecuadamente el material e identifica y previene los riesgos con autonomía.','Realiza todo lo anterior con autonomía y constancia y, además, justifica sus decisiones y adapta su actuación a la ruta, al entorno y a las condiciones de seguridad.']}
 };
@@ -1151,14 +1287,16 @@ function globalAssessmentRubricCE(up,ce,type='auto'){
 function globalAssessmentHTML(){
  const g=fullGroup(),sid=activeEvalSid(),up=state.selectedUP;if(!g||!sid||selectedActivityForUP(up)!==GLOBAL_ASSESSMENT_ACTIVITY)return '';
  const ces=globalAssessmentCEs(up);
+ const specificC=up==='UP1'?'1.1':up==='UP3'?'1.2':null;
+ const specificSelf=specificC?(()=>{const k=`${g.id}|${sid}|${up}|${specificC}`,v=state.upSelfAssessments[k];const items=up==='UP1'?['Registro mis test y mi RPE','Interpreto mi perfil inicial y propongo una meta']:['Registro mis retos de CFB','Regulo el esfuerzo y explico mis ajustes'];return `<div class="global-assessment-row"><h3>Autoevaluación específica · criterio ${specificC}</h3><p>${items.join(' · ')}</p><div class="quick-score-buttons">${[0,2,4,6,8,10].map(n=>`<button type="button" data-up-self-score="${n}" data-up-assess-key="${k}" class="${hasValue(v)&&Number(v)===n?'selected':''}">${n}</button>`).join('')}</div><small>Esta valoración se utiliza en el 10% de autoevaluación del criterio ${specificC}. No se suma como una evidencia docente adicional.</small></div>`})():'';
  const rows=ces.map(ce=>{const cs=criteriaForUPCE(up,ce),k=upAssessmentKey(g.id,sid,up,ce),sv=state.upSelfAssessments[k],pv=state.upPeerAssessments[k],autoRub=globalAssessmentRubricCE(up,ce,'auto'),peerRub=globalAssessmentRubricCE(up,ce,'peer'),know=cs.map(c=>knowledgeFor(up,c)).filter(Boolean);return `<div class="global-assessment-row"><div class="global-assessment-head"><span class="pill main">${ce}</span><b>Valoración global de la competencia en ${up}</b></div><div class="quick-evidence-label"><b>Criterios incluidos:</b> ${cs.map(c=>esc(criterionLabel(c))).join(' · ')}</div>${know.length?`<div class="quick-evidence-label"><b>Saberes básicos incluidos:</b> ${know.map(x=>esc(x)).join(' · ')}</div>`:''}<div class="global-assessment-columns"><div><h4>Autoevaluación · 10%</h4><div class="quick-score-buttons">${autoRub.map(r=>`<button type="button" data-up-self-score="${r.score}" data-up-assess-key="${k}" class="${hasValue(sv)&&Number(sv)===r.score?'selected':''}"><strong>${r.score}</strong><small>${esc(r.label)}</small></button>`).join('')}</div><details class="quick-native-details"><summary>Ver rúbrica de autoevaluación</summary><div class="quick-rubric-grid">${autoRub.map(r=>`<div><b>${r.score} · ${esc(r.label)}</b><span>${esc(r.desc)}</span></div>`).join('')}</div></details></div><div><h4>Coevaluación · 10%</h4><div class="quick-score-buttons">${peerRub.map(r=>`<button type="button" data-up-peer-score="${r.score}" data-up-assess-key="${k}" class="${hasValue(pv)&&Number(pv)===r.score?'selected':''}"><strong>${r.score}</strong><small>${esc(r.label)}</small></button>`).join('')}</div><details class="quick-native-details"><summary>Ver rúbrica de coevaluación</summary><div class="quick-rubric-grid">${peerRub.map(r=>`<div><b>${r.score} · ${esc(r.label)}</b><span>${esc(r.desc)}</span></div>`).join('')}</div></details></div></div></div>`}).join('');
- return `<div class="card quick-eval-card global-assessment-card"><div class="quick-eval-title"><div><h2>Autoevaluación / Coevaluación de la UP</h2><p>Una sola valoración por competencia específica trabajada en la unidad. Auto y Co valoran los mismos aprendizajes desde perspectivas diferentes.</p></div><span class="pill main">${up}</span></div><div class="quick-context"><b>Cómo influye en la nota</b><span>Profesor 80% · Autoevaluación 10% · Coevaluación 10%. Si auto o co quedan vacías, los pesos se normalizan entre las valoraciones disponibles. Sin valoración del profesor no generan nota curricular.</span></div><div style="margin:14px 0 18px"><button type="button" class="btn" id="studentRubricPdfBtn">PDF alumnado · ${up}</button><div class="tiny" style="margin-top:6px">Genera las rúbricas específicas de Auto y Co de esta UP, listas para imprimir o guardar como PDF.</div></div>${rows}</div>`
+ return `<div class="card quick-eval-card global-assessment-card"><div class="quick-eval-title"><div><h2>Autoevaluación / Coevaluación de la UP</h2><p>Una sola valoración por competencia específica trabajada en la unidad. Auto y Co valoran los mismos aprendizajes desde perspectivas diferentes.</p></div><span class="pill main">${up}</span></div><div class="quick-context"><b>Cómo influye en la nota</b><span>Profesor 80% · Autoevaluación 10% · Coevaluación 10%. Si auto o co quedan vacías, los pesos se normalizan entre las valoraciones disponibles. Sin valoración del profesor no generan nota curricular.</span></div><div style="margin:14px 0 18px"><button type="button" class="btn" id="studentRubricPdfBtn">PDF alumnado · ${up}</button><div class="tiny" style="margin-top:6px">Genera las rúbricas específicas de Auto y Co de esta UP, listas para imprimir o guardar como PDF.</div></div>${specificSelf}${rows}</div>`
 }
 function evaluationModeHTML(){
- const up=state.selectedUP,mode=(up==='UP13'?(state.ui.evaluationView||'activity'):'activity'),acts=activityNamesForUP(up),activity=selectedActivityForUP(up),session=Number(state.ui.selectedSession)||1;
+ const up=state.selectedUP,mode=(up==='UP12'?(state.ui.evaluationView||'activity'):'activity'),acts=activityNamesForUP(up),activity=selectedActivityForUP(up),session=Number(state.ui.selectedSession)||1;
  if(!acts.length)return '';
  const activitySelector=`<label>Actividad / evidencia</label><select id="evalActivitySel">${acts.map(a=>`<option ${a===activity?'selected':''}>${esc(a)}</option>`).join('')}</select>`;
- if(up!=='UP13')return `<div class="card v4-eval-mode"><div class="v4-mode-tabs"><button type="button" class="active">Por actividad</button></div>${activitySelector}<p class="tiny">La rúbrica, el saber básico y el instrumento se adaptan a la actividad seleccionada. Vacío no equivale a cero.</p></div>`;
+ if(up!=='UP12')return `<div class="card v4-eval-mode"><div class="v4-mode-tabs"><button type="button" class="active">Por actividad</button></div>${activitySelector}<p class="tiny">La rúbrica, el saber básico y el instrumento se adaptan a la actividad seleccionada. Vacío no equivale a cero.</p></div>`;
  const selector=mode==='activity'?activitySelector:`<label>Sesión</label><select id="evalSessionSel">${Object.entries(up13Sessions).map(([n,o])=>`<option value="${n}" ${Number(n)===session?'selected':''}>${esc(o.title)}</option>`).join('')}</select>`;
  return `<div class="card v4-eval-mode"><div class="v4-mode-tabs"><button type="button" data-v4-mode="activity" class="${mode==='activity'?'active':''}">Por actividad</button><button type="button" data-v4-mode="session" class="${mode==='session'?'active':''}">Por sesión</button></div>${selector}<p class="tiny">La rúbrica, el saber básico y el instrumento se adaptan al contexto seleccionado. Vacío no equivale a cero.</p></div>`;
 }
@@ -1166,9 +1304,16 @@ function evaluationModeHTML(){
 const checklist22={
  UP4:['Se sitúa adecuadamente respecto al volante y al adversario.','Selecciona un golpeo acorde con la trayectoria.','Adapta su posición después del golpeo.'],
  UP9:['Identifica una opción de pase cuando un compañero está desmarcado.','Decide cuándo avanzar o pasar según la defensa.','Adapta su ubicación al ataque o a la defensa.'],
- UP11:['Reconoce las posibilidades de acción antes de decidir.','Adapta su decisión a los cambios del juego.','Selecciona una respuesta adecuada a las reglas del juego.']
+ UP10:['Reconoce las posibilidades de acción antes de decidir.','Adapta su decisión a los cambios del juego.','Selecciona una respuesta adecuada a las reglas del juego.']
 };
 function checklist22Key(gid,sid,up,who,i){return [gid,sid,up,'2.2',who,state.selectedDate,encodeURIComponent(selectedActivityForUP(up)||'general'),i].join('|')}
+function methodologyPanel4511(up){
+ const c=assessmentContexts4511[up];if(!c)return '';
+ const g=fullGroup();
+ const students=g?.students||[];
+ const records=students.length?`<div style="overflow-x:auto"><table><thead><tr><th>Alumno/a</th>${c.check.map((_,i)=>`<th>Indicador ${i+1}</th>`).join('')}</tr></thead><tbody>${students.map(st=>`<tr><td>${esc(st.name||st.nombre||'Alumno/a')}</td>${c.check.map((_,i)=>{const k=[g.id,st.id,up,i].join('|'),v=state.observation4516?.[k]||'';return `<td><select data-obs4516="${esc(k)}" aria-label="Indicador ${i+1} de ${esc(st.name||st.nombre||'alumno')}"><option value="" ${!v?'selected':''}>Sin evaluar</option><option value="si" ${v==='si'?'selected':''}>Sí</option><option value="no" ${v==='no'?'selected':''}>No</option></select></td>`}).join('')}</tr>`).join('')}</tbody></table></div>`:'<p class="muted">Selecciona un grupo con alumnado para registrar la observación.</p>';
+ return `<details class="card"><summary><b>Modelo pedagógico e instrumentos específicos · ${esc(up)} · ${c.sessions} sesiones</b></summary><p><b>Principal:</b> ${esc(c.model)} · <b>Complementario:</b> ${esc(c.secondary)}</p><p><b>Actividad de referencia:</b> ${esc(c.task)}</p><p><b>Lista de observación de la UP:</b></p><ol>${c.check.map(x=>`<li>${esc(x)}</li>`).join('')}</ol>${records}<p class="muted"><small>Registro de observación por estudiante, independiente de la calificación. No sustituye las rúbricas específicas de cada actividad.</small></p></details>`;
+}
 function checklist22HTML(g){
  const up=state.selectedUP,items=checklist22[up];if(!items||!(evidence['2.2']||[]).some(e=>e[0]===up))return '';
  const sid=activeEvalSid(),st=g.students.find(s=>s.id===sid);if(!st)return '';
@@ -1239,7 +1384,7 @@ function viewAjustes(){
  const photosHTML=active?`<details class="card student-admin-details"><summary><span>Alumnado y fotos</span><small>${active.students.length} alumnos · ${esc(active.name)}</small></summary><div class="student-admin-content"><p class="muted">Grupo activo: <b>${esc(active.name)}</b>. Las fotos se guardan solo en este dispositivo y se incluyen en la copia JSON.</p>${active.students.length?`<div class="student-photo-list always-visible">${active.students.map(st=>{const has=!!state.photos[photoKey(active.id,st.id)];return `<div class="student-photo-row">${avatarHTML(active.id,st,'lg')}<div class="student-photo-name"><b>${esc(st.name)}</b><span>${has?'Foto guardada':'Sin foto'}</span></div><div class="photo-actions"><label class="btn small secondary photo-upload-btn">${has?'Cambiar':'Elegir foto'}<input type="file" accept="image/*" data-photo-upload="${active.id}|${st.id}" hidden></label><label class="btn small secondary photo-upload-btn camera-btn">Cámara<input type="file" accept="image/*" capture="user" data-photo-upload="${active.id}|${st.id}" hidden></label>${has?`<button class="btn small secondary" data-remove-photo="${active.id}|${st.id}">Quitar foto</button>`:''}<button class="btn small warning-action" data-clear-evaluations="${active.id}|${st.id}" data-student-name="${esc(st.name)}">Borrar evaluaciones</button><button class="btn small danger" data-delete-student="${active.id}|${st.id}" data-student-name="${esc(st.name)}">Eliminar alumno</button></div></div>`}).join('')}</div>`:`<div class="muted">Añade alumnado al grupo para poder asignar fotografías.</div>`}</div></details>`:'';
  return `<div class="card"><h2>Grupos y alumnado</h2><div class="row"><input id="newGroup" placeholder="Ej. 1.º ESO A"><button class="btn" id="addGroup">Crear grupo</button></div>${groupsHTML}</div>
  ${photosHTML}
- <div class="card"><h2>Organización flexible de evaluaciones</h2><p class="muted">Asigna cada UP al periodo en el que realmente la impartas. La numeración de la UP no cambia: por ejemplo, puedes realizar UP13 en octubre y asignarla a la 1.ª evaluación. La evaluación final seguirá siendo acumulativa con todo el curso.</p><div class="up-period-list">${ups.map(([u,n])=>`<div class="up-period-row"><div><b>${u}</b><span>${esc(n)}</span></div><select data-up-period="${u}" aria-label="Evaluación de ${u}"><option value="eval1" ${upPeriod(u)==='eval1'?'selected':''}>1.ª evaluación</option><option value="eval2" ${upPeriod(u)==='eval2'?'selected':''}>2.ª evaluación</option><option value="eval3" ${upPeriod(u)==='eval3'?'selected':''}>3.ª / tramo final</option></select></div>`).join('')}</div><p class="tiny"><b>CE3 continua:</b> calcula la media de evidencias por UP, después la media de UP dentro de cada evaluación y finalmente pondera 1.ª × 1, 2.ª × 2 y 3.ª × 3. Las evaluaciones sin datos se omiten sin alterar los pesos de las demás; una sola observación no permite cerrar el criterio. Puede reflejar mejora o descenso. La evaluación final integra todas las UP.</p></div>
+ <div class="card"><h2>Organización flexible de evaluaciones</h2><p class="muted">Asigna cada UP al periodo en el que realmente la impartas. La numeración de la UP no cambia: por ejemplo, puedes realizar UP12 en octubre y asignarla a la 1.ª evaluación. La evaluación final seguirá siendo acumulativa con todo el curso.</p><div class="up-period-list">${ups.map(([u,n])=>`<div class="up-period-row"><div><b>${u}</b><span>${esc(n)}</span></div><select data-up-period="${u}" aria-label="Evaluación de ${u}"><option value="eval1" ${upPeriod(u)==='eval1'?'selected':''}>1.ª evaluación</option><option value="eval2" ${upPeriod(u)==='eval2'?'selected':''}>2.ª evaluación</option><option value="eval3" ${upPeriod(u)==='eval3'?'selected':''}>3.ª / tramo final</option></select></div>`).join('')}</div><p class="tiny"><b>CE3 continua:</b> calcula la media de evidencias por UP, después la media de UP dentro de cada evaluación y finalmente pondera 1.ª × 1, 2.ª × 2 y 3.ª × 3. Las evaluaciones sin datos se omiten sin alterar los pesos de las demás; una sola observación no permite cerrar el criterio. Puede reflejar mejora o descenso. La evaluación final integra todas las UP.</p></div>
  <div class="card"><h2>Auditoría 40 %</h2>${Object.entries(a).map(([p,v])=>`<div style="margin-bottom:9px"><div class="row"><span>${esc(p)}</span><b>${v.toFixed(2)}%</b></div><div class="progress"><span style="width:${Math.min(v,100)}%"></span></div></div>`).join('')}<p class="muted">Todos los procedimientos deben permanecer ≤ 40 %.</p></div>
  <div class="card"><h2>Copias de seguridad</h2><div class="toolbar"><button class="btn" id="exportJson">Exportar copia JSON</button><label class="btn secondary" style="display:inline-block">Importar JSON<input type="file" id="importJson" accept="application/json" hidden></label><button class="btn secondary" id="exportCsv">Exportar resumen CSV</button></div><p class="backup-status"><b>Última copia exportada:</b> ${esc(backupDateText())}</p><p class="muted">Los datos, incluidas las fotos, se guardan solo en este dispositivo/navegador. Las fotos se comprimen y se incluyen en la copia JSON; conserva esas copias en un lugar seguro y no las subas al repositorio público de GitHub.</p></div>`
 }
@@ -1287,6 +1432,7 @@ function bind(){
   save();render();
  });
 document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{currentView=b.dataset.go;render()});document.querySelectorAll('.bottom-nav button').forEach(b=>b.onclick=()=>{currentView=b.dataset.view;render()});
+ document.querySelectorAll('[data-obs4516]').forEach(el=>el.onchange=()=>{const k=el.dataset.obs4516;if(!state.observation4516)state.observation4516={};if(el.value)state.observation4516[k]=el.value;else delete state.observation4516[k];save();});
  const gs=document.getElementById('groupSel');if(gs)gs.onchange=e=>{state.selectedGroup=e.target.value;state.ui.openEvaluateStudent=null;save();render()};const us=document.getElementById('upSel');if(us)us.onchange=e=>{state.selectedUP=e.target.value;state.ui.openEvaluateStudent=null;state.ui.selectedActivity=null;state.ui.evaluationView='activity';save();render()};
  const es=document.getElementById('evalStudentSel');if(es)es.onchange=e=>{state.ui.openEvaluateStudent=e.target.value;save();render()};
  const ds=document.getElementById('dateSel');if(ds)ds.onchange=e=>{state.selectedDate=e.target.value||todayISO();save();render()};
@@ -1342,14 +1488,14 @@ document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{currentView=b.d
  document.querySelectorAll('[data-v4-mode]').forEach(b=>b.onclick=()=>{state.ui.evaluationView=b.dataset.v4Mode;save();render()});const pdfRub=document.getElementById('studentRubricPdfBtn');if(pdfRub)pdfRub.onclick=()=>generateStudentRubricPDF(state.selectedUP);const eas=document.getElementById('evalActivitySel');if(eas)eas.onchange=e=>{state.ui.selectedActivity=e.target.value;save();render()};const ess=document.getElementById('evalSessionSel');if(ess)ess.onchange=e=>{state.ui.selectedSession=Number(e.target.value);save();render()};
  if(currentView==='evaluar'){const evs=principalForUP(state.selectedUP),sel=document.getElementById('evSel'),meta=document.getElementById('evMeta'),box=document.getElementById('studentScores');if(sel&&Number.isInteger(state.ui.openEvidence)&&evs[state.ui.openEvidence]){sel.value=String(state.ui.openEvidence);delete state.ui.openEvidence;save()}const draw=()=>{const ev=evs[Number(sel.value)||0];if(!ev)return;meta.innerHTML=`<div class="row"><div><span class="pill main">● ${ev.c}</span> · ${esc(ev.proc)}<br><b>${esc(ev.desc)}</b></div><div class="counter">${scoredCount(group(),ev)}/${group().students.length} registrados</div></div>${state.ui.scoreMode==='levels'?rubricReferenceHTML(ev):''}`;box.innerHTML=scoreListHTML(ev);box.querySelectorAll('[data-score]').forEach(b=>b.onclick=()=>{state.scores[b.dataset.key]=Number(b.dataset.score);if(state.ui.scoreMode==='levels'&&b.dataset.level){state.rubricMarks[b.dataset.key]={label:b.dataset.level,score:Number(b.dataset.score),desc:b.dataset.desc,criterion:ev.c,up:ev.up,evidence:ev.desc}}else{delete state.rubricMarks[b.dataset.key]}save();draw()});box.querySelectorAll('[data-clear]').forEach(b=>b.onclick=()=>{delete state.scores[b.dataset.clear];delete state.rubricMarks[b.dataset.clear];save();draw()})};if(sel){sel.onchange=draw;draw()}}
  const ag=document.getElementById('addGroup');if(ag)ag.onclick=()=>{const name=document.getElementById('newGroup').value.trim();if(!name)return;const g={id:id(),name,students:[]};state.groups.push(g);state.selectedGroup=g.id;save();render();toast('Grupo creado')};
- document.querySelectorAll('[data-select-group]').forEach(b=>b.onclick=()=>{state.selectedGroup=b.dataset.selectGroup;state.ui.openEvaluateStudent=null;state.ui.openSummaryStudent=null;save();render();toast('Grupo seleccionado')});document.querySelectorAll('[data-delete-group]').forEach(b=>b.onclick=()=>{const gid=b.dataset.deleteGroup,g=state.groups.find(x=>x.id===gid);if(!g)return;const ok=confirm(`Vas a eliminar el grupo “${g.name}” y TODOS sus datos asociados: alumnado, notas, evidencias, asistencia, observaciones, instrumentos y fotos.\n\nEsta acción no se puede deshacer. ¿Eliminar grupo?`);if(ok){state.groups=state.groups.filter(x=>x.id!==gid);[state.scores,state.rubricMarks,state.selfScores,state.peerScores,state.selfRubricMarks,state.peerRubricMarks,state.upSelfAssessments,state.upPeerAssessments,state.qual,state.selfQual,state.peerQual,state.qualDates,state.continuousClosures,state.attendance,state.notes,state.teacherNotes,state.fitness,state.reflections,state.warmups,state.up3RPE,state.up3Tasks,state.up4Game,state.checklists22,state.checklists22Meta,state.photos].forEach(obj=>Object.keys(obj).filter(k=>k.startsWith(gid+'|')).forEach(k=>delete obj[k]));state.selectedGroup=state.groups[0]?.id||null;state.ui.openEvaluateStudent=null;state.ui.openSummaryStudent=null;savePhotos();save();render();toast('Grupo eliminado')}});
+ document.querySelectorAll('[data-select-group]').forEach(b=>b.onclick=()=>{state.selectedGroup=b.dataset.selectGroup;state.ui.openEvaluateStudent=null;state.ui.openSummaryStudent=null;save();render();toast('Grupo seleccionado')});document.querySelectorAll('[data-delete-group]').forEach(b=>b.onclick=()=>{const gid=b.dataset.deleteGroup,g=state.groups.find(x=>x.id===gid);if(!g)return;const ok=confirm(`Vas a eliminar el grupo “${g.name}” y TODOS sus datos asociados: alumnado, notas, evidencias, asistencia, observaciones, instrumentos y fotos.\n\nEsta acción no se puede deshacer. ¿Eliminar grupo?`);if(ok){state.groups=state.groups.filter(x=>x.id!==gid);[state.scores,state.rubricMarks,state.selfScores,state.peerScores,state.selfRubricMarks,state.peerRubricMarks,state.upSelfAssessments,state.upPeerAssessments,state.qual,state.selfQual,state.peerQual,state.qualDates,state.continuousClosures,state.attendance,state.notes,state.teacherNotes,state.fitness,state.reflections,state.warmups,state.up3RPE,state.up3Tasks,state.up4Game,state.checklists22,state.checklists22Meta,state.observation4516,state.photos].forEach(obj=>Object.keys(obj).filter(k=>k.startsWith(gid+'|')).forEach(k=>delete obj[k]));state.selectedGroup=state.groups[0]?.id||null;state.ui.openEvaluateStudent=null;state.ui.openSummaryStudent=null;savePhotos();save();render();toast('Grupo eliminado')}});
  document.querySelectorAll('[data-add-students]').forEach(b=>b.onclick=()=>{const g=state.groups.find(x=>x.id===b.dataset.addStudents),ta=document.getElementById('bulk-'+g.id);ta.value.split(/\n+/).map(x=>x.trim()).filter(Boolean).forEach(name=>g.students.push({id:id(),name}));save();render();toast('Alumnado añadido')});
  document.querySelectorAll('[data-photo-upload]').forEach(inp=>inp.onchange=async()=>{const file=inp.files?.[0];if(!file)return;if(!file.type.startsWith('image/')){alert('Selecciona una imagen.');return}try{const data=await compressPhoto(file);state.photos[inp.dataset.photoUpload]=data;savePhotos();save();toast('Foto guardada');render()}catch{alert('No se pudo procesar la foto.')}});
  document.querySelectorAll('[data-remove-photo]').forEach(b=>b.onclick=()=>{if(confirm('¿Quitar únicamente la foto de este alumno?')){delete state.photos[b.dataset.removePhoto];savePhotos();save();render()}});
  document.querySelectorAll('[data-clear-evaluations]').forEach(b=>b.onclick=()=>{const [gid,sid]=b.dataset.clearEvaluations.split('|'),g=state.groups.find(x=>x.id===gid),st=g?.students.find(x=>x.id===sid);if(!g||!st)return;const ok=confirm(`Vas a borrar TODAS las evaluaciones de “${st.name}”: calificaciones ●, seguimientos ○, cierres CE3, instrumentos de evaluación y anotaciones del profesor.\n\nSe conservarán el alumno, su foto y la asistencia. Esta acción no se puede deshacer.
 
 Recomendado: exporta una copia JSON antes de continuar. ¿Borrar evaluaciones?`);if(!ok)return;const prefix=gid+'|'+sid;[state.scores,state.rubricMarks,state.selfScores,state.peerScores,state.selfRubricMarks,state.peerRubricMarks,state.upSelfAssessments,state.upPeerAssessments,state.qual,state.selfQual,state.peerQual,state.qualDates,state.continuousClosures,state.teacherNotes,state.fitness,state.reflections,state.warmups,state.up3RPE,state.up3Tasks,state.up4Game,state.checklists22,state.checklists22Meta].forEach(obj=>Object.keys(obj||{}).filter(k=>k===prefix||k.startsWith(prefix+'|')).forEach(k=>delete obj[k]));save();render();toast('Evaluaciones borradas')});
- document.querySelectorAll('[data-delete-student]').forEach(b=>b.onclick=()=>{const [gid,sid]=b.dataset.deleteStudent.split('|'),g=state.groups.find(x=>x.id===gid),st=g?.students.find(x=>x.id===sid);if(!g||!st)return;const ok=confirm(`Vas a eliminar a “${st.name}” y TODOS sus datos asociados: notas, evidencias, asistencia, observaciones, instrumentos y foto.\n\nEsta acción no se puede deshacer. ¿Eliminar alumno?`);if(!ok)return;g.students=g.students.filter(x=>x.id!==sid);const prefix=gid+'|'+sid;[state.scores,state.rubricMarks,state.selfScores,state.peerScores,state.selfRubricMarks,state.peerRubricMarks,state.upSelfAssessments,state.upPeerAssessments,state.qual,state.selfQual,state.peerQual,state.qualDates,state.continuousClosures,state.attendance,state.notes,state.teacherNotes,state.fitness,state.reflections,state.warmups,state.up3RPE,state.up3Tasks,state.up4Game,state.checklists22,state.checklists22Meta,state.photos].forEach(obj=>Object.keys(obj).filter(k=>k===prefix||k.startsWith(prefix+'|')).forEach(k=>delete obj[k]));if(state.ui.openEvaluateStudent===sid)state.ui.openEvaluateStudent=null;if(state.ui.openSummaryStudent===sid)state.ui.openSummaryStudent=null;if(state.ui.openWarmup===sid)state.ui.openWarmup=null;if(state.ui.openUp3RPE===sid)state.ui.openUp3RPE=null;if(state.ui.openUp3Task===sid)state.ui.openUp3Task=null;if(state.ui.openUp4Game===sid)state.ui.openUp4Game=null;savePhotos();save();render();toast('Alumno eliminado')});
+ document.querySelectorAll('[data-delete-student]').forEach(b=>b.onclick=()=>{const [gid,sid]=b.dataset.deleteStudent.split('|'),g=state.groups.find(x=>x.id===gid),st=g?.students.find(x=>x.id===sid);if(!g||!st)return;const ok=confirm(`Vas a eliminar a “${st.name}” y TODOS sus datos asociados: notas, evidencias, asistencia, observaciones, instrumentos y foto.\n\nEsta acción no se puede deshacer. ¿Eliminar alumno?`);if(!ok)return;g.students=g.students.filter(x=>x.id!==sid);const prefix=gid+'|'+sid;[state.scores,state.rubricMarks,state.selfScores,state.peerScores,state.selfRubricMarks,state.peerRubricMarks,state.upSelfAssessments,state.upPeerAssessments,state.qual,state.selfQual,state.peerQual,state.qualDates,state.continuousClosures,state.attendance,state.notes,state.teacherNotes,state.fitness,state.reflections,state.warmups,state.up3RPE,state.up3Tasks,state.up4Game,state.checklists22,state.checklists22Meta,state.observation4516,state.photos].forEach(obj=>Object.keys(obj).filter(k=>k===prefix||k.startsWith(prefix+'|')).forEach(k=>delete obj[k]));if(state.ui.openEvaluateStudent===sid)state.ui.openEvaluateStudent=null;if(state.ui.openSummaryStudent===sid)state.ui.openSummaryStudent=null;if(state.ui.openWarmup===sid)state.ui.openWarmup=null;if(state.ui.openUp3RPE===sid)state.ui.openUp3RPE=null;if(state.ui.openUp3Task===sid)state.ui.openUp3Task=null;if(state.ui.openUp4Game===sid)state.ui.openUp4Game=null;savePhotos();save();render();toast('Alumno eliminado')});
  const ej=document.getElementById('exportJson');if(ej)ej.onclick=()=>{try{state.ui.lastBackupExport=new Date().toISOString();save();const json=JSON.stringify(state,null,2);download('cuaderno-ef-backup.json',json,'application/json;charset=utf-8');render();toast('Copia JSON preparada')}catch(err){console.error('Error al exportar JSON',err);alert('No se pudo exportar la copia JSON. Tus datos siguen guardados en este dispositivo.')}};const ij=document.getElementById('importJson');if(ij)ij.onchange=async e=>{const file=e.target.files?.[0];if(!file)return;try{const parsed=JSON.parse(await file.text());validateBackupShape(parsed);const imported=migrate(parsed);const ok=confirm('La importación sustituirá los datos actuales de este dispositivo.\n\nRecomendamos exportar primero una copia JSON del estado actual.\n\n¿Importar la copia seleccionada?');if(!ok){e.target.value='';toast('Importación cancelada');return}const oldState=state,oldFailure=loadFailureMessage;
   const oldMain=localStorage.getItem(APP_KEY),oldPhotos=localStorage.getItem(PHOTO_KEY);
   try{
