@@ -60,7 +60,7 @@ const duaByUP={
  "UP12":{title:"Senderismo y orientación",representation:"Mapa legible, señales visuales, demostración de mochila y ejemplos de riesgos.",action:"Preparar mochila con lista visual; planificar ruta en mapa o esquema; ajustar ritmo y apoyos.",engagement:"Responsabilidades elegidas, anticipación del itinerario y pausas planificadas."},
 };
 function duaPanel(up){const d=duaByUP[up];if(!d)return "";return methodologyPanel4511(up)+`<details class="card dua-panel"><summary><b>DUA · ${esc(up)} · ${esc(d.title)}</b> <small>Apoyos y opciones de acceso, expresión y participación</small></summary><div class="dua-content"><p><b>Representación:</b> ${esc(d.representation)}</p><p><b>Acción y expresión:</b> ${esc(d.action)}</p><p><b>Implicación:</b> ${esc(d.engagement)}</p><p class="muted"><small>Orientaciones didácticas propuestas. No modifican criterios, instrumentos ni calificaciones.</small></p></div></details>`;}
-function quickFocus(up,c,desc){return quickEvalContext[up]?.focus?.[c]||desc}
+function quickFocus(up,c,desc){if(up==='UP1'&&c==='1.1'&&desc==='Realización de test de condición física y RPE')return desc;if(up==='UP3'&&c==='1.2'&&desc==='Seguimiento y regulación de CFB')return desc;return quickEvalContext[up]?.focus?.[c]||desc}
 const ups=[
  ['UP1','Valoración de la condición física'],['UP2','Calentamiento'],['UP3','Capacidades físicas básicas'],['UP4','Bádminton'],['UP5','Salud'],['UP6','Habilidades gimnásticas'],['UP7','Coordinación y equilibrio'],['UP8','Expresión corporal'],['UP9','Minibásquet'],['UP10','Juegos y deportes alternativos'],['UP11','Juegos y deportes tradicionales'],['UP12','Senderismo y orientación']
 ];
@@ -652,7 +652,7 @@ function migrateEvidence4514(s){
  s.migrationEvidence4516=true;
  return s;
 }
-// V4.5.17: never reinterpret old assessment marks as new Pentagono/RPE or CFB tasks.
+// V4.5.18: never reinterpret old assessment marks as new Pentagono/RPE or CFB tasks.
 function migrateEvidence4517(s){
  if(s.migrationEvidence4517===true)return s;
  const names=['scores','rubricMarks','selfScores','peerScores','selfRubricMarks','peerRubricMarks'];
