@@ -60,13 +60,13 @@ const duaByUP={
  "UP12":{title:"Senderismo y orientación",representation:"Mapa legible, señales visuales, demostración de mochila y ejemplos de riesgos.",action:"Preparar mochila con lista visual; planificar ruta en mapa o esquema; ajustar ritmo y apoyos.",engagement:"Responsabilidades elegidas, anticipación del itinerario y pausas planificadas."},
 };
 function duaPanel(up){const d=duaByUP[up];if(!d)return "";return methodologyPanel4511(up)+`<details class="card dua-panel"><summary><b>DUA · ${esc(up)} · ${esc(d.title)}</b> <small>Apoyos y opciones de acceso, expresión y participación</small></summary><div class="dua-content"><p><b>Representación:</b> ${esc(d.representation)}</p><p><b>Acción y expresión:</b> ${esc(d.action)}</p><p><b>Implicación:</b> ${esc(d.engagement)}</p><p class="muted"><small>Orientaciones didácticas propuestas. No modifican criterios, instrumentos ni calificaciones.</small></p></div></details>`;}
-function quickFocus(up,c,desc){if(up==='UP1'&&c==='1.1'&&desc==='Realización de test de condición física y RPE')return desc;if(up==='UP3'&&c==='1.2'&&desc==='Seguimiento y regulación de CFB')return desc;return quickEvalContext[up]?.focus?.[c]||desc}
+function quickFocus(up,c,desc){if(up==='UP1'&&c==='1.1'&&desc==='Realización de test de condición física y RPE')return desc;if(up==='UP3'&&c==='1.2'&&desc==='Realización de test CF seguimiento')return desc;return quickEvalContext[up]?.focus?.[c]||desc}
 const ups=[
  ['UP1','Valoración de la condición física'],['UP2','Calentamiento'],['UP3','Capacidades físicas básicas'],['UP4','Bádminton'],['UP5','Salud'],['UP6','Habilidades gimnásticas'],['UP7','Coordinación y equilibrio'],['UP8','Expresión corporal'],['UP9','Minibásquet'],['UP10','Juegos y deportes alternativos'],['UP11','Juegos y deportes tradicionales'],['UP12','Senderismo y orientación']
 ];
 const evidence={
 '1.1':[['UP1','Rúbrica de ejecución y registro','Realización de test de condición física y RPE'],['UP_ARCHIVE_CFB','Archivo histórico','Seguimiento y regulación de CFB (anterior)'],['UP5','Análisis de producción','Salud: concepto, hábitos y efectos sobre el bienestar']],
-'1.2':[['UP2','Presentación de producto','Diseño y dirección de calentamiento'],['UP2','Rúbrica del decálogo (10 pautas ilustradas)','Diseño y dirección de calentamiento'],['UP3','Rúbrica de seguimiento','Seguimiento y regulación de CFB']],
+'1.2':[['UP2','Presentación de producto','Diseño y dirección de calentamiento'],['UP2','Rúbrica del decálogo (10 pautas ilustradas)','Diseño y dirección de calentamiento'],['UP3','Rúbrica de seguimiento','Realización de test CF seguimiento']],
 '1.3':[['UP5','Prueba objetiva','Aplicación de hábitos saludables']],
 '1.4':[['UP5','Prueba objetiva','Prevención y actuación ante situaciones de riesgo']],
 '1.5':[['UP2','Revisión de portfolio','Uso educativo de TIC en el aprendizaje del calentamiento'],['UP5','Uso educativo de TIC','Búsqueda, selección y uso responsable de información sobre salud']],
