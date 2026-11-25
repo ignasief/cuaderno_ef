@@ -71,10 +71,10 @@ const evidence={
 '1.4':[['UP5','Prueba objetiva','Prevención y actuación ante situaciones de riesgo']],
 '1.5':[['UP_ARCHIVE_UP2_TIC','Archivo histórico','Uso educativo de TIC en el aprendizaje del calentamiento'],['UP5','Uso educativo de TIC','Búsqueda, selección y uso responsable de información sobre salud']],
 '1.6':[['UP1','Observación sistemática','Participación responsable y autorregulación'],['UP2','Observación sistemática','Participación responsable en el calentamiento'],['UP3','Observación sistemática','Participación responsable y autorregulación'],['UP5','Observación sistemática','Ropa, calzado y aseo adecuados para la práctica'],['UP1','Lista de cotejo (0 o 10)','Entrega la ficha a tiempo'],['UP3','Lista de cotejo (0 o 10)','Entrega la ficha a tiempo'],['UP2','Lista de cotejo (0 o 10)','Entrega de la ficha']],
-'2.1':[['UP4','Autoevaluación/coevaluación','Valoración técnico-táctica del juego de bádminton'],['UP10','Autoevaluación/coevaluación','Valoración del desempeño en juegos y deportes alternativos']],
-'2.2':[['UP4','Prueba de ejecución','Juego real/modificado de bádminton'],['UP9','Prueba de ejecución','Juego reducido 3×3 de minibásquet'],['UP10','Prueba de ejecución','Toma de decisiones en juegos y deportes alternativos']],
-'2.3':[['UP4','Prueba de ejecución','Juego real/modificado de bádminton'],['UP7','Prueba de ejecución','Circuito/reto coordinativo'],['UP6','Prueba de ejecución','Composición gimnástica'],['UP7','Presentación de producto','Secuencia coordinativa con comba individual y sincronización colectiva'],['UP9','Prueba de ejecución','Juego reducido 3×3 de minibásquet'],['UP8','Presentación de producto','Creación y representación colectiva']],
-'2.4':[['UP4','Prueba de ejecución','Aplicación de principios y reglas en bádminton'],['UP9','Prueba de ejecución','Aplicación de principios y reglas en minibásquet']],
+'2.1':[['UP4','Rúbrica, cuaderno y coevaluación','Reflexión sobre mi aprendizaje en bádminton'],['UP10','Autoevaluación/coevaluación','Valoración del desempeño en juegos y deportes alternativos']],
+'2.2':[['UP4','Lista de cotejo y valoración docente','Realización de juegos modificados de bádminton (TGfU)'],['UP9','Prueba de ejecución','Juego reducido 3×3 de minibásquet'],['UP10','Prueba de ejecución','Toma de decisiones en juegos y deportes alternativos']],
+'2.3':[['UP4','Rúbrica de ejecución','Realización de juegos modificados de bádminton (TGfU)'],['UP7','Prueba de ejecución','Circuito/reto coordinativo'],['UP6','Prueba de ejecución','Composición gimnástica'],['UP7','Presentación de producto','Secuencia coordinativa con comba individual y sincronización colectiva'],['UP9','Prueba de ejecución','Juego reducido 3×3 de minibásquet'],['UP8','Presentación de producto','Creación y representación colectiva']],
+'2.4':[['UP4','Observación de reglas y principios','Realización de juegos modificados de bádminton (TGfU)'],['UP9','Prueba de ejecución','Aplicación de principios y reglas en minibásquet']],
 '3.1':[],
 '3.2':[],
 '3.3':[],
@@ -140,6 +140,7 @@ function contextualQualKey(gid,sid,c,up){
   const activities=activityNamesForUP(up).filter(a=>a!==GLOBAL_ASSESSMENT_ACTIVITY);
   const index=activities.indexOf(activity);
   if(['UP1','UP3'].includes(up)&&index>=0)return `${gid}|${sid}|${c}|${up}|a${[1,3,4][index]}`;
+  if(up==='UP4'&&activity==='Participación responsable en bádminton')return `${gid}|${sid}|${c}|${up}|a2`;
   if(up==='UP2'&&activity==='Realización del calentamiento a su grupo')return `${gid}|${sid}|${c}|${up}|a1`;
   if(up==='UP2'&&activity==='Participación responsable en el calentamiento')return `${gid}|${sid}|${c}|${up}|a5`;
   if(index>=0)return `${gid}|${sid}|${c}|${up}|a${index+1}`;
@@ -351,13 +352,7 @@ const contextualRubricAdditions={
   {label:'Adecuado',score:8,desc:'Mantiene con autonomía y regularidad hábitos adecuados de equipamiento y aseo antes y después de la práctica.'},
   {label:'Avanzado',score:10,desc:'Integra de forma constante estos hábitos, anticipa sus necesidades y comprende su relación con seguridad, higiene y bienestar.'}
  ],
- 'UP4|2.1':[
-  {label:'Muy inicial',score:2,desc:'No identifica aspectos básicos de su juego ni utiliza la autoevaluación o coevaluación para reconocer necesidades de mejora.'},
-  {label:'Inicio',score:4,desc:'Reconoce algún acierto o dificultad con ayuda, pero sus valoraciones son poco concretas o no orientan ajustes.'},
-  {label:'Básico',score:6,desc:'Identifica fortalezas y dificultades técnicas o tácticas básicas y propone algún ajuste coherente.'},
-  {label:'Adecuado',score:8,desc:'Autoevalúa y coevalúa con criterios claros su desempeño técnico-táctico y utiliza la información para ajustar su juego.'},
-  {label:'Avanzado',score:10,desc:'Analiza con precisión su desempeño y el de sus iguales, aporta feedback respetuoso y transforma la valoración en ajustes eficaces.'}
- ],
+ 'UP4|2.1':[{"label": "No realizado", "score": 0, "desc": "No entrega la reflexión ni aporta evidencias de aprendizaje."}, {"label": "Muy inicial", "score": 2, "desc": "Presenta una reflexión muy incompleta, sin relacionarla con la coevaluación."}, {"label": "Inicio", "score": 4, "desc": "Identifica alguna dificultad con ayuda, pero apenas propone mejoras."}, {"label": "Básico", "score": 6, "desc": "Completa los aspectos esenciales del cuaderno, identifica una dificultad y propone un ajuste a partir de la coevaluación."}, {"label": "Adecuado", "score": 8, "desc": "Relaciona el cuaderno y la coevaluación con cambios concretos en su juego y propone mejoras realistas."}, {"label": "Avanzado", "score": 10, "desc": "Analiza su evolución con ejemplos del juego, integra las recomendaciones del compañero y explica qué ha cambiado y cómo seguirá mejorando."}],
  'UP10|2.1':[
   {label:'Muy inicial',score:2,desc:'No identifica cómo está resolviendo las situaciones motrices ni utiliza la valoración propia o de iguales para mejorar.'},
   {label:'Inicio',score:4,desc:'Reconoce algún aspecto de su desempeño con ayuda, pero propone ajustes poco relacionados con la situación de juego.'},
@@ -1101,9 +1096,9 @@ function evaluateStudentNavHTML(){
 function quickEvaluationHTML(evs){
  const g=fullGroup(),sid=activeEvalSid();if(!g||!sid)return '';
  const st=g.students.find(x=>x.id===sid);if(!st)return '';
- const shownEvs=evs.filter(ev=>ev.c!=='2.2'||!checklist22[state.selectedUP]);const scored=shownEvs.filter(ev=>{const v=state.scores[scoreKey(g.id,sid,ev.c,ev.seq)];return v!==undefined&&v!==null&&v!==''}).length;
+ const shownEvs=evs.filter(ev=>ev.c!=='2.2'||!checklist22[state.selectedUP]||state.selectedUP==='UP4');const scored=shownEvs.filter(ev=>{const v=state.scores[scoreKey(g.id,sid,ev.c,ev.seq)];return v!==undefined&&v!==null&&v!==''}).length;
  const levels=[0,2,4,6,8,10],ctx=quickEvalContext[state.selectedUP],assignedPeriod=upPeriod(state.selectedUP),criterionMeans=[...new Set(evs.map(e=>e.c))].map(c=>({c,v:criterionValueForPeriod(g.id,sid,c,assignedPeriod)}));
- const rows=evs.filter(ev=>ev.c!=='2.2'||!checklist22[state.selectedUP]).map((ev,i)=>{const k=scoreKey(g.id,sid,ev.c,ev.seq),v=state.scores[k],done=v!==undefined&&v!==null&&v!=='',rubric=rubricFor(ev),mark=state.rubricMarks[k],focus=quickFocus(ev.up,ev.c,ev.desc);
+ const rows=evs.filter(ev=>ev.c!=='2.2'||!checklist22[state.selectedUP]||state.selectedUP==='UP4').map((ev,i)=>{const k=scoreKey(g.id,sid,ev.c,ev.seq),v=state.scores[k],done=v!==undefined&&v!==null&&v!=='',rubric=rubricFor(ev),mark=state.rubricMarks[k],focus=quickFocus(ev.up,ev.c,ev.desc);
   const ceClass=`ce-block-${ev.c.split('.')[0]}`;const warmupDecalogue=ev.up==='UP2'&&ev.c==='1.2'&&ev.proc.startsWith('Rúbrica del decálogo');const warmupResponsible=ev.up==='UP2'&&ev.c==='1.6';
   return `<div class="quick-eval-row ${ceClass} ${done?'done':''}">
    <div class="quick-eval-head"><div><span class="pill main ce-pill ${ceClass}">${criterionLabel(ev.c)}</span><b class="quick-focus">${warmupDecalogue?'Decálogo del calentamiento · 10 pautas con dibujos y poco texto':warmupResponsible?'Seguimiento de la práctica responsable · criterio 1.6':esc(focus)}</b></div><span class="quick-status">${done?`✓ ${mark?.label?esc(mark.label)+' · ':''}${v}`:'Pendiente'}</span></div>
@@ -1179,7 +1174,7 @@ const continuousActivityByUP={
 };
 function isLegacyUP13Evidence(ev){return ev?.up==='UP12'&&ev?.c==='5.1'&&Number(ev?.seq)<=3}
 const GLOBAL_ASSESSMENT_ACTIVITY='Autoevaluación / Coevaluación de la UP';
-function activityNamesForUP(up){if(up==='UP2')return ["Realización del calentamiento a su grupo", "Participación responsable en el calentamiento", "Entrega del decálogo", "Entrega de la ficha"].concat(GLOBAL_ASSESSMENT_ACTIVITY);const names=[...new Set(principalForUP(up).filter(e=>!isLegacyUP13Evidence(e)).map(e=>e.desc))];return [...names,GLOBAL_ASSESSMENT_ACTIVITY]}
+function activityNamesForUP(up){if(up==='UP4')return ['Reflexión sobre mi aprendizaje en bádminton','Realización de juegos modificados de bádminton (TGfU)','Participación responsable en bádminton',GLOBAL_ASSESSMENT_ACTIVITY];if(up==='UP2')return ["Realización del calentamiento a su grupo", "Participación responsable en el calentamiento", "Entrega del decálogo", "Entrega de la ficha"].concat(GLOBAL_ASSESSMENT_ACTIVITY);const names=[...new Set(principalForUP(up).filter(e=>!isLegacyUP13Evidence(e)).map(e=>e.desc))];return [...names,GLOBAL_ASSESSMENT_ACTIVITY]}
 function selectedActivityForUP(up){const acts=activityNamesForUP(up);const chosen=state.ui.selectedActivity&&acts.includes(state.ui.selectedActivity)?state.ui.selectedActivity:acts[0];state.ui.selectedActivity=chosen;return chosen}
 function filteredPrincipalForEvaluation(up){
  const all=principalForUP(up).filter(e=>!isLegacyUP13Evidence(e)),mode=state.ui.evaluationView||'activity';
@@ -1202,6 +1197,7 @@ function filteredContinuousForEvaluation(up){
   return all.filter(e=>allowed.includes(e.c)||e.c==='3.3');
  }
  const chosen=selectedActivityForUP(up);if(chosen===GLOBAL_ASSESSMENT_ACTIVITY)return [];const contextActivity=continuousActivityByUP[up];
+ if(up==='UP4')return chosen==='Participación responsable en bádminton'?all:[];
  if(up==='UP2')return chosen==='Realización del calentamiento a su grupo'?all.filter(e=>e.c==='3.2'||e.c==='3.3'):chosen==='Participación responsable en el calentamiento'?all.filter(e=>e.c==='3.3'):[];
  if(up==='UP1'||up==='UP3')return chosen?(chosen===contextActivity?all.filter(e=>e.c==='3.2'||e.c==='3.3'):all.filter(e=>e.c==='3.3')):[];
  return chosen?(contextActivity===chosen?all:all.filter(e=>e.c==='3.3')):[];
@@ -1318,11 +1314,11 @@ function evaluationModeHTML(){
 }
 
 const checklist22={
- UP4:['Se sitúa adecuadamente respecto al volante y al adversario.','Selecciona un golpeo acorde con la trayectoria.','Adapta su posición después del golpeo.'],
+ UP4:['Observa al adversario antes de golpear.','Identifica espacios libres.','Selecciona el golpeo adecuado a la situación.','Adapta sus decisiones a los cambios del juego.'],
  UP9:['Identifica una opción de pase cuando un compañero está desmarcado.','Decide cuándo avanzar o pasar según la defensa.','Adapta su ubicación al ataque o a la defensa.'],
  UP10:['Reconoce las posibilidades de acción antes de decidir.','Adapta su decisión a los cambios del juego.','Selecciona una respuesta adecuada a las reglas del juego.']
 };
-function checklist22Key(gid,sid,up,who,i){return [gid,sid,up,'2.2',who,state.selectedDate,encodeURIComponent(selectedActivityForUP(up)||'general'),i].join('|')}
+function checklist22Key(gid,sid,up,who,i){return [gid,sid,up,'2.2',who,state.selectedDate,encodeURIComponent(up==='UP4'?'TGfU-v26':selectedActivityForUP(up)||'general'),i].join('|')}
 function methodologyPanel4511(up){
  const c=assessmentContexts4511[up];if(!c)return '';
  const g=fullGroup();
@@ -1331,7 +1327,7 @@ function methodologyPanel4511(up){
  return `<details class="card"><summary><b>Modelo pedagógico e instrumentos específicos · ${esc(up)} · ${c.sessions} sesiones</b></summary><p><b>Principal:</b> ${esc(c.model)} · <b>Complementario:</b> ${esc(c.secondary)}</p><p><b>Actividad de referencia:</b> ${esc(c.task)}</p><p><b>Lista de observación de la UP:</b></p><ol>${c.check.map(x=>`<li>${esc(x)}</li>`).join('')}</ol>${records}<p class="muted"><small>Registro de observación por estudiante, independiente de la calificación. No sustituye las rúbricas específicas de cada actividad.</small></p></details>`;
 }
 function checklist22HTML(g){
- const up=state.selectedUP,items=checklist22[up];if(!items||!(evidence['2.2']||[]).some(e=>e[0]===up))return '';
+ const up=state.selectedUP,items=checklist22[up];if(up==='UP4'&&selectedActivityForUP(up)!=='Realización de juegos modificados de bádminton (TGfU)')return '';if(!items||!(evidence['2.2']||[]).some(e=>e[0]===up))return '';
  const sid=activeEvalSid(),st=g.students.find(s=>s.id===sid);if(!st)return '';
  const who=state.ui.checklist22Who==='peer'?'peer':'teacher';
  const evaluator=String(state.ui.checklist22Evaluator||'').trim();
@@ -1342,11 +1338,12 @@ function checklist22HTML(g){
  const assessed=items.filter((_,i)=>['si','no'].includes(state.checklists22[checklist22Key(g.id,sid,up,who,i)])).length;
  return `<div class="card checklist22"><h2>CE 2.2 · Lista de control Sí / No</h2><p class="muted">Toma de decisiones motrices. Registro por alumno y UP. No observado no equivale a No. La coevaluación se registra por separado y no modifica la nota automáticamente.</p><label>Fecha de observación</label><input type="date" id="checklist22Date" value="${esc(state.selectedDate)}"><label>Actividad / evidencia</label><p class="tiny">${esc(activity)}</p><label>Modalidad</label><select id="checklist22Who"><option value="teacher" ${who==='teacher'?'selected':''}>Observación docente</option><option value="peer" ${who==='peer'?'selected':''}>Coevaluación</option></select>${who==='peer'?`<label>Compañero evaluador (identificación)</label><input id="checklist22Evaluator" placeholder="Nombre del compañero" value="${esc(evaluator)}">`:''}<p class="tiny">${esc(st.name)} · ${esc(state.selectedDate)} · ${assessed}/${items.length} indicadores observados</p>${rows}</div>`;
 }
+function up4TGfUPanel(){if(state.selectedUP!=='UP4')return '';const a=selectedActivityForUP('UP4');if(a==='Reflexión sobre mi aprendizaje en bádminton')return `<div class="card"><h2>Reflexión · 2.1</h2><p>Cuaderno de trabajo, coevaluación del compañero y reflexión individual.</p><ol><li>¿Qué hacía mal al comenzar?</li><li>¿Qué me ha recomendado mi compañero?</li><li>¿Qué he cambiado en mi juego?</li><li>¿Qué necesito mejorar?</li><li>¿Cómo voy a mejorarlo?</li></ol></div>`;if(a!=='Realización de juegos modificados de bádminton (TGfU)')return '';return `<details class="card"><summary>TGfU · seis sesiones</summary><p>Juego modificado → preguntas tácticas → práctica técnica → vuelta al juego → evaluación.</p><ol><li>Continuidad: intercambios cooperativos, agarre y control.</li><li>Profundidad: doble punto al fondo, lob y clear.</li><li>Espacio corto: doble punto cerca de la red, dejada y drop.</li><li>Espacios libres: cuatro esquinas, drive y remate cuando proceda.</li><li>Saque y recepción: observar al rival y variar el saque.</li><li>Juego adaptado: jugadores, árbitro y observador; coevaluación y reflexión.</li></ol><p>2.2: decisión táctica; 2.3: ejecución. No se califica el resultado del partido.</p></details>`;}
 function viewEvaluar(){
  const g=fullGroup();if(!g)return `<div class="card empty">Primero crea un grupo en Ajustes.</div>`;
  if(!g.students.length)return `${groupSelectors()}${duaPanel(state.selectedUP)}<div class="card empty">Añade alumnado al grupo para poder evaluar.</div>`;
  const sid=activeEvalSid(),evs=filteredPrincipalForEvaluation(state.selectedUP),comps=filteredContinuousForEvaluation(state.selectedUP);
- if(!(state.selectedUP==='UP2'&&['Entrega del decálogo','Entrega de la ficha'].includes(selectedActivityForUP('UP2')))&&(state.ui.evaluationView==='session'||selectedActivityForUP(state.selectedUP)!==GLOBAL_ASSESSMENT_ACTIVITY)&&!comps.some(x=>x.c==='3.3'))comps.push({c:'3.3',up:state.selectedUP});
+ if(!(state.selectedUP==='UP4'&&selectedActivityForUP('UP4')!=='Participación responsable en bádminton')&&!(state.selectedUP==='UP2'&&['Entrega del decálogo','Entrega de la ficha'].includes(selectedActivityForUP('UP2')))&&(state.ui.evaluationView==='session'||selectedActivityForUP(state.selectedUP)!==GLOBAL_ASSESSMENT_ACTIVITY)&&!comps.some(x=>x.c==='3.3'))comps.push({c:'3.3',up:state.selectedUP});
  // CE3.3: valor 6 registrado automáticamente la primera vez que se abre
  // cada actividad o sesión para cada alumno. Respeta las valoraciones existentes.
  // Se registra como evidencia real y participa en el cálculo continuo.
@@ -1360,7 +1357,7 @@ function viewEvaluar(){
    save();
   }
  }
- return `${groupSelectors()}${evaluationModeHTML()}<div class="card eval-student-picker"><div class="eval-picker-head"><div><h2>Evaluar</h2><p class="muted">Un alumno cada vez. Cambia de alumno sin salir de la unidad.</p></div><span class="pill main">${state.selectedUP}</span></div><label>Alumno</label><select id="evalStudentSel">${g.students.map(st=>`<option value="${st.id}" ${st.id===sid?'selected':''}>${esc(st.name)}</option>`).join('')}</select>${evaluateStudentNavHTML()}</div>${globalMode?`${globalAssessmentHTML()}${checklist22HTML(g)}`:`${pentagonEvaluateHTML()}${quickEvaluationHTML(evs)}${checklist22HTML(g)}${continuousEvaluationHTML(comps)}`}${teacherAnnotationsHTML()}${evaluateStudentNavHTML()}`;
+ return `${groupSelectors()}${evaluationModeHTML()}${up4TGfUPanel()}<div class="card eval-student-picker"><div class="eval-picker-head"><div><h2>Evaluar</h2><p class="muted">Un alumno cada vez. Cambia de alumno sin salir de la unidad.</p></div><span class="pill main">${state.selectedUP}</span></div><label>Alumno</label><select id="evalStudentSel">${g.students.map(st=>`<option value="${st.id}" ${st.id===sid?'selected':''}>${esc(st.name)}</option>`).join('')}</select>${evaluateStudentNavHTML()}</div>${globalMode?`${globalAssessmentHTML()}${checklist22HTML(g)}`:`${pentagonEvaluateHTML()}${quickEvaluationHTML(evs)}${checklist22HTML(g)}${continuousEvaluationHTML(comps)}`}${teacherAnnotationsHTML()}${evaluateStudentNavHTML()}`;
 }
 function scoreListHTML(ev){const g=group();if(!g)return '';const mode=state.ui.scoreMode,rubric=rubricFor(ev);return g.students.map(s=>{const k=scoreKey(g.id,s.id,ev.c,ev.seq),v=state.scores[k],mark=state.rubricMarks[k];let controls='';if(mode==='levels'){controls=`<div class="level-buttons rubric-buttons">${rubric.map(x=>`<button data-score="${x.score}" data-key="${k}" data-level="${x.label}" data-desc="${esc(x.desc)}" class="${mark?.label===x.label||(!mark&&String(v)===String(x.score))?'selected':''}">${x.label}<small>${x.score}</small></button>`).join('')}</div>${v!==undefined&&v!==''?`<button class="clear-score-text" data-clear="${k}">Borrar valoración</button>`:''}`}else{controls=`<div class="score-buttons">${[0,2,4,6,8,10].map(x=>`<button data-score="${x}" data-key="${k}" class="${String(v)===String(x)?'selected':''}">${x}</button>`).join('')}${v!==undefined&&v!==''?`<button class="clear-score-inline" data-clear="${k}" title="Borrar valoración">×</button>`:''}</div>`}return `<div class="student-row compact-score-row"><div class="student-name student-with-avatar">${avatarHTML(g.id,s,'sm')}<div class="student-name-text"><b>${esc(s.name)}</b><div class="tiny">Criterio ${ev.c}${v!==undefined&&v!==''?` · ${mark?esc(mark.label)+' · ':''}${v}`:''}</div></div>${controls}</div>`}).join('')}
 function qualListHTML(c,up){const g=group();return g.students.map(s=>{const k=qualKey(g.id,s.id,c,up),v=state.qual[k]||'';return `<div class="student-row"><div class="student-name student-with-avatar">${avatarHTML(g.id,s,'sm')}<div class="student-name-text"><b>${esc(s.name)}</b><div class="tiny">${criterionLabel(c)} · ${up}</div></div></div><select data-qual-key="${k}"><option value="">—</option>${['En proceso','Adecuado','Consolidado'].map(x=>`<option ${v===x?'selected':''}>${x}</option>`).join('')}</select></div>`}).join('')}
