@@ -1,0 +1,6 @@
+V4.5.35 — 27/11/2026 — INC-001
+Base: V4.5.34.
+UP1: 1.6/5 permanece en los almacenes originales como evidencia histórica, excluida del cálculo activo. Nueva evidencia 1.1/5, sin reutilizar notas anteriores. Control de entrega separado (inc001Delivery), sin cálculo automático. La rúbrica solo se registra tras indicar entrega. Para volver a pendiente con nota existente, borrar explícitamente la valoración primero. No se infiere el estado de entrega antiguo.
+Escalas Pentágono/RPE, pesos y demás UP sin cambios. Guía integrada y autoevaluación específica actualizadas.
+Pruebas: sintaxis JS, carga/migración en entorno Node de seis copias previas disponibles y comprobaciones aisladas del cálculo. No equivale a prueba integral de navegador. No se incluyen datos personales.
+Referencia: https://web.larioja.org/normativa?n=3220 ; redacción corroborada en https://gauss.larioja.org/verprogramacion/YDf94qBdhk/41531/ ; verificación directa del texto consolidado pendiente.
